@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOOT CODERS - Gateway to Tech Excellence</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animation Library CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -36,10 +32,8 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
 
-    <!-- Header / Navbar -->
     <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Logo -->
             <div class="flex items-center gap-2 cursor-pointer" onclick="showView('landing')">
                 <div class="h-10 w-10 bg-red-600 flex items-center justify-center rounded-lg text-white font-bold text-xl tracking-tighter">
                     🦉
@@ -47,34 +41,28 @@
                 <span class="text-2xl font-extrabold text-slate-900 tracking-tight">HOOT<span class="text-red-600">CODERS</span></span>
             </div>
 
-            <!-- Navigation Links -->
             <nav class="hidden lg:flex items-center gap-8 font-semibold text-slate-600 text-sm">
                 <a href="#" class="text-red-600 hover:text-red-700 transition">My Wings</a>
                 <a href="#" class="hover:text-red-600 transition">EVENTS  </a>
                 <a href="#" class="hover:text-red-600 transition">TEAM</a>
             </nav>
 
-            <!-- Auth Interface Hook Controls -->
             <div class="flex items-center gap-4">
-                <!-- Anonymous / Logged Out View Layout -->
                 <div id="guest-actions" class="flex items-center gap-4">
                     <button onclick="openLoginModal()" class="text-sm font-semibold text-slate-700 hover:text-red-600 transition">Login</button>
                     <button onclick="openRegisterModal()" class="bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md shadow-red-600/10 transition">Register</button>
                 </div>
 
-                <!-- Authenticated Circle Profile -->
                 <div id="auth-actions" class="hidden-view relative">
                     <button onclick="toggleProfileDropdown()" class="h-10 w-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold shadow-md hover:scale-105 transition focus:outline-none">
                         <span id="profile-initials">U</span>
                     </button>
-                    <!-- Floating Context Dropdown Card -->
                     <div id="profile-dropdown" class="hidden-view absolute right-0 mt-3 w-64 bg-white rounded-2xl border border-slate-100 shadow-xl py-4 z-50">
                         <div class="px-4 pb-3 border-b border-slate-100">
                             <p class="text-xs text-slate-400 font-medium">Signed in as</p>
                             <p id="dropdown-name" class="font-bold text-slate-800 truncate text-sm"></p>
                             <p id="dropdown-email" class="text-xs text-slate-500 truncate mb-2"></p>
                             
-                            <!-- Status Stamp Checked Dynamically against Firebase Admin Changes -->
                             <div id="status-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold">
                                 <i class="fa-solid fa-circle-notch animate-spin text-xxs"></i> Verification Check
                             </div>
@@ -93,9 +81,7 @@
         </div>
     </header>
 
-    <!-- Landing Layout Space Context -->
     <main id="view-landing">
-        <!-- Hero Section -->
         <section class="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right" data-aos-duration="1000">
@@ -104,13 +90,12 @@
                         The Gateway to Tech Excellence
                     </div>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
-                        Step IN Stand OUT <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-indigo-600">with Torii</span>
+                        Code Wise. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-indigo-600">Fly High. with HOOT</span>
                     </h1>
                     <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-xl">
                         Inspired by the Japanese Torii gate, we help trainees transition into confident, skilled professionals through hands-on learning, live projects, hackathons, and real-world experiences.
                     </p>
 
-                    <!-- Value Props Mini-Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-100 pt-8">
                         <div class="flex items-start gap-3">
                             <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fa-solid py-0.5 px-0.5 fa-graduation-cap"></i></div>
@@ -127,7 +112,6 @@
                     </div>
                 </div>
 
-                <!-- Right Side Visual Box -->
                 <div class="relative lg:ml-4" data-aos="fade-left" data-aos-duration="1000">
                     <div class="absolute inset-0 bg-gradient-to-tr from-red-200 to-indigo-200 rounded-3xl transform rotate-3 scale-95 opacity-30 blur-xl"></div>
                     <div class="relative bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800 text-white torii-gradient min-h-[400px] flex flex-col justify-between">
@@ -153,7 +137,6 @@
         </section>
     </main>
 
-    <!-- Portal Interface Workspace Dashboard ("Coming Soon" Screen View) -->
     <main id="view-dashboard" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-12 text-center shadow-xl space-y-6 max-w-2xl mx-auto">
             <div class="h-24 w-24 bg-indigo-50 text-indigo-600 rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce">
@@ -171,17 +154,14 @@
         </div>
     </main>
 
-    <!-- Modals Action Display Canvas -->
     <div id="modal-overlay" class="hidden-view fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
         
-        <!-- REGISTRATION MODAL -->
         <div id="register-card" class="hidden-view bg-[#121214] text-slate-200 border border-slate-800 w-full max-w-2xl rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300">
             <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">🦉 Create HOOT Account</h2>
             
             <form id="regForm" onsubmit="handleRegistrationSubmit(event)" class="space-y-5">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- SUC Input -->
                     <div class="space-y-1.5">
                         <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">SUC <span class="text-red-500">*</span></label>
                         <div class="relative">
@@ -189,7 +169,6 @@
                             <input type="text" id="reg-suc" required placeholder="e.g., 1NC24CS123" class="w-full bg-[#1a1a1e] border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-red-600 transition">
                         </div>
                     </div>
-                    <!-- Full Name -->
                     <div class="space-y-1.5">
                         <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Full Name <span class="text-red-500">*</span></label>
                         <div class="relative">
@@ -200,7 +179,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Department -->
                     <div class="space-y-1.5">
                         <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Department <span class="text-red-500">*</span></label>
                         <div class="relative">
@@ -215,7 +193,6 @@
                             <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none"></i>
                         </div>
                     </div>
-                    <!-- Phone Number -->
                     <div class="space-y-1.5">
                         <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Phone Number <span class="text-red-500">*</span></label>
                         <div class="relative">
@@ -225,7 +202,6 @@
                     </div>
                 </div>
 
-                <!-- Email Input Area -->
                 <div class="space-y-1.5">
                     <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Email Address <span class="text-red-500">*</span></label>
                     <div class="relative">
@@ -234,7 +210,6 @@
                     </div>
                 </div>
 
-                <!-- Form Controls Actions -->
                 <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-900">
                     <button type="button" onclick="resetRegistrationForm()" class="px-4 py-2.5 rounded-xl border border-slate-800 text-xs font-semibold text-slate-400 hover:text-white transition">Reset Form</button>
                     <button type="submit" class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-6 py-2.5 rounded-xl shadow-lg shadow-red-600/20 transition">Confirm Registration</button>
@@ -242,7 +217,6 @@
             </form>
         </div>
 
-        <!-- MIDDLE OF SCREEN SUBMITTED TICK ICON MODAL -->
         <div id="success-card" class="hidden-view bg-white text-slate-800 w-full max-w-sm rounded-2xl p-8 text-center shadow-2xl border border-slate-100 transform transition-all duration-300">
             <div class="h-20 w-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner">
                 <i class="fa-solid fa-circle-check animate-scale"></i>
@@ -251,7 +225,6 @@
             <p class="text-xs text-slate-500 mt-2">Your capability verification details are logged securely.</p>
         </div>
 
-        <!-- SET PASSWORD ACCOUNT MODAL -->
         <div id="password-card" class="hidden-view bg-[#121214] text-slate-200 border border-slate-800 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300">
             <h2 class="text-lg font-bold text-white mb-2">Set Account Password</h2>
             <p class="text-xs text-slate-400 mb-6">Create a secure entry key to access the capability platforms automatically next time.</p>
@@ -268,7 +241,6 @@
             </form>
         </div>
 
-        <!-- BASIC LOGIN MODAL -->
         <div id="login-card" class="hidden-view bg-[#121214] text-slate-200 border border-slate-800 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300">
             <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h2 class="text-lg font-bold text-white mb-6">Welcome Back</h2>
@@ -293,14 +265,12 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-slate-950 text-slate-400 pt-16 pb-12 border-t border-slate-900 mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-[11px] text-slate-600">
             <p>&copy; 2026 Torii. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- Firebase SDK Setup Modules -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
@@ -482,7 +452,6 @@
             }
         }
     </script>
-    <!-- AOS Framework Initialization -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init({ duration: 800, once: true });</script>
 </body>
