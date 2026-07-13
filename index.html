@@ -1,4 +1,3 @@
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +49,7 @@
 
             <!-- Navigation Links -->
             <nav class="hidden lg:flex items-center gap-8 font-semibold text-slate-600 text-sm">
-                <a href="#" onclick="showView('landing')" class="text-red-600 hover:text-red-700 transition">My Wings</a>
+                <a href="#" class="text-red-600 hover:text-red-700 transition">My Wings</a>
                 <a href="#" class="hover:text-red-600 transition">EVENTS  </a>
                 <a href="#" class="hover:text-red-600 transition">TEAM</a>
             </nav>
@@ -154,7 +153,7 @@
         </section>
     </main>
 
-    <!-- Portal Interface Workspace Dashboard -->
+    <!-- Portal Interface Workspace Dashboard ("Coming Soon" Screen View) -->
     <main id="view-dashboard" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-12 text-center shadow-xl space-y-6 max-w-2xl mx-auto">
             <div class="h-24 w-24 bg-indigo-50 text-indigo-600 rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce">
@@ -243,7 +242,7 @@
             </form>
         </div>
 
-        <!-- SUCCESS ICON MODAL -->
+        <!-- MIDDLE OF SCREEN SUBMITTED TICK ICON MODAL -->
         <div id="success-card" class="hidden-view bg-white text-slate-800 w-full max-w-sm rounded-2xl p-8 text-center shadow-2xl border border-slate-100 transform transition-all duration-300">
             <div class="h-20 w-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner">
                 <i class="fa-solid fa-circle-check animate-scale"></i>
@@ -304,9 +303,10 @@
     <!-- Firebase SDK Setup Modules -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+        // Your exact new configuration structure
         const firebaseConfig = {
             apiKey: "AIzaSyDRSv7X-cxaxvoE6UGPAy9DUFjAeLPFeGc",
             authDomain: "useasfriendshub.firebaseapp.com",
@@ -324,29 +324,25 @@
 
         let currentRegSessionData = null;
         let authenticatedUserRecord = null;
-        let databaseListenerCleanup = null;
 
-        // Auto Login Persistence Hook using dynamic listener to resolve race conditions
-        onAuthStateChanged(auth, (user) => {
-            if (databaseListenerCleanup) {
-                databaseListenerCleanup();
-                databaseListenerCleanup = null;
-            }
-
+        // Auto Login Persistence Hook
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userRef = ref(db, `users/${user.uid}`);
-                databaseListenerCleanup = onValue(userRef, (snapshot) => {
-                    if (snapshot.exists()) {
-                        authenticatedUserRecord = snapshot.val();
-                        authenticatedUserRecord.uid = user.uid;
-                        updateUIForAuthenticatedUser(authenticatedUserRecord);
-                        
-                        // Prevent interrupting workflow views if they are open
-                        if (document.getElementById('view-dashboard').classList.contains('hidden-view')) {
-                            showView('dashboard');
+                const snapshot = await get(ref(db, `users/${user.uid}`));
+                if (snapshot.exists()) {
+                    authenticatedUserRecord = snapshot.val();
+                    authenticatedUserRecord.uid = user.uid;
+                    updateUIForAuthenticatedUser(authenticatedUserRecord);
+                    showView('dashboard');
+                    
+                    // Live Database Sync for Verification Badge status update
+                    onValue(ref(db, `users/${user.uid}/status`), (snap) => {
+                        if (snap.exists() && authenticatedUserRecord) {
+                            authenticatedUserRecord.status = snap.val();
+                            renderStatusBadge(snap.val());
                         }
-                    }
-                });
+                    });
+                }
             } else {
                 authenticatedUserRecord = null;
                 updateUIForGuest();
@@ -399,6 +395,7 @@
 
         window.handleRegistrationSubmit = (e) => {
             e.preventDefault();
+            // Store data inside standard application memory first to avoid multi-submit collision
             currentRegSessionData = {
                 suc: document.getElementById('reg-suc').value,
                 name: document.getElementById('reg-name').value,
@@ -423,9 +420,10 @@
             if (!currentRegSessionData) return;
 
             try {
+                // Instantiates network registration only once here cleanly
                 const userCredential = await createUserWithEmailAndPassword(auth, currentRegSessionData.email, password);
                 
-                // Write profile to Realtime Database cleanly
+                // Write structural fields into real-time database paths safely
                 await set(ref(db, `users/${userCredential.user.uid}`), currentRegSessionData);
                 
                 closeActiveModals();
