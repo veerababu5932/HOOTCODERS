@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thodu – Real-time Journey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    :root{
+      --primary:#28a745;--primary-light:rgba(40,167,69,.12);
+      --danger:#dc3545;--warn:#ffc107;--dark:#1a1a1a;
+      --gray:#6c757d;--light-bg:#f4f6f9;--white:#fff;
+      --radius:16px;--shadow:0 6px 24px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body,html{width:100%;height:100%;font-family:'Poppins',sans-serif;background:#fff;overflow:hidden;}
+    .screen{display:none;width:100%;height:100vh;position:absolute;top:0;left:0;
+            flex-direction:column;align-items:center;justify-content:center;}
+    .active{display:flex!important;}
+
+    /* ── SPLASH ── */
+    #splash-screen{background:linear-gradient(135deg,#fff 0%,#e8f5e9 100%);}
+    .brand-wrap{text-align:center;}
+    .brand-name{display:flex;justify-content:center;font-size:5rem;font-weight:900;
+                font-family:'Montserrat',sans-serif;color:var(--dark);}
+    .letter{display:inline-block;opacity:0;}
+    .l-T{animation:fromLeft .7s forwards .6s}
+    .l-H{animation:fromBot .7s forwards .8s}
+    .l-O{animation:zoomIn  .7s forwards 1s}
+    .l-D{animation:fadeIn  .7s forwards 1.2s}
+    .l-U{animation:fromRight .7s forwards 1.4s}
+    @keyframes fromLeft {from{opacity:0;transform:translateX(-70px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes fromBot  {from{opacity:0;transform:translateY(60px)} to{opacity:1;transform:translateY(0)}}
+    @keyframes zoomIn   {from{opacity:0;transform:scale(.2)}        to{opacity:1;transform:scale(1)}}
+    @keyframes fadeIn   {from{opacity:0}                            to{opacity:1}}
+    @keyframes fromRight{from{opacity:0;transform:translateX(70px)} to{opacity:1;transform:translateX(0)}}
+    .brand-green{color:var(--primary)!important;transition:color .5s;}
+    .tagline{margin-top:14px;font-size:.95rem;color:#888;letter-spacing:.5px;opacity:0;
+             animation:fadeIn .8s forwards 2.4s;}
+    .splash-dot{width:8px;height:8px;border-radius:50%;background:var(--primary);
+                display:inline-block;margin:0 3px;opacity:0;}
+    .dot1{animation:fadeIn .4s forwards 2s}
+    .dot2{animation:fadeIn .4s forwards 2.2s}
+    .dot3{animation:fadeIn .4s forwards 2.4s}
+
+    /* ── AUTH ── */
+    #login-screen{background:linear-gradient(160deg,#e8f5e9 0%,#f4f6f9 100%);}
+    .auth-card{width:88%;max-width:400px;padding:36px 28px;background:#fff;
+               border-radius:28px;box-shadow:0 20px 60px rgba(0,0,0,.12);}
+    .auth-logo{font-family:'Montserrat',sans-serif;font-size:1.8rem;font-weight:900;
+               color:var(--primary);text-align:center;margin-bottom:6px;}
+    .auth-sub{text-align:center;color:var(--gray);font-size:.85rem;margin-bottom:24px;}
+    .auth-card h2{font-family:'Montserrat',sans-serif;margin-bottom:20px;
+                  font-size:1.4rem;color:var(--dark);}
+    .field-group{margin-bottom:14px;}
+    .field-label{font-size:.78rem;font-weight:600;color:var(--gray);
+                  text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;display:block;}
+    input{width:100%;padding:13px;border:2px solid #eee;
+          border-radius:13px;font-family:'Poppins',sans-serif;font-size:.92rem;
+          outline:none;transition:border-color .2s,box-shadow .2s;}
+    input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-light);}
+    .btn{width:100%;padding:14px;border:none;border-radius:13px;font-weight:600;
+         font-family:'Poppins',sans-serif;font-size:.97rem;cursor:pointer;
+         transition:.25s;margin-top:6px;}
+    .btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 18px rgba(40,167,69,.35);}
+    .btn-outline{background:#fff;color:var(--danger);border:2px solid var(--danger);}
+    .auth-switch{text-align:center;margin-top:18px;color:var(--gray);font-size:.87rem;}
+    .link{color:var(--primary);cursor:pointer;font-weight:600;}
+
+    /* ── HOME ── */
+    #home-screen{justify-content:flex-start;background:var(--light-bg);padding:0;}
+    .home-body{flex:1;width:100%;overflow-y:auto;padding:16px 16px 88px;}
+    .top-bar{width:100%;background:#fff;padding:14px 18px;
+             display:flex;align-items:center;justify-content:space-between;
+             box-shadow:0 2px 12px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+    .top-bar-brand{font-family:'Montserrat',sans-serif;font-weight:900;
+                    font-size:1.3rem;color:var(--primary);}
+    .loc-chip{display:flex;align-items:center;gap:6px;background:var(--light-bg);
+              padding:7px 12px;border-radius:20px;font-size:.8rem;color:var(--dark);
+              font-weight:500;cursor:pointer;max-width:180px;overflow:hidden;
+              white-space:nowrap;text-overflow:ellipsis;}
+
+    /* ride card */
+    .ride-card{background:#fff;border-radius:var(--radius);padding:16px;
+                margin-bottom:12px;box-shadow:var(--shadow);
+                border-left:4px solid var(--primary);position:relative;}
+    .ride-route{font-weight:700;font-size:.98rem;color:var(--dark);margin-bottom:8px;}
+    .ride-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+    .pill{background:var(--light-bg);padding:4px 10px;border-radius:20px;
+          font-size:.76rem;font-weight:600;color:var(--gray);}
+    .pill.g{background:var(--primary-light);color:var(--primary);}
+    .price-tag{font-size:1.1rem;font-weight:700;color:var(--primary);}
+    
+    .del-btn-admin{background:var(--danger);color:white;border:none;padding:5px 12px;
+                   border-radius:8px;font-size:0.75rem;font-weight:600;cursor:pointer;
+                   position:absolute;right:16px;bottom:16px;}
+
+    /* ── PROFILE ── */
+    .profile-top{text-align:center;padding:28px 0 20px;}
+    .avatar{width:80px;height:80px;border-radius:50%;background:var(--primary);
+            display:flex;align-items:center;justify-content:center;
+            font-size:2rem;font-weight:700;color:#fff;margin:0 auto 12px;}
+    .doc-card{background:#fff;border-radius:var(--radius);padding:16px;
+              margin-bottom:12px;box-shadow:var(--shadow);display:flex;
+              align-items:center;gap:12px;cursor:pointer;border:2px dashed #e0e0e0;}
+    .doc-badge{padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:uppercase;}
+    .db-pending{background:#fff3cd;color:#856404;}
+    .db-verified{background:#d1e7dd;color:#0a3622;}
+
+    /* ── ADD RIDE ── */
+    #add-ride-screen{justify-content:flex-start;background:var(--light-bg);overflow-y:auto;}
+    .ar-header{width:100%;background:#fff;padding:16px 18px;display:flex;
+               align-items:center;gap:14px;box-shadow:0 2px 10px rgba(0,0,0,.07);
+               position:sticky;top:0;z-index:10;}
+    .back-btn{width:38px;height:38px;border-radius:50%;background:var(--light-bg);border:none;cursor:pointer;}
+    .ar-body{width:100%;padding:18px;}
+    .form-card{background:#fff;border-radius:var(--radius);padding:18px;margin-bottom:16px;box-shadow:var(--shadow);}
+    .veh-grid{display:flex;gap:10px;}
+    .veh-btn{flex:1;padding:14px 6px;border:2px solid #eee;border-radius:14px;background:#fff;cursor:pointer;}
+    .veh-btn.sel{border-color:var(--primary);background:var(--primary-light);color:var(--primary);}
+    #ride-map{width:100%;height:200px;border-radius:var(--radius);margin-top:10px;}
+    .submit-btn{width:100%;padding:16px;background:var(--primary);color:#fff;border:none;border-radius:14px;font-weight:700;cursor:pointer;}
+
+    /* ── ADMIN ── */
+    #admin-screen{justify-content:flex-start;background:var(--light-bg);overflow-y:auto;}
+    .admin-user-card{background:#fff;border-radius:var(--radius);padding:16px;margin-bottom:14px;}
+
+    /* ── UI ELEMENTS ── */
+    .bottom-nav{width:100%;height:70px;background:#fff;border-top:1px solid #eee;
+                display:flex;position:fixed;bottom:0;z-index:100;}
+    .nav-item{flex:1;display:flex;flex-direction:column;justify-content:center;
+              align-items:center;color:#ccc;cursor:pointer;font-size:.74rem;}
+    .nav-active{color:var(--primary);font-weight:600;}
+    #fab-btn{position:fixed;bottom:86px;right:18px;width:56px;height:56px;
+              border-radius:50%;background:var(--primary);color:#fff;border:none;
+              font-size:1.8rem;box-shadow:0 6px 22px rgba(40,167,69,.45);
+              cursor:pointer;z-index:200;display:none;align-items:center;justify-content:center;}
+    #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
+            background:rgba(26,26,26,.92);color:#fff;padding:11px 22px;
+            border-radius:30px;font-size:.86rem;z-index:9998;opacity:0;transition:opacity .3s;pointer-events:none;}
+    #toast.show{opacity:1;}
+    .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;
+                   background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;}
+    .modal-box{background:#fff;border-radius:24px;padding:28px;max-width:400px;width:100%;}
+  </style>
+</head>
+<body>
+
+<div id="splash-screen" class="screen active">
+  <div class="brand-wrap">
+    <div class="brand-name">
+      <span class="letter l-T">T</span>
+      <span class="letter l-H">H</span>
+      <span class="letter l-O">O</span>
+      <span class="letter l-D">D</span>
+      <span class="letter l-U">U</span>
+    </div>
+    <div style="margin-top:10px;">
+      <span class="splash-dot dot1">●</span>
+      <span class="splash-dot dot2">●</span>
+      <span class="splash-dot dot3">●</span>
+    </div>
+    <p class="tagline">mee prayanam maa bhadyatha</p>
+  </div>
+</div>
+
+<div id="login-screen" class="screen">
+  <div class="auth-card" id="auth-container"></div>
+</div>
+
+<div id="home-screen" class="screen">
+  <div class="top-bar">
+    <span class="top-bar-brand">THODU</span>
+    <div class="loc-chip" id="loc-btn" onclick="getMyLocation()">
+      📍 <span id="loc-text">Detect Location</span>
+    </div>
+  </div>
+  <div class="home-body" id="home-body"></div>
+  <button id="fab-btn" onclick="handleFABClick()">＋</button>
+  <nav class="bottom-nav">
+    <div class="nav-item nav-active" id="nav-rides" onclick="switchTab('rides',this)"><span>🚗</span><span>Rides</span></div>
+    <div class="nav-item" id="nav-profile" onclick="switchTab('profile',this)"><span>👤</span><span>Profile</span></div>
+    <div class="nav-item" id="nav-admin" style="display:none;" onclick="switchTab('admin',this)"><span>🛡️</span><span>Admin</span></div>
+  </nav>
+</div>
+
+<div id="add-ride-screen" class="screen">
+  <div class="ar-header">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <span class="ar-title">Add a Ride</span>
+  </div>
+  <div class="ar-body">
+    <div class="form-card">
+      <input type="text" id="from-input" placeholder="From (Pickup)"/>
+      <input type="text" id="to-input" placeholder="To (Destination)" style="margin-top:10px;"/>
+    </div>
+    <div class="form-card">
+      <div class="veh-grid">
+        <button class="veh-btn" onclick="selectVehicle('bike',this)">🏍️ Bike</button>
+        <button class="veh-btn" onclick="selectVehicle('auto',this)">🛺 Auto</button>
+        <button class="veh-btn" onclick="selectVehicle('car',this)">🚗 Car</button>
+      </div>
+    </div>
+    <div class="form-card">
+      <div style="display:flex; gap:10px;">
+          <input type="number" id="ride-price" placeholder="Price ₹" style="flex:1;"/>
+          <input type="number" id="ride-seats" placeholder="Seats" style="flex:1;"/>
+      </div>
+    </div>
+    <button class="submit-btn" onclick="submitRide()">🚀 Post Ride</button>
+  </div>
+</div>
+
+<div id="admin-screen" class="screen">
+  <div class="ar-header">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <span class="ar-title">🛡️ Admin Panel</span>
+  </div>
+  <div class="ar-body" id="admin-body"></div>
+</div>
+
+<div id="lic-modal" class="modal-overlay"><div class="modal-box"><h3>Verification</h3><input type="text" id="m-dl-num" placeholder="Enter ID Number"/><button class="btn btn-primary" onclick="submitVerification('license')">Submit</button><button onclick="closeModal('lic-modal')">Close</button></div></div>
+
+<div id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, onSnapshot, addDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyA1QeDf1E_Kb1ZC15ahw1dY8hk3J0gXopY",
+  authDomain: "thodu-65cb9.firebaseapp.com",
+  projectId: "thodu-65cb9",
+  storageBucket: "thodu-65cb9.firebasestorage.app",
+  messagingSenderId: "1070229943496",
+  appId: "1:1070229943496:web:038e2e74c463e7acefa1fd"
+});
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const ADMIN_EMAIL = "admin@thodu.com";
+let currentUser = null;
+let userData = null;
+let selectedVehicle = null;
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ════════════════════ GEOLOCATION ════════════════════ */
+window.getMyLocation = () => {
+  const locText = document.getElementById('loc-text');
+  locText.innerText = "Locating...";
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      
+      try {
+        // Reverse Geocoding using Nominatim (OpenStreetMap)
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+        const data = await response.json();
+        const address = data.address.suburb || data.address.city_district || data.address.city || "Location Found";
+        locText.innerText = address;
+        showToast("Location Updated!");
+      } catch (e) {
+        locText.innerText = `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
+      }
+    }, () => {
+      locText.innerText = "Permission Denied";
+      showToast("Please enable location access");
+    });
+  } else {
+    locText.innerText = "Not Supported";
+  }
+};
+
+/* ════════════════════ AUTH ════════════════════ */
+window.setAuthState = (state) => {
+  const c = document.getElementById('auth-container');
+  if (state === 'login') {
+    c.innerHTML = `<div class="auth-logo">THODU</div><h2>Login</h2><input type="email" id="le" placeholder="Email"/><br><input type="password" id="lp" placeholder="Password" style="margin-top:10px"/><button class="btn btn-primary" onclick="doLogin()">Login</button><p class="auth-switch">New? <span class="link" onclick="setAuthState('signup')">Sign Up</span></p>`;
+  } else {
+    c.innerHTML = `<div class="auth-logo">THODU</div><h2>Sign Up</h2><input type="text" id="sn" placeholder="Full Name"/><br><input type="email" id="se" placeholder="Email" style="margin-top:10px"/><br><input type="password" id="spw" placeholder="Password" style="margin-top:10px"/><button class="btn btn-primary" onclick="doSignup()">Create Account</button><p class="auth-switch"><span class="link" onclick="setAuthState('login')">Back</span></p>`;
+  }
+};
+
+window.doSignup = async () => {
+  const name = document.getElementById('sn').value;
+  const email = document.getElementById('se').value;
+  const pass = document.getElementById('spw').value;
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    await updateProfile(cred.user, { displayName: name });
+    await setDoc(doc(db, 'users', cred.user.uid), { name, email, licenseStatus: 'none', aadhaarStatus: 'none' });
+    showToast("Success!");
+  } catch (e) { showToast(e.message); }
+};
+
+window.doLogin = async () => {
+  try { await signInWithEmailAndPassword(auth, document.getElementById('le').value, document.getElementById('lp').value); } 
+  catch (e) { showToast(e.message); }
+};
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    currentUser = user;
+    showScreen('home-screen');
+    document.getElementById('fab-btn').style.display = 'flex';
+    if (user.email === ADMIN_EMAIL) document.getElementById('nav-admin').style.display = 'flex';
+    onSnapshot(doc(db, 'users', user.uid), snap => { userData = snap.data(); });
+    renderRides();
+  } else {
+    showScreen('login-screen');
+    setAuthState('login');
+  }
+});
+
+/* ════════════════════ RIDES LOGIC ════════════════════ */
+window.switchTab = (tab, el) => {
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('nav-active'));
+  el.classList.add('nav-active');
+  if (tab === 'rides') renderRides();
+  else if (tab === 'profile') renderProfile();
+  else if (tab === 'admin') loadAdminData();
+};
+
+window.renderRides = async () => {
+  const body = document.getElementById('home-body');
+  body.innerHTML = "Loading...";
+  const snap = await getDocs(collection(db, 'rides'));
+  let html = '<h3>Available Rides</h3>';
+  const isAdmin = currentUser.email === ADMIN_EMAIL;
+
+  snap.forEach(d => {
+    const r = d.data();
+    html += `
+      <div class="ride-card">
+        <div class="ride-route">🟢 ${r.from} → 🔴 ${r.to}</div>
+        <div class="ride-meta">
+          <span class="pill">${r.vehicle}</span>
+          <span class="pill">🪑 ${r.seats} Seats</span>
+          <span class="pill g">👤 ${r.userName}</span>
+        </div>
+        <div class="price-tag">₹${r.price}</div>
+        ${isAdmin ? `<button class="del-btn-admin" onclick="adminDeleteRide('${d.id}')">Delete Ride</button>` : ''}
+      </div>`;
+  });
+  body.innerHTML = html;
+};
+
+window.adminDeleteRide = async (rideId) => {
+  if(confirm("Admin: Are you sure you want to delete this ride?")) {
+    await deleteDoc(doc(db, 'rides', rideId));
+    showToast("Ride deleted by Admin");
+    renderRides();
+  }
+};
+
+window.handleFABClick = () => {
+  if (userData.licenseStatus === 'verified' && userData.aadhaarStatus === 'verified') showScreen('add-ride-screen');
+  else showToast("Verify Profile First!");
+};
+
+window.selectVehicle = (v, el) => {
+  selectedVehicle = v;
+  document.querySelectorAll('.veh-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+};
+
+window.submitRide = async () => {
+  const ride = {
+    from: document.getElementById('from-input').value,
+    to: document.getElementById('to-input').value,
+    price: document.getElementById('ride-price').value,
+    seats: document.getElementById('ride-seats').value,
+    vehicle: selectedVehicle,
+    userId: currentUser.uid,
+    userName: currentUser.displayName
+  };
+  await addDoc(collection(db, 'rides'), ride);
+  showToast("Ride Posted!");
+  showScreen('home-screen');
+  renderRides();
+};
+
+window.goHome = () => showScreen('home-screen');
+
+/* ════════════════════ ADMIN / PROFILE ════════════════════ */
+async function loadAdminData() {
+  showScreen('admin-screen');
+  const body = document.getElementById('admin-body');
+  const snap = await getDocs(collection(db, 'users'));
+  let html = "";
+  snap.forEach(d => {
+    const u = d.data();
+    if (u.licenseStatus === 'pending') {
+      html += `<div class="admin-user-card"><b>${u.name}</b><br>ID: ${u.licenseNum}<br>
+               <button onclick="adminAction('${d.id}','license','verified')">Approve</button></div>`;
+    }
+  });
+  body.innerHTML = html || "No pending approvals.";
+}
+
+window.adminAction = async (uid, type, status) => {
+  await updateDoc(doc(db, 'users', uid), { [type+'Status']: status });
+  loadAdminData();
+};
+
+window.renderProfile = () => {
+  const body = document.getElementById('home-body');
+  body.innerHTML = `
+    <div class="profile-top">
+      <div class="avatar">${currentUser.displayName[0]}</div>
+      <h2>${currentUser.displayName}</h2>
+    </div>
+    <div class="doc-card" onclick="document.getElementById('lic-modal').style.display='flex'">
+      <span>🪪 Licence: ${userData.licenseStatus}</span>
+    </div>
+    <button class="btn btn-outline" onclick="location.reload()">Logout</button>`;
+};
+
+window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+
+window.submitVerification = async (type) => {
+  await updateDoc(doc(db, 'users', currentUser.uid), { 
+    licenseNum: document.getElementById('m-dl-num').value, 
+    licenseStatus: 'pending' 
+  });
+  closeModal('lic-modal');
+  showToast("Submitted!");
+};
+
+/* Splash Logic */
+setTimeout(() => {
+  document.querySelectorAll('.letter').forEach(l => l.classList.add('brand-green'));
+  setTimeout(() => { if(!currentUser) showScreen('login-screen'); }, 1500);
+}, 2500);
+
+</script>
+</body>
+</html>
