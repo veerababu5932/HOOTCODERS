@@ -47,7 +47,7 @@
         <!-- Admin Navigation Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            <!-- Registration Trainee Data Main Interactive Card -->
+            <!-- Registration Trainee Data Card -->
             <div onclick="showAdminView('registry')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-xl hover:border-orange-500/50 hover:shadow-orange-500/5 transition duration-300 cursor-pointer group flex flex-col justify-between min-h-[180px]">
                 <div class="space-y-3">
                     <div class="h-12 w-12 bg-orange-500/10 text-orange-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition duration-300">
@@ -55,7 +55,7 @@
                     </div>
                     <div>
                         <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition">Registration Trainee Data</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed mt-1">View, evaluate, approve, and extract newly registered cadet applications inside the database pipeline.</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-1">View, evaluate, approve, filter, and extract newly registered cadet applications inside the database pipeline.</p>
                     </div>
                 </div>
                 <div class="flex items-center justify-between text-xs font-mono text-slate-500 pt-4 border-t border-slate-900 mt-4">
@@ -64,19 +64,20 @@
                 </div>
             </div>
 
-            <!-- Placeholder Mock Control Card (Disabled) -->
-            <div class="bg-slate-950/40 border border-slate-800/60 p-6 rounded-2xl flex flex-col justify-between min-h-[180px] opacity-60 select-none">
+            <!-- Event Registration Data Card -->
+            <div onclick="showAdminView('events-grid')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-xl hover:border-emerald-500/50 hover:shadow-emerald-500/5 transition duration-300 cursor-pointer group flex flex-col justify-between min-h-[180px]">
                 <div class="space-y-3">
-                    <div class="h-12 w-12 bg-slate-800 text-slate-500 rounded-xl flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-terminal"></i>
+                    <div class="h-12 w-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition duration-300">
+                        <i class="fa-solid fa-trophy"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-slate-500">Owl Code Telemetry</h3>
-                        <p class="text-xs text-slate-500 leading-relaxed mt-1">Manage remote sandbox compilers, live contest metrics clusters, and execution log flags.</p>
+                        <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition">Event Registration Data</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-1">Review live competition sign-ups, sub-group choices, and custom event logs from the live site metrics.</p>
                     </div>
                 </div>
-                <div class="text-[10px] font-mono text-slate-600 pt-4 border-t border-slate-900/60">
-                    Status: Locked Configuration Layer
+                <div class="flex items-center justify-between text-xs font-mono text-slate-500 pt-4 border-t border-slate-900 mt-4">
+                    <span>Database Path: /event_registrations</span>
+                    <span class="text-emerald-400 flex items-center gap-1 group-hover:translate-x-1 transition duration-200">Access Grid <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                 </div>
             </div>
 
@@ -85,7 +86,7 @@
 
     <!-- SECTION 2: EXCEL SPREADSHEET REGISTRY VIEW -->
     <main id="admin-registry-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden-view">
-        <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div class="mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
             <div>
                 <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
                     <span class="cursor-pointer hover:text-white" onclick="showAdminView('dashboard')">Dashboard</span> 
@@ -93,15 +94,21 @@
                     <span class="text-orange-400">Registration Trainee Data</span>
                 </div>
                 <h2 class="text-xl font-bold text-white">Registered Trainees Registry</h2>
-                <p class="text-xs text-slate-400 mt-1">Excel-view spreadsheet optimization format for instant verification audits.</p>
+                <p class="text-xs text-slate-400 mt-1">Spreadsheet optimization format with integrated real-time dynamic text queries filtering engine.</p>
             </div>
-            <!-- Export Tool Control Button -->
-            <button onclick="downloadExcelFormat()" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-2 transition active:scale-95 shadow-lg">
-                <i class="fa-solid fa-file-excel text-emerald-400 text-sm"></i> Download Excel (CSV)
-            </button>
+            
+            <!-- Realtime Filter Interface and Actions Panel -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                <div class="relative flex-1 sm:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                    <input type="text" id="trainee-search-input" onkeyup="filterSpreadsheetTable('trainee-search-input', 'admin-table-body')" placeholder="Search SUC ID, name, department..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition">
+                </div>
+                <button onclick="downloadExcelFormat('trainee-table-data', 'HootCoders_Trainees_Registry')" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 transition tracking-wide shadow-lg whitespace-nowrap">
+                    <i class="fa-solid fa-file-excel text-emerald-400 text-sm"></i> Download Excel (CSV)
+                </button>
+            </div>
         </div>
 
-        <!-- Excel Layout Table Container -->
         <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
             <div class="table-container overflow-x-auto w-full">
                 <table class="w-full text-left border-collapse" id="trainee-table-data">
@@ -117,20 +124,59 @@
                         </tr>
                     </thead>
                     <tbody id="admin-table-body" class="divide-y divide-slate-800 text-sm">
-                        <!-- Loading Indicator Placeholder Row -->
-                        <tr id="table-loading-row">
-                            <td colspan="7" class="text-center py-16 text-slate-500 font-mono text-xs">
-                                <i class="fa-solid fa-circle-notch animate-spin text-red-500 mr-2 text-sm"></i> 
-                                Reading data nodes table cluster grid...
-                            </td>
-                        </tr>
+                        <tr id="table-loading-row"><td colspan="7" class="text-center py-16 text-slate-500 font-mono text-xs">Reading data nodes table cluster grid...</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </main>
 
-    <!-- System Footer Frame Layout -->
+    <!-- SECTION 3: EXCEL SPREADSHEET EVENTS VIEW -->
+    <main id="admin-events-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden-view">
+        <div class="mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
+                    <span class="cursor-pointer hover:text-white" onclick="showAdminView('dashboard')">Dashboard</span> 
+                    <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i> 
+                    <span class="text-emerald-400">Event Registrations</span>
+                </div>
+                <h2 class="text-xl font-bold text-white">Event Sign-Ups Matrix</h2>
+                <p class="text-xs text-slate-400 mt-1">Excel-view spreadsheet optimization format for tracking competition rosters.</p>
+            </div>
+            
+            <!-- Realtime Filter Interface and Actions Panel -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                <div class="relative flex-1 sm:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                    <input type="text" id="events-search-input" onkeyup="filterSpreadsheetTable('events-search-input', 'events-table-body')" placeholder="Search participant, event title, group..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition">
+                </div>
+                <button onclick="downloadExcelFormat('events-table-data', 'HootCoders_Event_Registrations')" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 transition tracking-wide shadow-lg whitespace-nowrap">
+                    <i class="fa-solid fa-file-excel text-emerald-400 text-sm"></i> Download Excel (CSV)
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+            <div class="table-container overflow-x-auto w-full">
+                <table class="w-full text-left border-collapse" id="events-table-data">
+                    <thead>
+                        <tr class="bg-slate-900 border-b border-slate-800 text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                            <th class="py-4 px-6 font-bold">Event Title</th>
+                            <th class="py-4 px-6 font-bold">Participant Name</th>
+                            <th class="py-4 px-6 font-bold">SUC ID</th>
+                            <th class="py-4 px-6 font-bold">Branch/Dept</th>
+                            <th class="py-4 px-6 font-bold">Group Desig</th>
+                            <th class="py-4 px-6 font-bold text-right">Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-table-body" class="divide-y divide-slate-800 text-sm">
+                        <tr><td colspan="6" class="text-center py-16 text-slate-500 font-mono text-xs">No event entries recorded inside the cluster path yet.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
     <footer class="bg-slate-950 text-slate-500 pt-12 pb-12 border-t border-slate-900 mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-[11px]">
             <p>&copy; 2026 HOOT CODERS Hub. All Rights Reserved.</p>
@@ -140,7 +186,7 @@
     <!-- Firebase Script Logic Matrix Modules -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, update, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDRSv7X-cxaxvoE6UGPAy9DUFjAeLPFeGc",
@@ -156,54 +202,78 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // System View Routing Switch Controller
         window.showAdminView = (targetView) => {
             const dashboardLayout = document.getElementById('admin-dashboard-view');
             const registryLayout = document.getElementById('admin-registry-view');
+            const eventsLayout = document.getElementById('admin-events-view');
             const backBtn = document.getElementById('back-to-dash-btn');
 
+            dashboardLayout.classList.add('hidden-view');
+            registryLayout.classList.add('hidden-view');
+            eventsLayout.classList.add('hidden-view');
+            backBtn.classList.add('hidden-view');
+
+            // Clear searches on view switch to prevent data disconnect
+            document.getElementById('trainee-search-input').value = "";
+            document.getElementById('events-search-input').value = "";
+
             if (targetView === 'registry') {
-                dashboardLayout.classList.add('hidden-view');
                 registryLayout.classList.remove('hidden-view');
                 backBtn.classList.remove('hidden-view');
+            } else if (targetView === 'events-grid') {
+                eventsLayout.classList.remove('hidden-view');
+                backBtn.classList.remove('hidden-view');
             } else {
-                registryLayout.classList.add('hidden-view');
                 dashboardLayout.classList.remove('hidden-view');
-                backBtn.classList.add('hidden-view');
             }
         };
 
-        // Realtime Spreadsheet Pipeline listener loop
+        // Instant Dynamic Frontend Multi-Column Table Search Engine Row-Pruning Filter Logic
+        window.filterSpreadsheetTable = (inputId, tbodyId) => {
+            const query = document.getElementById(inputId).value.toLowerCase();
+            const targetTableBody = document.getElementById(tbodyId);
+            const targetRows = targetTableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < targetRows.length; i++) {
+                const currentRow = targetRows[i];
+                
+                // Keep loading rows or empty state flags safe from search pruning
+                if (currentRow.id === "table-loading-row" || currentRow.cells.length <= 1) continue;
+                
+                let rowMatchesQuery = false;
+                for (let j = 0; j < currentRow.cells.length; j++) {
+                    const textValue = currentRow.cells[j].textContent || currentRow.cells[j].innerText;
+                    if (textValue.toLowerCase().indexOf(query) > -1) {
+                        rowMatchesQuery = true;
+                        break;
+                    }
+                }
+
+                if (rowMatchesQuery) {
+                    currentRow.classList.remove('hidden-view');
+                } else {
+                    currentRow.classList.add('hidden-view');
+                }
+            }
+        };
+
+        // Realtime User Spreadsheet Pipeline listener loop
         onValue(ref(db, 'users'), (snapshot) => {
             const tableBody = document.getElementById('admin-table-body');
-            
             if (snapshot.exists()) {
                 const data = snapshot.val();
                 tableBody.innerHTML = ''; 
-                
                 for (let uid in data) {
                     const u = data[uid];
                     const isVerified = u.status === 'verified';
-                    
                     const row = document.createElement('tr');
                     row.className = "hover:bg-slate-900/40 transition duration-150 group";
-                    
                     row.innerHTML = `
-                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400 group-hover:text-white transition">
-                            ${u.suc || '—'}
-                        </td>
-                        <td class="py-3.5 px-6 font-bold text-white whitespace-nowrap">
-                            ${u.name || 'N/A'}
-                        </td>
-                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400 group-hover:text-slate-300 transition">
-                            ${u.email || '—'}
-                        </td>
-                        <td class="py-3.5 px-6 text-slate-300 font-medium whitespace-nowrap">
-                            ${u.department || '—'}
-                        </td>
-                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400">
-                            ${u.phone || '—'}
-                        </td>
+                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400 group-hover:text-white transition">${u.suc || '—'}</td>
+                        <td class="py-3.5 px-6 font-bold text-white whitespace-nowrap">${u.name || 'N/A'}</td>
+                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400 group-hover:text-slate-300 transition">${u.email || '—'}</td>
+                        <td class="py-3.5 px-6 text-slate-300 font-medium whitespace-nowrap">${u.department || '—'}</td>
+                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400">${u.phone || '—'}</td>
                         <td class="py-3.5 px-6 text-center whitespace-nowrap">
                             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-mono font-bold tracking-wider ${isVerified ? 'bg-emerald-950 text-emerald-400 border border-emerald-900/60' : 'bg-amber-950 text-amber-400 border border-amber-900/60'}">
                                 <span class="h-1.5 w-1.5 rounded-full ${isVerified ? 'bg-emerald-400' : 'bg-amber-400 animate-pulse'}"></span>
@@ -211,67 +281,104 @@
                             </span>
                         </td>
                         <td class="py-3.5 px-6 text-right whitespace-nowrap">
-                            ${!isVerified ? `
-                                <button onclick="adminApproveUser('${uid}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-1.5 rounded-lg transition duration-150 shadow-md shadow-emerald-950/40">
-                                    <i class="fa-solid fa-square-check mr-1.5"></i> Approve
+                            <div class="flex items-center justify-end gap-2">
+                                ${!isVerified ? `
+                                    <button onclick="adminApproveUser('${uid}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition duration-150 shadow-md">
+                                        <i class="fa-solid fa-square-check"></i> Approve
+                                    </button>
+                                ` : `
+                                    <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1 pr-1 select-none">
+                                        <i class="fa-solid fa-circle-check"></i> Done
+                                    </span>
+                                `}
+                                <button onclick="adminDeleteUser('${uid}', '${u.name ? u.name.replace(/'/g, "\\'") : 'Trainee'}')" class="bg-red-600 hover:bg-red-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition duration-150 shadow-md" title="Delete Records">
+                                    <i class="fa-solid fa-trash-can"></i>
                                 </button>
-                            ` : `
-                                <span class="text-xs font-semibold text-slate-500 flex items-center justify-end gap-1.5 pr-2 select-none">
-                                    <i class="fa-solid fa-circle-check text-emerald-500/80"></i> Done
-                                </span>
-                            `}
+                            </div>
                         </td>
                     `;
                     tableBody.appendChild(row);
                 }
+                // Run text filter automatically to ensure newly arrived sync snapshots obey the current query layout
+                filterSpreadsheetTable('trainee-search-input', 'admin-table-body');
             } else {
-                tableBody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="text-center py-16 text-slate-500 font-mono text-xs">
-                            No spreadsheet records available inside current dataset paths.
-                        </td>
-                    </tr>`;
+                tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-16 text-slate-500 font-mono text-xs">No records available.</td></tr>`;
             }
         });
 
-        // Fast Action spreadsheet update execution handler
+        // Realtime Event Pipeline listener loop
+        onValue(ref(db, 'event_registrations'), (snapshot) => {
+            const tableBody = document.getElementById('events-table-body');
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                tableBody.innerHTML = '';
+                for (let id in data) {
+                    const item = data[id];
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-900/40 transition text-slate-300";
+                    row.innerHTML = `
+                        <td class="py-3.5 px-6 font-bold text-orange-400">${item.eventTitle || '—'}</td>
+                        <td class="py-3.5 px-6 font-semibold text-white">${item.name || '—'}</td>
+                        <td class="py-3.5 px-6 font-mono text-xs">${item.suc || '—'}</td>
+                        <td class="py-3.5 px-6">${item.department || '—'}</td>
+                        <td class="py-3.5 px-6 font-mono text-xs text-amber-400">${item.group || '—'}</td>
+                        <td class="py-3.5 px-6 text-right font-mono text-xs text-slate-500">${item.timestamp ? item.timestamp.split('T')[0] : '—'}</td>
+                    `;
+                    tableBody.appendChild(row);
+                }
+                filterSpreadsheetTable('events-search-input', 'events-table-body');
+            } else {
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center py-16 text-slate-500 font-mono text-xs">No event sign-ups recorded yet.</td></tr>`;
+            }
+        });
+
+        // User Approval Handler
         window.adminApproveUser = async (uid) => {
             try {
                 await update(ref(db, `users/${uid}`), { status: 'verified' });
             } catch (error) {
-                alert("Database Update Processing Interrupted: " + error.message);
+                alert("Database Update Interrupted: " + error.message);
             }
         };
 
-        // Pure Frontend Excel CSV Data compilation and download execution engine
-        window.downloadExcelFormat = () => {
-            const table = document.getElementById("trainee-table-data");
+        // User Removal Handler with Confirmation Barrier
+        window.adminDeleteUser = async (uid, username) => {
+            const confirmPurge = confirm(`Are you sure you want to permanently delete the profile data node for "${username}"? This cannot be undone.`);
+            if (!confirmPurge) return;
+            
+            try {
+                await remove(ref(db, `users/${uid}`));
+            } catch (error) {
+                alert("Database Deletion Execution Interrupted: " + error.message);
+            }
+        };
+
+        // Spreadsheet Engine (CSV exporter)
+        window.downloadExcelFormat = (tableId, fileName) => {
+            const table = document.getElementById(tableId);
             const rows = table.querySelectorAll("tr");
             let csvContent = "";
 
             rows.forEach((row) => {
+                // Ensure hidden rows (filtered out elements) are bypassed during spreadsheet compilation builds
+                if (row.classList.contains('hidden-view')) return;
+
                 const cols = row.querySelectorAll("th, td");
                 const rowData = [];
+                const limit = tableId === 'trainee-table-data' ? cols.length - 1 : cols.length;
                 
-                for (let i = 0; i < cols.length - 1; i++) {
+                for (let i = 0; i < limit; i++) {
                     let cleanText = cols[i].innerText.replace(/\r?\n|\r/g, " ").trim();
                     cleanText = cleanText.replace(/"/g, '""'); 
                     rowData.push(`"${cleanText}"`);
                 }
-                
-                if(rowData.length > 0) {
-                    csvContent += rowData.join(",") + "\n";
-                }
+                if(rowData.length > 0) csvContent += rowData.join(",") + "\n";
             });
 
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
-            const url = URL.createObjectURL(blob);
-            
-            link.setAttribute("href", url);
-            link.setAttribute("download", "HootCoders_Trainees_Registry.csv");
-            link.style.visibility = 'hidden';
-            
+            link.setAttribute("href", URL.createObjectURL(blob));
+            link.setAttribute("download", `${fileName}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
