@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOOT CODERS - Gateway to Tech Excellence</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,9 +18,6 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-        }
-        .torii-gradient {
-            background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
         }
         .hidden-view {
             display: none !important;
@@ -28,50 +29,122 @@
         .animate-scale {
             animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
+
+        /* Perspective and 3D Click-Flip Card System Styles */
+        .perspective-container {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Majestic Slower Owl Particle Flight Animation Engine */
+        .owl-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            font-size: 1.8rem;
+            animation: flyAwaySlower 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            filter: drop-shadow(0 4px 12px rgba(251, 146, 60, 0.4));
+        }
+        @keyframes flyAwaySlower {
+            0% {
+                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(var(--tw-tx), var(--tw-ty)) scale(1.8) rotate(var(--tw-rot));
+                opacity: 0;
+            }
+        }
+
+        /* Interactive Eye Lid Blinking Eyelid Layers */
+        .owl-eyelid {
+            position: absolute;
+            background-color: #3b2314; /* Matches character head palette */
+            border-radius: 50%;
+            height: 0%;
+            width: 58px;
+            transition: height 0.12s ease-in-out;
+            z-index: 20;
+            border: 2px solid #1a0f0d;
+        }
+        .owl-container.is-blinking .owl-eyelid {
+            height: 58px;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body class="bg-[#0B0F1A] text-slate-100 antialiased">
 
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 bg-[#111827]/90 backdrop-blur-md border-b border-white/10 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
             <div class="flex items-center gap-2 cursor-pointer" onclick="showView('landing')">
-                <div class="h-10 w-10 bg-red-600 flex items-center justify-center rounded-lg text-white font-bold text-xl tracking-tighter">
+                <div class="h-10 w-10 bg-[#F15D49] flex items-center justify-center rounded-lg text-white font-bold text-xl tracking-tighter shadow-md shadow-[#F15D49]/20">
                     🦉
                 </div>
-                <span class="text-2xl font-extrabold text-slate-900 tracking-tight">HOOT<span class="text-red-600">CODERS</span></span>
+                <span class="text-2xl font-extrabold text-white tracking-tight">HOOT<span class="text-[#F15D49]">CODERS</span></span>
             </div>
 
-            <nav class="hidden lg:flex items-center gap-8 font-semibold text-slate-600 text-sm">
-                <a href="#" class="text-red-600 hover:text-red-700 transition">My Wings</a>
-                <a href="#" class="hover:text-red-600 transition">EVENTS  </a>
-                <a href="#" class="hover:text-red-600 transition">TEAM</a>
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-8 font-semibold text-gray-300 text-sm">
+                <a href="#" onclick="showView('landing')" class="text-[#F15D49] hover:text-[#D94E3B] transition">My Wings</a>
+                <a href="#" onclick="showView('events')" class="hover:text-[#F15D49] transition">EVENTS</a>
+                <a href="#" class="hover:text-[#F15D49] transition">TEAM</a>
             </nav>
 
+            <!-- Auth Interface Controls -->
             <div class="flex items-center gap-4">
                 <div id="guest-actions" class="flex items-center gap-4">
-                    <button onclick="openLoginModal()" class="text-sm font-semibold text-slate-700 hover:text-red-600 transition">Login</button>
-                    <button onclick="openRegisterModal()" class="bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md shadow-red-600/10 transition">Register</button>
+                    <button onclick="openLoginModal()" class="text-sm font-semibold text-gray-200 hover:text-[#F15D49] transition">Login</button>
+                    <button onclick="openRegisterModal()" class="bg-[#F15D49] hover:bg-[#D94E3B] text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-[#F15D49]/10 transition-all">Register</button>
                 </div>
 
                 <div id="auth-actions" class="hidden-view relative">
-                    <button onclick="toggleProfileDropdown()" class="h-10 w-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold shadow-md hover:scale-105 transition focus:outline-none">
+                    <button onclick="toggleProfileDropdown()" class="h-10 w-10 bg-[#F15D49] text-white rounded-full flex items-center justify-center font-bold shadow-md hover:scale-105 transition focus:outline-none">
                         <span id="profile-initials">U</span>
                     </button>
-                    <div id="profile-dropdown" class="hidden-view absolute right-0 mt-3 w-64 bg-white rounded-2xl border border-slate-100 shadow-xl py-4 z-50">
-                        <div class="px-4 pb-3 border-b border-slate-100">
-                            <p class="text-xs text-slate-400 font-medium">Signed in as</p>
-                            <p id="dropdown-name" class="font-bold text-slate-800 truncate text-sm"></p>
-                            <p id="dropdown-email" class="text-xs text-slate-500 truncate mb-2"></p>
+                    <div id="profile-dropdown" class="hidden-view absolute right-0 mt-3 w-64 bg-[#111827] rounded-2xl border border-white/10 shadow-xl py-4 z-50">
+                        <div class="px-4 pb-3 border-b border-white/5">
+                            <p class="text-xs text-gray-400 font-medium">Signed in as</p>
+                            <p id="dropdown-name" class="font-bold text-white truncate text-sm"></p>
+                            <p id="dropdown-email" class="text-xs text-gray-400 truncate mb-2"></p>
                             
                             <div id="status-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold">
                                 <i class="fa-solid fa-circle-notch animate-spin text-xxs"></i> Verification Check
                             </div>
                         </div>
                         <div class="px-2 pt-2">
-                            <button onclick="showView('dashboard')" class="w-full text-left px-3 py-2 text-xs text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium">
+                            <button onclick="showView('dashboard')" class="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-[#0B0F1A] rounded-lg transition font-medium">
                                 <i class="fa-solid fa-gauge mr-2 opacity-70"></i> Workspace Dashboard
                             </button>
-                            <button onclick="logoutUser()" class="w-full text-left px-3 py-2 text-xs text-red-600 hover:bg-red-50 rounded-lg transition font-bold mt-1">
+                            <button onclick="logoutUser()" class="w-full text-left px-3 py-2 text-xs text-[#F15D49] hover:bg-[#F15D49]/10 rounded-lg transition font-bold mt-1">
                                 <i class="fa-solid fa-right-from-bracket mr-2 opacity-70"></i> Secure Logout
                             </button>
                         </div>
@@ -81,202 +154,334 @@
         </div>
     </header>
 
+    <!-- VIEW 1: LANDING LAYOUT CANVAS -->
     <main id="view-landing">
-        <section class="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28 bg-white">
+        <section class="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28 bg-[#0B0F1A]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right" data-aos-duration="1000">
-                    <div class="inline-flex items-center gap-2 bg-red-50 text-red-700 px-3 py-1.5 rounded-full text-xs font-semibold mb-6">
-                        <span class="flex h-2 w-2 rounded-full bg-red-600 animate-pulse"></span>
+                    <div class="inline-flex items-center gap-2 bg-[#F15D49]/10 text-[#F15D49] px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border border-[#F15D49]/20">
+                        <span class="flex h-2 w-2 rounded-full bg-[#F15D49] animate-pulse"></span>
                         The Gateway to Tech Excellence
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
-                        Code Wise Fly High. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-indigo-600">with HOOT</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
+                        Code Wise. Fly High. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F15D49] to-orange-400">with HOOT</span>
                     </h1>
-                    <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-xl">
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-xl">
                         Inspired by the Japanese Torii gate, we help trainees transition into confident, skilled professionals through hands-on learning, live projects, hackathons, and real-world experiences.
                     </p>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-100 pt-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-white/5 pt-8">
                         <div class="flex items-start gap-3">
-                            <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fa-solid py-0.5 px-0.5 fa-graduation-cap"></i></div>
-                            <div><h4 class="font-bold text-slate-900 text-sm">100+ Courses</h4><p class="text-xs text-slate-500">Industry-aligned paths</p></div>
+                            <div class="p-2 bg-[#F15D49]/10 text-[#F15D49] rounded-lg"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div><h4 class="font-bold text-white text-sm">100+ Courses</h4><p class="text-xs text-gray-400">Industry-aligned paths</p></div>
                         </div>
                         <div class="flex items-start gap-3">
-                            <div class="p-2 bg-amber-50 text-amber-600 rounded-lg"><i class="fa-solid py-0.5 px-0.5 fa-user-tie"></i></div>
-                            <div><h4 class="font-bold text-slate-900 text-sm">Top Instructors</h4><p class="text-xs text-slate-500">Seasoned experts</p></div>
+                            <div class="p-2 bg-[#F15D49]/10 text-[#F15D49] rounded-lg"><i class="fa-solid fa-user-tie"></i></div>
+                            <div><h4 class="font-bold text-white text-sm">Top Instructors</h4><p class="text-xs text-gray-400">Seasoned experts</p></div>
                         </div>
                         <div class="flex items-start gap-3">
-                            <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid py-0.5 px-0.5 fa-certificate"></i></div>
-                            <div><h4 class="font-bold text-slate-900 text-sm">Global Certs</h4><p class="text-xs text-slate-500">Validate your skills</p></div>
+                            <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i class="fa-solid fa-certificate"></i></div>
+                            <div><h4 class="font-bold text-white text-sm">Global Certs</h4><p class="text-xs text-gray-400">Validate your skills</p></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="relative lg:ml-4" data-aos="fade-left" data-aos-duration="1000">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-red-200 to-indigo-200 rounded-3xl transform rotate-3 scale-95 opacity-30 blur-xl"></div>
-                    <div class="relative bg-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-800 text-white torii-gradient min-h-[400px] flex flex-col justify-between">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-mono opacity-60">// Gateway Active</span>
-                            <div class="flex gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500"></span><span class="w-3 h-3 rounded-full bg-yellow-500"></span><span class="w-3 h-3 rounded-full bg-green-500"></span></div>
-                        </div>
-                        <div class="my-auto space-y-4">
-                            <div class="text-4xl font-light text-slate-300">Unlock your <strong class="text-white font-bold">Digital Journey</strong>.</div>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-white/10 px-3 py-1 rounded-md text-xs backdrop-blur">Owl Code</span>
-                                <span class="bg-white/10 px-3 py-1 rounded-md text-xs backdrop-blur">Crowlytics</span>
-                                <span class="bg-white/10 px-3 py-1 rounded-md text-xs backdrop-blur">ATS Engine</span>
-                            </div>
-                        </div>
-                        <div class="border-t border-white/10 pt-4 flex items-center justify-between text-sm opacity-80">
-                            <span>On-Campus Capability Center</span>
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </div>
+                <!-- Right Side Home Page Image Integration Layer with Interactive Blinking Anchor Points -->
+                <div class="relative lg:ml-4 flex justify-center items-center select-none" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-[#F15D49]/20 to-orange-500/10 rounded-3xl opacity-40 blur-2xl pointer-events-none"></div>
+                    <div id="interactive-owl-node" onclick="triggerOwlHootEffects()" class="owl-container relative w-full max-w-[450px] transform hover:scale-[1.03] active:scale-95 transition duration-500 cursor-pointer">
+                        
+                        <!-- Fixed Position Eye Matrix Overlays mapping directly onto character coordinates -->
+                        <div class="owl-eyelid top-[108px] left-[163px]"></div>
+                        <div class="owl-eyelid top-[108px] left-[229px]"></div>
+
+                        <img src="https://file.garden/alSdpaXzClCO76yf/Jul%2013%2C%202026%2C%2012_20_55%20PM%20(1).png" alt="Hoot Coders Graphic Logo Logo Asset" class="w-full h-auto object-contain drop-shadow-[0_10px_30px_rgba(241,93,73,0.15)] rounded-2xl"/>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <main id="view-dashboard" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-12 text-center shadow-xl space-y-6 max-w-2xl mx-auto">
-            <div class="h-24 w-24 bg-indigo-50 text-indigo-600 rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce">
-                <i class="fa-solid fa-rocket"></i>
+    <!-- VIEW 2: ORANGE CLICK-ANYWHERE-TO-FLIP EVENTS PANEL -->
+    <main id="view-events" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="mb-12 text-center">
+            <h2 class="text-3xl font-extrabold tracking-tight text-white">Upcoming Hackathons & Tech Events</h2>
+            <p class="text-sm text-gray-400 mt-2">Click anywhere on the card container layout to flip it around.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Event Card 1 -->
+            <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-1')">
+                <div id="event-card-inner-1" class="flip-card-inner w-full h-full">
+                    <div class="flip-card-front bg-gradient-to-br from-orange-500 to-amber-600 text-white p-8 flex flex-col justify-between shadow-xl shadow-orange-500/10 border border-orange-400">
+                        <div class="space-y-4">
+                            <div class="h-16 w-12 bg-white/20 rounded-2xl flex items-center justify-center text-3xl text-white">
+                                <i class="fa-solid fa-code-fork"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs uppercase font-mono tracking-widest text-orange-100 font-bold block mb-1">Hackathon</span>
+                                <h3 class="text-2xl font-black tracking-tight text-white">Owl Code Sprint 2026</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="h-6"></div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-xs font-mono text-orange-100 border-t border-white/10 pt-4">
+                                <div class="flex items-center gap-1.5"><i class="fa-regular fa-calendar-days text-white"></i> July 25, 2026</div>
+                                <div class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-white"></i> 09:00 AM</div>
+                            </div>
+                            <button onclick="handleRegisterTrigger(event, 'Owl Code Sprint 2026')" class="w-full bg-slate-950 hover:bg-slate-900 text-orange-400 font-bold text-xs py-3 rounded-xl shadow-lg transition tracking-wide transform active:scale-95">
+                                Register for Event
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flip-card-back bg-slate-950 text-slate-200 border border-slate-800 p-8 flex flex-col justify-between shadow-xl">
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-info text-orange-500"></i> About the Event
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                A high-intensity programming challenge testing full-stack performance optimization and deep custom data parsing. Teams will compete live within the Owl Code terminal engine.
+                            </p>
+                            <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 text-xxs font-mono text-slate-400 space-y-1">
+                                <div><strong>Eligibility:</strong> Open to all structural cadets</div>
+                                <div><strong>Format:</strong> Team entry (Max 3)</div>
+                                <div><strong>Platform:</strong> Sandboxed Terminal Runtime</div>
+                            </div>
+                        </div>
+                        <div class="text-center text-xs font-mono text-slate-500 uppercase tracking-wider">
+                            Click anywhere to flip back
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Welcome to Your Torii Gate Portal</h1>
-            <p class="text-sm text-slate-500 leading-relaxed max-w-md mx-auto">
-                Your credentials are safe and registered. The comprehensive learning matrices, Owl Code platform, and evaluation metrics interfaces are <span class="font-bold text-indigo-600">Coming Soon!</span>
-            </p>
-            <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-3 justify-center">
-                <span class="bg-slate-100 px-3 py-1 rounded-full text-xs font-medium text-slate-600">Structured Stacks</span>
-                <span class="bg-slate-100 px-3 py-1 rounded-full text-xs font-medium text-slate-600">Behavioral Frameworks</span>
-                <span class="bg-slate-100 px-3 py-1 rounded-full text-xs font-medium text-slate-600">Cognitive Metrics</span>
+
+            <!-- Event Card 2 -->
+            <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-2')">
+                <div id="event-card-inner-2" class="flip-card-inner w-full h-full">
+                    <div class="flip-card-front bg-gradient-to-br from-orange-500 to-amber-600 text-white p-8 flex flex-col justify-between shadow-xl shadow-orange-500/10 border border-orange-400">
+                        <div class="space-y-4">
+                            <div class="h-16 w-12 bg-white/20 rounded-2xl flex items-center justify-center text-3xl text-white">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs uppercase font-mono tracking-widest text-orange-100 font-bold block mb-1">Evaluation Masterclass</span>
+                                <h3 class="text-2xl font-black tracking-tight text-white">Crowlytics Logic Array</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="h-6"></div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-xs font-mono text-orange-100 border-t border-white/10 pt-4">
+                                <div class="flex items-center gap-1.5"><i class="fa-regular fa-calendar-days text-white"></i> Aug 02, 2026</div>
+                                <div class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-white"></i> 02:00 PM</div>
+                            </div>
+                            <button onclick="handleRegisterTrigger(event, 'Crowlytics Logic Array')" class="w-full bg-slate-950 hover:bg-slate-900 text-orange-400 font-bold text-xs py-3 rounded-xl shadow-lg transition tracking-wide transform active:scale-95">
+                                Register for Event
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flip-card-back bg-slate-950 text-slate-200 border border-slate-800 p-8 flex flex-col justify-between shadow-xl">
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-info text-orange-500"></i> About the Event
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Deep dive session on algorithmic logical pattern recognition and data structures metrics mapping. Excellent for cadets looking to upgrade metrics benchmarks.
+                            </p>
+                            <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 text-xxs font-mono text-slate-400 space-y-1">
+                                <div><strong>Eligibility:</strong> All registered branches</div>
+                                <div><strong>Format:</strong> Interactive Workshop</div>
+                                <div><strong>Instructor:</strong> Senior Structural Panel</div>
+                            </div>
+                        </div>
+                        <div class="text-center text-xs font-mono text-slate-500 uppercase tracking-wider">
+                            Click anywhere to flip back
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <div id="modal-overlay" class="hidden-view fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <!-- VIEW 3: WORKSPACE DASHBOARD VIEW -->
+    <main id="view-dashboard" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="bg-[#111827] rounded-3xl border border-white/10 p-8 sm:p-12 text-center shadow-xl space-y-6 max-w-2xl mx-auto">
+            <div class="h-24 w-24 bg-[#F15D49]/10 text-[#F15D49] rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce">
+                <i class="fa-solid fa-rocket"></i>
+            </div>
+            <h1 class="text-3xl font-extrabold text-white tracking-tight">Welcome to Your Torii Gate Portal</h1>
+            <p class="text-sm text-gray-400 leading-relaxed max-w-md mx-auto">
+                Your credentials are safe and registered. The comprehensive learning matrices, Owl Code platform, and evaluation metrics interfaces are <span class="font-bold text-[#F15D49]">Coming Soon!</span>
+            </p>
+            <div class="pt-4 border-t border-white/5 flex flex-wrap gap-3 justify-center">
+                <span class="bg-[#0B0F1A] border border-white/5 px-3 py-1 rounded-full text-xs font-medium text-gray-300">Structured Stacks</span>
+                <span class="bg-[#0B0F1A] border border-white/5 px-3 py-1 rounded-full text-xs font-medium text-gray-300">Behavioral Frameworks</span>
+                <span class="bg-[#0B0F1A] border border-white/5 px-3 py-1 rounded-full text-xs font-medium text-gray-300">Cognitive Metrics</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals Overlay System Container -->
+    <div id="modal-overlay" class="hidden-view fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
         
-        <div id="register-card" class="hidden-view bg-[#121214] text-slate-200 border border-slate-800 w-full max-w-2xl rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300">
-            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <!-- STANDARD ACCOUNT REGISTRATION MODAL -->
+        <div id="register-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-2xl rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300">
+            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">🦉 Create HOOT Account</h2>
             
             <form id="regForm" onsubmit="handleRegistrationSubmit(event)" class="space-y-5">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">SUC <span class="text-red-500">*</span></label>
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">SUC <span class="text-[#F15D49]">*</span></label>
                         <div class="relative">
-                            <i class="fa-regular fa-id-card absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-                            <input type="text" id="reg-suc" required placeholder="e.g., 1NC24CS123" class="w-full bg-[#1a1a1e] border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-red-600 transition">
+                            <i class="fa-regular fa-id-card absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                            <input type="text" id="reg-suc" required placeholder="e.g., 1NC24CS123" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#F15D49] transition">
                         </div>
                     </div>
                     <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Full Name <span class="text-red-500">*</span></label>
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Full Name <span class="text-[#F15D49]">*</span></label>
                         <div class="relative">
-                            <i class="fa-regular fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-                            <input type="text" id="reg-name" required placeholder="Enter your full name" class="w-full bg-[#1a1a1e] border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-red-600 transition">
+                            <i class="fa-regular fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                            <input type="text" id="reg-name" required placeholder="Enter your full name" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#F15D49] transition">
                         </div>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Department <span class="text-red-500">*</span></label>
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Department <span class="text-[#F15D49]">*</span></label>
                         <div class="relative">
-                            <i class="fa-solid fa-building-columns absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-                            <select id="reg-dept" required class="w-full bg-[#1a1a1e] border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white appearance-none focus:outline-none focus:border-red-600 transition">
+                            <i class="fa-solid fa-building-columns absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                            <select id="reg-dept" required class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white appearance-none focus:outline-none focus:border-[#F15D49] transition">
                                 <option value="" disabled selected>Select Department</option>
                                 <option value="Computer Science">Computer Science Engineering</option>
                                 <option value="Information Science">Information Science Engineering</option>
                                 <option value="Electronics & Comm">Electronics & Comm Engineering</option>
                                 <option value="Data Science">Data Science / AI</option>
                             </select>
-                            <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none"></i>
+                            <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-xs pointer-events-none"></i>
                         </div>
                     </div>
                     <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Phone Number <span class="text-red-500">*</span></label>
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Phone Number <span class="text-[#F15D49]">*</span></label>
                         <div class="relative">
-                            <i class="fa-solid fa-phone absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-                            <input type="tel" id="reg-phone" required pattern="[0-9]{10}" placeholder="Enter 10 digit number" class="w-full bg-[#1a1a1e] border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-red-600 transition">
+                            <i class="fa-solid fa-phone absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                            <input type="tel" id="reg-phone" required pattern="[0-9]{10}" placeholder="Enter 10 digit number" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#F15D49] transition">
                         </div>
                     </div>
                 </div>
 
                 <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Email Address <span class="text-red-500">*</span></label>
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Email Address <span class="text-[#F15D49]">*</span></label>
                     <div class="relative">
-                        <i class="fa-regular fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-                        <input type="email" id="reg-email" required placeholder="your.email@example.com" class="w-full bg-[#1a1a1e] border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-red-600 transition">
+                        <i class="fa-regular fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                        <input type="email" id="reg-email" required placeholder="your.email@example.com" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#F15D49] transition">
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-900">
-                    <button type="button" onclick="resetRegistrationForm()" class="px-4 py-2.5 rounded-xl border border-slate-800 text-xs font-semibold text-slate-400 hover:text-white transition">Reset Form</button>
-                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-6 py-2.5 rounded-xl shadow-lg shadow-red-600/20 transition">Confirm Registration</button>
+                <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/5">
+                    <button type="button" onclick="resetRegistrationForm()" class="px-4 py-2.5 rounded-xl border border-white/10 text-xs font-semibold text-gray-400 hover:text-white transition">Reset Form</button>
+                    <button type="submit" class="bg-[#F15D49] hover:bg-[#D94E3B] text-white text-xs font-semibold px-6 py-2.5 rounded-xl shadow-lg transition">Confirm Registration</button>
                 </div>
             </form>
         </div>
 
+        <!-- TARGETED EVENT REGISTRATION FIELDS FORM MODAL -->
+        <div id="event-register-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-md rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300">
+            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h2 class="text-lg font-bold text-white mb-1 flex items-center gap-2"><span class="text-orange-500">🏆</span> Event Registration</h2>
+            <p id="event-target-title" class="text-xs font-mono text-gray-400 mb-6 truncate"></p>
+            
+            <form onsubmit="handleEventRegistrationSubmit(event)" class="space-y-4">
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Full Name <span class="text-orange-500">*</span></label>
+                    <input type="text" required placeholder="Enter your full name" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 transition">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">SUC Number <span class="text-orange-500">*</span></label>
+                    <input type="text" required placeholder="e.g., 1NC24CS123" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 transition">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Branch / Department <span class="text-orange-500">*</span></label>
+                    <input type="text" required placeholder="e.g., Computer Science" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 transition">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Group Designation <span class="text-orange-500">*</span></label>
+                    <input type="text" required placeholder="e.g., Group A" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 transition">
+                </div>
+                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3 rounded-xl shadow-lg transition mt-4">
+                    Submit Registration
+                </button>
+            </form>
+        </div>
+
+        <!-- SUCCESS ALERT BLOCK -->
         <div id="success-card" class="hidden-view bg-white text-slate-800 w-full max-w-sm rounded-2xl p-8 text-center shadow-2xl border border-slate-100 transform transition-all duration-300">
             <div class="h-20 w-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner">
                 <i class="fa-solid fa-circle-check animate-scale"></i>
             </div>
             <h3 class="text-xl font-bold text-slate-900">Submitted Successfully</h3>
-            <p class="text-xs text-slate-500 mt-2">Your capability verification details are logged securely.</p>
+            <p class="text-xs text-slate-500 mt-2">Your data credentials are logged securely.</p>
         </div>
 
-        <div id="password-card" class="hidden-view bg-[#121214] text-slate-200 border border-slate-800 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300">
+        <!-- PASSWORD MODAL -->
+        <div id="password-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300">
             <h2 class="text-lg font-bold text-white mb-2">Set Account Password</h2>
-            <p class="text-xs text-slate-400 mb-6">Create a secure entry key to access the capability platforms automatically next time.</p>
+            <p class="text-xs text-gray-400 mb-6">Create a secure entry key to access the capability platforms automatically next time.</p>
             
             <form id="passForm" onsubmit="handlePasswordSubmit(event)" class="space-y-4">
                 <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Password</label>
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Password</label>
                     <div class="relative">
-                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-                        <input type="password" id="reg-password" required minlength="6" placeholder="••••••••" class="w-full bg-[#1a1a1e] border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-red-600 transition">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                        <input type="password" id="reg-password" required minlength="6" placeholder="••••••••" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49] transition">
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-3 rounded-xl shadow-lg transition mt-4">Complete Setup & Sign In</button>
+                <button type="submit" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white text-xs font-bold py-3 rounded-xl shadow-lg transition mt-4">Complete Setup & Sign In</button>
             </form>
         </div>
 
-        <div id="login-card" class="hidden-view bg-[#121214] text-slate-200 border border-slate-800 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300">
-            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <!-- LOGIN CARD -->
+        <div id="login-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300">
+            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h2 class="text-lg font-bold text-white mb-6">Welcome Back</h2>
             
             <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-4">
                 <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Email Address</label>
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Email Address</label>
                     <div class="relative">
-                        <i class="fa-regular fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-                        <input type="email" id="login-email" required placeholder="name@example.com" class="w-full bg-[#1a1a1e] border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-red-600 transition">
+                        <i class="fa-regular fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                        <input type="email" id="login-email" required placeholder="name@example.com" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49] transition">
                     </div>
                 </div>
                 <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Password</label>
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Password</label>
                     <div class="relative">
-                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-                        <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-[#1a1a1e] border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-red-600 transition">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                        <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49] transition">
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-3 rounded-xl shadow-lg transition mt-4">Sign In</button>
+                <button type="submit" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white text-xs font-bold py-3 rounded-xl shadow-lg transition mt-4">Sign In</button>
             </form>
         </div>
     </div>
 
-    <footer class="bg-slate-950 text-slate-400 pt-16 pb-12 border-t border-slate-900 mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-[11px] text-slate-600">
-            <p>&copy; 2026 Torii. All Rights Reserved.</p>
+    <!-- Footer Area -->
+    <footer class="bg-slate-950 text-gray-500 pt-16 pb-12 border-t border-white/5 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-[11px]">
+            <p>&copy; 2026 HOOT CODERS. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <!-- Firebase SDK Logic Modules -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // Your exact new configuration structure
         const firebaseConfig = {
             apiKey: "AIzaSyDRSv7X-cxaxvoE6UGPAy9DUFjAeLPFeGc",
             authDomain: "useasfriendshub.firebaseapp.com",
@@ -292,35 +497,102 @@
         const db = getDatabase(app);
         const auth = getAuth(app);
 
-        let currentRegSessionData = null;
-        let authenticatedUserRecord = null;
+        // Web Audio API Sound Generation Module
+        let audioCtx = null;
+        window.triggerOwlHootEffects = () => {
+            const container = document.getElementById('interactive-owl-node');
+            
+            // Toggle eye-blink layer state parameters smoothly
+            container.classList.add('is-blinking');
+            setTimeout(() => container.classList.remove('is-blinking'), 250);
 
-        // Auto Login Persistence Hook
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const snapshot = await get(ref(db, `users/${user.uid}`));
-                if (snapshot.exists()) {
-                    authenticatedUserRecord = snapshot.val();
-                    authenticatedUserRecord.uid = user.uid;
-                    updateUIForAuthenticatedUser(authenticatedUserRecord);
-                    showView('dashboard');
-                    
-                    // Live Database Sync for Verification Badge status update
-                    onValue(ref(db, `users/${user.uid}/status`), (snap) => {
-                        if (snap.exists() && authenticatedUserRecord) {
-                            authenticatedUserRecord.status = snap.val();
-                            renderStatusBadge(snap.val());
-                        }
-                    });
-                }
-            } else {
-                authenticatedUserRecord = null;
-                updateUIForGuest();
-                showView('landing');
+            // Construct real-time localized audio synthesis engine node tree
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
-        });
 
-        // Window Helper Function Bindings
+            function playSingleHootTone(startTime, duration) {
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                osc.type = 'sine';
+                // Owl low-frequency whistle simulation parameters
+                osc.frequency.setValueAtTime(260, startTime); 
+                osc.frequency.exponentialRampToValueAtTime(290, startTime + duration * 0.4);
+                osc.frequency.exponentialRampToValueAtTime(240, startTime + duration);
+
+                // Smooth acoustic gain curve configuration layout
+                gainNode.gain.setValueAtTime(0, startTime);
+                gainNode.gain.linearRampToValueAtTime(0.4, startTime + 0.05);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                osc.start(startTime);
+                osc.stop(startTime + duration);
+            }
+
+            // Real-time scheduling execution map for a distinct double "Hoot-Hoot" signature call
+            const now = audioCtx.currentTime;
+            playSingleHootTone(now, 0.22);
+            playSingleHootTone(now + 0.28, 0.38);
+        };
+
+        // Toggle Flip Class Container safely on Click
+        window.toggleCardFlip = (cardElementId) => {
+            const cardInner = document.getElementById(cardElementId);
+            if (cardInner) {
+                cardInner.classList.toggle('is-flipped');
+            }
+        };
+
+        // Owl Particles Launcher and Modal Trigger Logic Architecture
+        window.handleRegisterTrigger = (event, eventTitle) => {
+            event.stopPropagation();
+
+            const clientX = event.clientX;
+            const clientY = event.clientY;
+
+            for (let i = 0; i < 14; i++) {
+                const particle = document.createElement("div");
+                particle.className = "owl-particle";
+                particle.innerText = Math.random() > 0.5 ? "🦉" : "🦅";
+                particle.style.left = clientX + "px";
+                particle.style.top = clientY + "px";
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 180 + Math.random() * 320;
+                const tx = Math.cos(angle) * distance + "px";
+                const ty = Math.sin(angle) * distance + "px";
+                const rot = (Math.random() * 360) + "deg";
+
+                particle.style.setProperty('--tw-tx', tx);
+                particle.style.setProperty('--tw-ty', ty);
+                particle.style.setProperty('--tw-rot', rot);
+
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 2500);
+            }
+
+            setTimeout(() => {
+                resetModalTree();
+                document.getElementById('event-target-title').innerText = "// Event: " + eventTitle;
+                document.getElementById('modal-overlay').classList.remove('hidden-view');
+                document.getElementById('event-register-card').classList.remove('hidden-view');
+            }, 450);
+        };
+
+        window.handleEventRegistrationSubmit = (e) => {
+            e.preventDefault();
+            document.getElementById('event-register-card').classList.add('hidden-view');
+            document.getElementById('success-card').classList.remove('hidden-view');
+            setTimeout(() => {
+                closeActiveModals();
+                e.target.reset();
+            }, 2000);
+        };
+
         window.openRegisterModal = () => {
             resetModalTree();
             document.getElementById('modal-overlay').classList.remove('hidden-view');
@@ -350,8 +622,12 @@
         window.showView = (viewName) => {
             document.getElementById('view-landing').classList.add('hidden-view');
             document.getElementById('view-dashboard').classList.add('hidden-view');
+            document.getElementById('view-events').classList.add('hidden-view');
+            
             if (viewName === 'dashboard' && authenticatedUserRecord) {
                 document.getElementById('view-dashboard').classList.remove('hidden-view');
+            } else if (viewName === 'events') {
+                document.getElementById('view-events').classList.remove('hidden-view');
             } else {
                 document.getElementById('view-landing').classList.remove('hidden-view');
             }
@@ -365,7 +641,6 @@
 
         window.handleRegistrationSubmit = (e) => {
             e.preventDefault();
-            // Store data inside standard application memory first to avoid multi-submit collision
             currentRegSessionData = {
                 suc: document.getElementById('reg-suc').value,
                 name: document.getElementById('reg-name').value,
@@ -390,12 +665,8 @@
             if (!currentRegSessionData) return;
 
             try {
-                // Instantiates network registration only once here cleanly
                 const userCredential = await createUserWithEmailAndPassword(auth, currentRegSessionData.email, password);
-                
-                // Write structural fields into real-time database paths safely
                 await set(ref(db, `users/${userCredential.user.uid}`), currentRegSessionData);
-                
                 closeActiveModals();
                 document.getElementById('passForm').reset();
                 document.getElementById('regForm').reset();
@@ -420,6 +691,7 @@
 
         function resetModalTree() {
             document.getElementById('register-card').classList.add('hidden-view');
+            document.getElementById('event-register-card').classList.add('hidden-view');
             document.getElementById('success-card').classList.add('hidden-view');
             document.getElementById('password-card').classList.add('hidden-view');
             document.getElementById('login-card').classList.add('hidden-view');
@@ -444,14 +716,15 @@
             if (!badge) return;
             badge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-all ";
             if (status === 'verified') {
-                badge.classList.add('bg-emerald-50', 'text-emerald-700');
+                badge.classList.add('bg-emerald-505/10', 'text-emerald-400', 'border', 'border-emerald-500/20');
                 badge.innerHTML = `<i class="fa-solid fa-circle-check text-xs"></i> Verified`;
             } else {
-                badge.classList.add('bg-amber-50', 'text-amber-700');
+                badge.classList.add('bg-amber-505/10', 'text-amber-400', 'border', 'border-amber-500/20');
                 badge.innerHTML = `<i class="fa-solid fa-clock text-xs"></i> Pending Approval`;
             }
         }
     </script>
+    <!-- AOS Framework Script Hook -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init({ duration: 800, once: true });</script>
 </body>
