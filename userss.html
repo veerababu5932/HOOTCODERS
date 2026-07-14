@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOOT CODERS - Gateway to Tech Excellence</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animation Library CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -101,10 +97,8 @@
 </head>
 <body class="bg-[#0B0F1A] text-slate-100 antialiased">
 
-    <!-- Header / Navbar -->
     <header class="sticky top-0 z-50 bg-[#111827]/90 backdrop-blur-md border-b border-white/10 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Logo -->
             <div class="flex items-center gap-2 cursor-pointer" onclick="showView('landing')">
                 <div class="h-10 w-10 bg-[#F15D49] flex items-center justify-center rounded-lg text-white font-bold text-xl tracking-tighter shadow-md shadow-[#F15D49]/20">
                     🦉
@@ -112,14 +106,12 @@
                 <span class="text-2xl font-extrabold text-white tracking-tight">HOOT<span class="text-[#F15D49]">CODERS</span></span>
             </div>
 
-            <!-- Navigation Links -->
             <nav class="hidden lg:flex items-center gap-8 font-semibold text-gray-300 text-sm">
                 <a href="#" onclick="showView('landing')" class="text-[#F15D49] hover:text-[#D94E3B] transition">My Wings</a>
                 <a href="#" onclick="showView('events')" class="hover:text-[#F15D49] transition">EVENTS</a>
                 <a href="#" id="nav-dash-link" onclick="showView('dashboard')" class="hidden-view hover:text-[#F15D49] transition">WORKSPACE</a>
             </nav>
 
-            <!-- Auth Interface Controls -->
             <div class="flex items-center gap-4">
                 <div id="guest-actions" class="flex items-center gap-4">
                     <button onclick="openLoginModal()" class="text-sm font-semibold text-gray-200 hover:text-[#F15D49] transition">Login</button>
@@ -154,7 +146,6 @@
         </div>
     </header>
 
-    <!-- VIEW 1: LANDING LAYOUT CANVAS -->
     <main id="view-landing">
         <section class="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28 bg-[#0B0F1A]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
@@ -185,7 +176,6 @@
                     </div>
                 </div>
 
-                <!-- Right Side Home Page Image Integration Layer -->
                 <div class="relative lg:ml-4 flex justify-center items-center select-none" data-aos="fade-left" data-aos-duration="1000">
                     <div class="absolute inset-0 bg-gradient-to-tr from-[#F15D49]/20 to-orange-500/10 rounded-3xl opacity-40 blur-2xl pointer-events-none"></div>
                     <div id="interactive-owl-node" onclick="triggerOwlHootEffects()" class="owl-container relative w-full max-w-[450px] transform hover:scale-[1.03] active:scale-95 transition duration-500 cursor-pointer">
@@ -198,7 +188,6 @@
         </section>
     </main>
 
-    <!-- VIEW 2: ORANGE CLICK-ANYWHERE-TO-FLIP EVENTS PANEL -->
     <main id="view-events" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="mb-12 text-center">
             <h2 class="text-3xl font-extrabold tracking-tight text-white">Upcoming Hackathons & Tech Events</h2>
@@ -206,31 +195,20 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Event Card 1 -->
             <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-1')">
                 <div id="event-card-inner-1" class="flip-card-inner w-full h-full">
-                    <div class="flip-card-front bg-gradient-to-br from-orange-500 to-amber-600 text-white p-8 flex flex-col justify-between shadow-xl shadow-orange-500/10 border border-orange-400">
-                        <div class="space-y-4">
-                            <div class="h-16 w-12 bg-white/20 rounded-2xl flex items-center justify-center text-3xl text-white">
-                                <i class="fa-solid fa-code-fork"></i>
-                            </div>
-                            <div>
-                                <span class="text-xs uppercase font-mono tracking-widest text-orange-100 font-bold block mb-1">Hackathon</span>
-                                <h3 class="text-2xl font-black tracking-tight text-white">Owl Code Sprint 2026</h3>
-                            </div>
+                    <div class="flip-card-front rounded-2xl overflow-hidden flex flex-col justify-end shadow-2xl relative border-2 border-[#F15D49] group bg-[#0F1322]">
+                        <div class="absolute inset-0 z-0 flex items-center justify-center">
+                            <img src="https://file.garden/alSdpaXzClCO76yf/typing.PNG" alt="Typing Sprint Background" class="w-full h-full aspect-square object-cover select-none group-hover:scale-[1.03] transition duration-700 ease-out" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
                         </div>
-                        <div class="h-6"></div>
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-3 text-xs font-mono text-orange-100 border-t border-white/10 pt-4">
-                                <div class="flex items-center gap-1.5"><i class="fa-regular fa-calendar-days text-white"></i> July 25, 2026</div>
-                                <div class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-white"></i> 09:00 AM</div>
-                            </div>
-                            <button onclick="handleRegisterTrigger(event, 'Owl Code Sprint 2026')" class="w-full bg-slate-950 hover:bg-slate-900 text-orange-400 font-bold text-xs py-3 rounded-xl shadow-lg transition tracking-wide transform active:scale-95">
+                        <div class="relative z-10 p-6 w-full">
+                            <button onclick="handleRegisterTrigger(event, 'Owl Code Sprint 2026')" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-xl transform active:scale-95 tracking-wide">
                                 Register for Event
                             </button>
                         </div>
                     </div>
-                    <div class="flip-card-back bg-slate-950 text-slate-200 border border-slate-800 p-8 flex flex-col justify-between shadow-xl">
+                    <div class="flip-card-back bg-slate-950 text-slate-200 border-2 border-[#F15D49] p-8 flex flex-col justify-between shadow-xl">
                         <div class="space-y-4">
                             <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
                                 <i class="fa-solid fa-circle-info text-orange-500"></i> About the Event
@@ -244,31 +222,20 @@
                 </div>
             </div>
 
-            <!-- Event Card 2 -->
             <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-2')">
                 <div id="event-card-inner-2" class="flip-card-inner w-full h-full">
-                    <div class="flip-card-front bg-gradient-to-br from-orange-500 to-amber-600 text-white p-8 flex flex-col justify-between shadow-xl shadow-orange-500/10 border border-orange-400">
-                        <div class="space-y-4">
-                            <div class="h-16 w-12 bg-white/20 rounded-2xl flex items-center justify-center text-3xl text-white">
-                                <i class="fa-solid fa-brain"></i>
-                            </div>
-                            <div>
-                                <span class="text-xs uppercase font-mono tracking-widest text-orange-100 font-bold block mb-1">Evaluation Masterclass</span>
-                                <h3 class="text-2xl font-black tracking-tight text-white">Crowlytics Logic Array</h3>
-                            </div>
+                    <div class="flip-card-front rounded-2xl overflow-hidden flex flex-col justify-end shadow-2xl relative border-2 border-[#F15D49] group bg-[#0F1322]">
+                        <div class="absolute inset-0 z-0 flex items-center justify-center">
+                            <img src="https://file.garden/alSdpaXzClCO76yf/coder.jpeg" alt="Coder Challenge Background" class="w-full h-full aspect-square object-cover select-none group-hover:scale-[1.03] transition duration-700 ease-out" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
                         </div>
-                        <div class="h-6"></div>
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-3 text-xs font-mono text-orange-100 border-t border-white/10 pt-4">
-                                <div class="flex items-center gap-1.5"><i class="fa-regular fa-calendar-days text-white"></i> Aug 02, 2026</div>
-                                <div class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-white"></i> 02:00 PM</div>
-                            </div>
-                            <button onclick="handleRegisterTrigger(event, 'Crowlytics Logic Array')" class="w-full bg-slate-950 hover:bg-slate-900 text-orange-400 font-bold text-xs py-3 rounded-xl shadow-lg transition tracking-wide transform active:scale-95">
+                        <div class="relative z-10 p-6 w-full">
+                            <button onclick="handleRegisterTrigger(event, 'Crowlytics Logic Array')" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-xl transform active:scale-95 tracking-wide">
                                 Register for Event
                             </button>
                         </div>
                     </div>
-                    <div class="flip-card-back bg-slate-950 text-slate-200 border border-slate-800 p-8 flex flex-col justify-between shadow-xl">
+                    <div class="flip-card-back bg-slate-950 text-slate-200 border-2 border-[#F15D49] p-8 flex flex-col justify-between shadow-xl">
                         <div class="space-y-4">
                             <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
                                 <i class="fa-solid fa-circle-info text-orange-500"></i> About the Event
@@ -281,10 +248,36 @@
                     </div>
                 </div>
             </div>
+
+            <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-3')">
+                <div id="event-card-inner-3" class="flip-card-inner w-full h-full">
+                    <div class="flip-card-front rounded-2xl overflow-hidden flex flex-col justify-end shadow-2xl relative border-2 border-[#F15D49] group bg-[#0F1322]">
+                        <div class="absolute inset-0 z-0 flex items-center justify-center">
+                            <img src="https://file.garden/alSdpaXzClCO76yf/Programming%20quiz.png" alt="Programming Quiz Challenge Background" class="w-full h-full aspect-square object-cover select-none group-hover:scale-[1.03] transition duration-700 ease-out" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                        </div>
+                        <div class="relative z-10 p-6 w-full">
+                            <button onclick="handleRegisterTrigger(event, 'Programming Quiz')" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-xl transform active:scale-95 tracking-wide">
+                                Register for Event
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flip-card-back bg-slate-950 text-slate-200 border-2 border-[#F15D49] p-8 flex flex-col justify-between shadow-xl">
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-info text-orange-500"></i> Event Target Data
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Join the dynamic algorithmic evaluation array. Test your code execution efficiency, syntactic optimization, and parsing benchmarks.
+                            </p>
+                        </div>
+                        <div class="text-center text-xs font-mono text-slate-500 uppercase tracking-wider">Click anywhere to flip back</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- VIEW 3: WORKSPACE DASHBOARD VIEW -->
     <main id="view-dashboard" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="bg-[#111827] rounded-3xl border border-white/10 p-8 sm:p-12 text-center shadow-xl space-y-6 max-w-2xl mx-auto">
             <div class="h-24 w-24 bg-[#F15D49]/10 text-[#F15D49] rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce">
@@ -297,10 +290,8 @@
         </div>
     </main>
 
-    <!-- Modals Overlay System Container -->
     <div id="modal-overlay" class="hidden-view fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
         
-        <!-- STANDARD ACCOUNT REGISTRATION MODAL -->
         <div id="register-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-2xl rounded-2xl p-6 sm:p-8 shadow-2xl relative">
             <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">🦉 Create HOOT Account</h2>
@@ -343,36 +334,48 @@
             </form>
         </div>
 
-        <!-- TARGETED EVENT REGISTRATION FORM MODAL -->
-        <div id="event-register-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-md rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+        <div id="event-register-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-3xl rounded-2xl p-6 sm:p-8 shadow-2xl relative">
             <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h2 class="text-lg font-bold text-white mb-1 flex items-center gap-2"><span class="text-orange-500">🏆</span> Event Registration</h2>
             <p id="event-target-title" class="text-xs font-mono text-gray-400 mb-6 truncate"></p>
             
-            <form id="eventRegForm" onsubmit="handleEventRegistrationSubmit(event)" class="space-y-4">
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Full Name <span class="text-orange-500">*</span></label>
-                    <input type="text" id="event-name" required placeholder="Enter your full name" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
+            <form id="eventRegForm" onsubmit="handleEventRegistrationSubmit(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <div class="space-y-4">
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Full Name <span class="text-orange-500">*</span></label>
+                        <input type="text" id="event-name" required placeholder="Enter your full name" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">SUC Number <span class="text-orange-500">*</span></label>
+                        <input type="text" id="event-suc" required placeholder="e.g., 1NC24CS123" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Branch / Department <span class="text-orange-500">*</span></label>
+                        <input type="text" id="event-dept" required placeholder="e.g., Computer Science" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Group Designation <span class="text-orange-500">*</span></label>
+                        <input type="text" id="event-group" required placeholder="e.g., Group A" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
+                    </div>
                 </div>
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">SUC Number <span class="text-orange-500">*</span></label>
-                    <input type="text" id="event-suc" required placeholder="e.g., 1NC24CS123" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
+
+                <div class="bg-[#0B0F1A] border border-white/5 rounded-xl p-5 flex flex-col items-center justify-between h-full text-center min-h-[300px]">
+                    <div>
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded-md mb-2 inline-block">Fee Verification Required</span>
+                        <h4 class="text-xs font-bold text-slate-300">Scan UPI Node via Admin Terminal</h4>
+                    </div>
+                    
+                    <div class="my-4 h-36 w-36 bg-white p-2 rounded-lg shadow-inner flex items-center justify-center relative group">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=HOOT_CODERS_GATEWAY_VERIFICATION" alt="Admin Gate QR Terminal Address" class="w-full h-full object-contain" />
+                    </div>
+
+                    <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3 rounded-xl shadow-lg transition duration-200">
+                        Submit & Complete Registration
+                    </button>
                 </div>
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Branch / Department <span class="text-orange-500">*</span></label>
-                    <input type="text" id="event-dept" required placeholder="e.g., Computer Science" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
-                </div>
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Group Designation <span class="text-orange-500">*</span></label>
-                    <input type="text" id="event-group" required placeholder="e.g., Group A" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
-                </div>
-                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3 rounded-xl shadow-lg transition mt-4">
-                    Submit Registration
-                </button>
             </form>
         </div>
 
-        <!-- SUCCESS ALERT BLOCK -->
         <div id="success-card" class="hidden-view bg-white text-slate-800 w-full max-w-sm rounded-2xl p-8 text-center shadow-2xl border border-slate-100">
             <div class="h-20 w-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner">
                 <i class="fa-solid fa-circle-check animate-scale"></i>
@@ -381,7 +384,6 @@
             <p class="text-xs text-slate-500 mt-2">Proceeding to next step...</p>
         </div>
 
-        <!-- PASSWORD MODAL -->
         <div id="password-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative">
             <h2 class="text-lg font-bold text-white mb-2">Set Account Password</h2>
             <p class="text-xs text-gray-400 mb-6">Create a secure entry key to access the capability platforms automatically next time.</p>
@@ -395,7 +397,6 @@
             </form>
         </div>
 
-        <!-- LOGIN CARD -->
         <div id="login-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative">
             <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h2 class="text-lg font-bold text-white mb-6">Welcome Back</h2>
@@ -414,14 +415,12 @@
         </div>
     </div>
 
-    <!-- Footer Area -->
     <footer class="bg-slate-950 text-gray-500 pt-16 pb-12 border-t border-white/5 mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-[11px]">
             <p>&copy; 2026 HOOT CODERS. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- Firebase SDK Logic Modules -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, set, push, get, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
@@ -695,8 +694,9 @@
             }
         }
     </script>
-    <!-- AOS Framework Script Hook -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init({ duration: 800, once: true });</script>
 </body>
 </html>
+
+
