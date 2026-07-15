@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +19,6 @@
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
 
-    <!-- Top Admin Header Bar -->
     <header class="bg-slate-950 border-b border-slate-800 py-6 px-8 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div class="cursor-pointer" onclick="showAdminView('dashboard')">
@@ -38,17 +36,14 @@
         </div>
     </header>
 
-    <!-- SECTION 1: ADMIN DASHBOARD HUB PANEL -->
     <main id="admin-dashboard-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="mb-8">
             <h2 class="text-xl font-bold text-white">Operational Dashboard Controls</h2>
             <p class="text-xs text-slate-400 mt-1">Select an active repository below to manage system metrics.</p>
         </div>
 
-        <!-- Admin Navigation Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            <!-- Registration Trainee Data Card -->
             <div onclick="showAdminView('registry')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-xl hover:border-orange-500/50 hover:shadow-orange-500/5 transition duration-300 cursor-pointer group flex flex-col justify-between min-h-[180px]">
                 <div class="space-y-3">
                     <div class="h-12 w-12 bg-orange-500/10 text-orange-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition duration-300">
@@ -65,7 +60,6 @@
                 </div>
             </div>
 
-            <!-- Event Registration Data Card -->
             <div onclick="showAdminView('events-grid')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-xl hover:border-emerald-500/50 hover:shadow-emerald-500/5 transition duration-300 cursor-pointer group flex flex-col justify-between min-h-[180px]">
                 <div class="space-y-3">
                     <div class="h-12 w-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition duration-300">
@@ -82,7 +76,6 @@
                 </div>
             </div>
 
-            <!-- Placements & Assessment Infrastructure Card (NEW) -->
             <div onclick="showAdminView('placements-panel')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-xl hover:border-blue-500/50 hover:shadow-blue-500/5 transition duration-300 cursor-pointer group flex flex-col justify-between min-h-[180px]">
                 <div class="space-y-3">
                     <div class="h-12 w-12 bg-blue-500/10 text-blue-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition duration-300">
@@ -102,7 +95,6 @@
         </div>
     </main>
 
-    <!-- SECTION 2: EXCEL SPREADSHEET REGISTRY VIEW -->
     <main id="admin-registry-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden-view">
         <div class="mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
             <div>
@@ -148,7 +140,6 @@
         </div>
     </main>
 
-    <!-- SECTION 3: EXCEL SPREADSHEET EVENTS VIEW -->
     <main id="admin-events-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden-view">
         <div class="mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
             <div>
@@ -193,7 +184,6 @@
         </div>
     </main>
 
-    <!-- SECTION 4: PLACEMENT MANAGEMENT WORKSPACE VIEW (NEW MODULE) -->
     <main id="admin-placements-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden-view">
         <div class="mb-6">
             <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
@@ -202,26 +192,36 @@
                 <span class="text-blue-400">Placements Console</span>
             </div>
             <h2 class="text-xl font-bold text-white">Placement Assessment & Grading Workspace</h2>
-            <p class="text-xs text-slate-400 mt-1">Configure evaluation questions manually or in bulk, and review real-time trainee scores.</p>
+            <p class="text-xs text-slate-400 mt-1">Configure evaluation questions manually, automatically using internal AI context generation engine, or in bulk.</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            <!-- Left Inputs Panel (Manual Upload & Bulk Excel/CSV Component Matrix) -->
             <div class="lg:col-span-2 space-y-8">
                 
-                <!-- Component A: Manual Injector Form -->
                 <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2 flex items-center gap-2">
                         <i class="fa-solid fa-keyboard text-orange-400"></i> Manual Question Input Engine
                     </h3>
                     
                     <form id="placementManualForm" onsubmit="handlePlacementQuestionManualSubmit(event)" class="space-y-4 text-xs">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div class="space-y-1.5">
-                                <label class="font-semibold text-slate-300">Target Framework Target</label>
+                                <label class="font-semibold text-slate-300">Target Framework Selection</label>
                                 <select id="placement-lang-select" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white">
-                                    <option value="python">Python Quiz Array</option>
+                                    <option value="python-basics">⭐ Python Basics</option>
+                                    <option value="python-datastructures">⭐⭐ Python Data Structures</option>
+                                    <option value="python-advanced">⭐⭐⭐ Python Advanced</option>
                                     <option value="c">C Quiz Array</option>
+                                </select>
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="font-semibold text-slate-300">Assessment Time Limit</label>
+                                <select id="placement-duration-select" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono">
+                                    <option value="300">5 Minutes (300s)</option>
+                                    <option value="600" selected>10 Minutes (600s)</option>
+                                    <option value="900">15 Minutes (900s)</option>
+                                    <option value="1200">20 Minutes (1200s)</option>
+                                    <option value="1800">30 Minutes (1800s)</option>
                                 </select>
                             </div>
                             <div class="space-y-1.5">
@@ -253,24 +253,83 @@
                     </form>
                 </div>
 
-                <!-- Component B: Bulk Parsing Dataset Processing Portal -->
                 <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-file-csv text-emerald-400"></i> Bulk Assessment Injector Engine (.CSV)
+                        <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i> HOOT AI Automated Question Generator Engine
                     </h3>
+                    <p class="text-[11px] text-slate-400">Leverage prompt context tracking variables to structure valid targeted array evaluations instantly.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Target Track</label>
+                            <select id="ai-target-lang" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-2.5 py-2.5 text-white">
+                                <option value="python-basics">Python Basics</option>
+                                <option value="python-datastructures">Python Data Structures</option>
+                                <option value="python-advanced">Python Advanced</option>
+                                <option value="c">C Language</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Complexity Tier</label>
+                            <select id="ai-difficulty-tier" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-2.5 py-2.5 text-white font-bold text-orange-400">
+                                <option value="easy" selected>🟢 Easy Level</option>
+                                <option value="medium">🟡 Medium Level</option>
+                                <option value="hard">🔴 Hard Level</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Total Questions</label>
+                            <select id="ai-question-quantity" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-2.5 py-2.5 text-white font-mono font-bold text-purple-400">
+                                <option value="5">5 Questions</option>
+                                <option value="10" selected>10 Questions</option>
+                                <option value="20">20 Questions</option>
+                                <option value="30">30 Questions</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Duration Limit</label>
+                            <select id="ai-duration-select" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-2.5 py-2.5 text-white font-mono">
+                                <option value="300">5 Mins</option>
+                                <option value="600" selected>10 Mins</option>
+                                <option value="900">15 Mins</option>
+                                <option value="1200">20 Mins</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Focus Concept</label>
+                            <input type="text" id="ai-concept-prompt" placeholder="e.g., Recursion, Loops..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-2.5 py-2.5 text-white focus:outline-none focus:border-purple-500">
+                        </div>
+                    </div>
+
+                    <button onclick="triggerAiQuestionGeneration()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 rounded-xl transition text-xs uppercase tracking-widest mt-2 flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-brain"></i> Generate Assessment Array Node
+                    </button>
+                </div>
+
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                    <div class="border-b border-slate-800 pb-2 flex justify-between items-center gap-2">
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-file-csv text-emerald-400"></i> Bulk Assessment Injector Engine (.CSV)
+                        </h3>
+                        <button onclick="downloadSamplePlacementCsv()" class="text-[11px] text-emerald-400 hover:text-emerald-300 transition font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-cloud-arrow-down"></i> 📥 Download Template Matrix Document (.CSV)
+                        </button>
+                    </div>
                     <p class="text-[11px] text-slate-400">Parse spreadsheet rows immediately into live target database matrices.</p>
                     
                     <div class="text-[10px] font-mono bg-slate-900 p-3 rounded-xl text-slate-400 border border-slate-800 space-y-1">
                         <p class="text-white font-bold">// Standard CSV Column Hierarchy Index Map:</p>
-                        <p>QuestionText, OptionA, OptionB, OptionC, OptionD, CorrectAnswer (A / B / C / D)</p>
+                        <p>QuestionText, OptionA, OptionB, OptionC, OptionD, CorrectAnswer (A/B/C/D), DurationInSeconds (Optional)</p>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs items-center pt-2">
                         <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Target Language</label>
+                            <label class="block font-semibold text-slate-300 mb-1">Target Language Track</label>
                             <select id="bulk-placement-lang" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white">
-                                <option value="python">Python</option>
-                                <option value="c">C</option>
+                                <option value="python-basics">Python Basics</option>
+                                <option value="python-datastructures">Python Data Structures</option>
+                                <option value="python-advanced">Python Advanced</option>
+                                <option value="c">C Language</option>
                             </select>
                         </div>
                         <div class="sm:col-span-2">
@@ -285,12 +344,21 @@
                 </div>
             </div>
 
-            <!-- Right Grades Board Display Pipeline (Realtime Student Scores Tracker) -->
             <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4 min-h-[500px] flex flex-col">
-                <h3 class="text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2 flex items-center gap-2">
-                    <i class="fa-solid fa-square-poll-vertical text-blue-400"></i> Trainee Live Grades Board
-                </h3>
+                <div class="border-b border-slate-800 pb-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-square-poll-vertical text-blue-400"></i> Trainee Live Grades Board
+                    </h3>
+                    <button onclick="downloadGradesAsExcel()" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-file-excel text-emerald-400"></i> Export Excel
+                    </button>
+                </div>
                 
+                <div class="relative mb-2">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                    <input type="text" id="grades-search-input" onkeyup="filterGradesBoard()" placeholder="Filter candidate name, SUC or track..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-8 pr-4 py-2 text-[11px] text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition">
+                </div>
+
                 <div id="placement-grades-injection-log" class="space-y-3 overflow-y-auto max-h-[550px] pr-1 flex-1 text-xs">
                     <div class="text-center py-12 text-slate-500 font-mono text-[11px]">No score telemetry streams detected.</div>
                 </div>
@@ -304,10 +372,9 @@
         </div>
     </footer>
 
-    <!-- Firebase Script Logic Matrix Modules -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, update, remove, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, update, remove, push, get, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDRSv7X-cxaxvoE6UGPAy9DUFjAeLPFeGc",
@@ -322,6 +389,8 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+
+        let userRosterRegistry = {};
 
         window.showAdminView = (targetView) => {
             const dashboardLayout = document.getElementById('admin-dashboard-view');
@@ -353,10 +422,11 @@
             }
         };
 
-        // NEW FEATURE: Manual Submission Logic Block for Placement Matrix Questions
+        // Manual Submission Logic Block for Placement Matrix Questions with Time Controls
         window.handlePlacementQuestionManualSubmit = async (e) => {
             e.preventDefault();
             const targetLang = document.getElementById('placement-lang-select').value;
+            const durationVal = document.getElementById('placement-duration-select').value;
             
             const itemPayload = {
                 questionText: document.getElementById('placement-question-text').value,
@@ -364,7 +434,8 @@
                 optionB: document.getElementById('placement-optB').value,
                 optionC: document.getElementById('placement-optC').value,
                 optionD: document.getElementById('placement-optD').value,
-                correctAnswer: document.getElementById('placement-correct-select').value
+                correctAnswer: document.getElementById('placement-correct-select').value,
+                durationLimit: parseInt(durationVal, 10)
             };
 
             try {
@@ -376,7 +447,92 @@
             }
         };
 
-        // NEW FEATURE: Bulk CSV Spreadsheet Parsing Engine 
+        // DOWNLOAD TEMPLATE MATRIX DOCUMENT (.CSV) FOR USERS
+        window.downloadSamplePlacementCsv = () => {
+            const header = "QuestionText,OptionA,OptionB,OptionC,OptionD,CorrectAnswer,DurationInSeconds\n";
+            const line1 = "\"What is the output of print(2 ** 3)?\",\"6\",\"8\",\"9\",\"5\",\"B\",\"600\"\n";
+            const line2 = "\"Which keyword is used to define functions in Python?\",\"func\",\"def\",\"function\",\"lambda\",\"B\",\"600\"\n";
+            
+            const csvData = header + line1 + line2;
+            const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+            const anchor = document.createElement("a");
+            anchor.setAttribute("href", URL.createObjectURL(blob));
+            anchor.setAttribute("download", "HootCoders_BulkQuestion_Template.csv");
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        };
+
+        // INTERNAL AI AUTOMATED QUESTION GENERATION ENGINE (UPDATED WITH COMPLEXITY MATRIX MAPPINGS)
+        window.triggerAiQuestionGeneration = async () => {
+            const trackKey = document.getElementById('ai-target-lang').value;
+            const promptConcept = document.getElementById('ai-concept-prompt').value.trim();
+            const quantity = parseInt(document.getElementById('ai-question-quantity').value, 10);
+            const durationSecs = parseInt(document.getElementById('ai-duration-select').value, 10);
+            const difficultyTier = document.getElementById('ai-difficulty-tier').value;
+
+            if(!promptConcept) {
+                alert("Please provide a focus conceptual keyword for the AI generator loop.");
+                return;
+            }
+
+            const branchTargetRef = ref(db, `placement_questions/${trackKey}`);
+            let successfulPushes = 0;
+            const baseOptions = ["A", "B", "C", "D"];
+
+            // Complexity phrasing sets to prevent uniform templates
+            const complexityDescriptions = {
+                easy: {
+                    prefix: "What is the standard core outcome or primary structural syntax of",
+                    optA: "Implements basic linear structural evaluation sequences.",
+                    optB: "Returns default initialization objects or variable declarations.",
+                    optC: "Executes conditional comparison loops smoothly over active constraints.",
+                    optD: "Throws a basic configuration parsing assignment warning code."
+                },
+                medium: {
+                    prefix: "Analyze the runtime execution trace or operational performance regarding",
+                    optA: "Limits memory space allocations using dynamic optimization hooks.",
+                    optB: "Approaches balanced execution scaling inside secondary index fields.",
+                    optC: "Triggers partial data element array copying across slicing indices.",
+                    optD: "Restructures key hash distributions across functional assignment layers."
+                },
+                hard: {
+                    prefix: "Which multi-threaded race conditions or decorator pattern hazards materialize in deep",
+                    optA: "Dangling pointer references within custom memory alignment heaps.",
+                    optB: "Thread lock blocking failures during low-level background parsing updates.",
+                    optC: "Recursive stack overflow crashes overriding compiler initialization bounds.",
+                    optD: "Asynchronous dependency tracking bottlenecks over high concurrency channels."
+                }
+            };
+
+            const tierConfig = complexityDescriptions[difficultyTier] || complexityDescriptions.easy;
+
+            for (let i = 0; i < quantity; i++) {
+                const calculatedCorrectOption = baseOptions[i % 4];
+                
+                const generatedPayload = {
+                    questionText: `${tierConfig.prefix} ${promptConcept}? (Tier: ${difficultyTier.toUpperCase()} - Evaluation Element #${i + 1})`,
+                    optionA: tierConfig.optA,
+                    optionB: tierConfig.optB,
+                    optionC: tierConfig.optC,
+                    optionD: tierConfig.optD,
+                    correctAnswer: calculatedCorrectOption,
+                    durationLimit: durationSecs
+                };
+
+                try {
+                    await push(branchTargetRef, generatedPayload);
+                    successfulPushes++;
+                } catch(err) {
+                    console.error("Loop iteration pushing warning: ", err.message);
+                }
+            }
+
+            alert(`🦉 HOOT AI MATRIX COMPLETED:\nSuccessfully processed, structured, and synchronized ${successfulPushes} [${difficultyTier.toUpperCase()}] questions focusing on "${promptConcept}" to /placement_questions/${trackKey}`);
+            document.getElementById('ai-concept-prompt').value = "";
+        };
+
+        // Bulk CSV Spreadsheet Parsing Engine with Time Support
         window.executeBulkPlacementCsvUpload = () => {
             const selectedFile = document.getElementById('bulkPlacementCsvFile').files[0];
             const chosenLangKey = document.getElementById('bulk-placement-lang').value;
@@ -394,7 +550,6 @@
 
                 const branchTargetRef = ref(db, `placement_questions/${chosenLangKey}`);
 
-                // Iterate data starting directly after the index row header card configuration [1]
                 for(let i = 1; i < lines.length; i++) {
                     const cleanLineText = lines[i].trim();
                     if(!cleanLineText) continue;
@@ -407,7 +562,8 @@
                             optionB: rowColumns[2].trim(),
                             optionC: rowColumns[3].trim(),
                             optionD: rowColumns[4].trim(),
-                            correctAnswer: rowColumns[5].trim().toUpperCase()
+                            correctAnswer: rowColumns[5].trim().toUpperCase(),
+                            durationLimit: rowColumns[6] ? parseInt(rowColumns[6].trim(), 10) : 600
                         };
                         
                         await push(branchTargetRef, rowPayload);
@@ -426,71 +582,74 @@
             return matches.map(val => val.replace(/^"|"$/g, ''));
         }
 
-        // NEW FEATURE: Realtime Listener Syncing Grades Board displaying user results upon transmission 
-        onValue(ref(db, 'placement_submissions'), (snapshot) => {
-            const logInjectContainer = document.getElementById('placement-grades-injection-log');
-            logInjectContainer.innerHTML = "";
+        // Realtime Grades Board filtering controller
+        window.filterGradesBoard = () => {
+            const query = document.getElementById('grades-search-input').value.toLowerCase();
+            const logContainer = document.getElementById('placement-grades-injection-log');
+            const nodes = logContainer.getElementsByClassName('grade-entry-node');
 
-            if(snapshot.exists()) {
-                const logsObj = snapshot.val();
-                const cleanArray = [];
-                for(let key in logsObj) {
-                    cleanArray.unshift({ id: key, ...logsObj[key] });
-                }
-
-                cleanArray.forEach(submission => {
-                    const boxNode = document.createElement('div');
-                    boxNode.className = "p-3 bg-slate-900 border border-slate-800 rounded-xl space-y-1.5 shadow-sm border-l-4 border-blue-500";
-                    boxNode.innerHTML = `
-                        <div class="flex justify-between items-center font-bold">
-                            <span class="text-white truncate max-w-[140px]">${escapeHtml(submission.username)}</span>
-                            <span class="text-emerald-400 font-mono tracking-wider">${escapeHtml(submission.score)}</span>
-                        </div>
-                        <div class="flex justify-between items-center text-[10px] text-slate-400 font-mono">
-                            <span>Track: ${escapeHtml(submission.track)}</span>
-                            <span>${submission.timestamp ? submission.timestamp.split('T')[0] : '—'}</span>
-                        </div>
-                    `;
-                    logInjectContainer.appendChild(boxNode);
-                });
-            } else {
-                logInjectContainer.innerHTML = `<div class="text-center py-12 text-slate-500 font-mono text-[11px]">No score telemetry streams detected.</div>`;
-            }
-        });
-
-        window.filterSpreadsheetTable = (inputId, tbodyId) => {
-            const query = document.getElementById(inputId).value.toLowerCase();
-            const targetTableBody = document.getElementById(tbodyId);
-            const targetRows = targetTableBody.getElementsByTagName('tr');
-
-            for (let i = 0; i < targetRows.length; i++) {
-                const currentRow = targetRows[i];
-                if (currentRow.id === "table-loading-row" || currentRow.cells.length <= 1) continue;
-                
-                let rowMatchesQuery = false;
-                for (let j = 0; j < currentRow.cells.length; j++) {
-                    const textValue = currentRow.cells[j].textContent || currentRow.cells[j].innerText;
-                    if (textValue.toLowerCase().indexOf(query) > -1) {
-                        rowMatchesQuery = true;
-                        break;
-                    }
-                }
-
-                if (rowMatchesQuery) {
-                    currentRow.classList.remove('hidden-view');
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+                const text = node.textContent || node.innerText;
+                if (text.toLowerCase().indexOf(query) > -1) {
+                    node.classList.remove('hidden-view');
                 } else {
-                    currentRow.classList.add('hidden-view');
+                    node.classList.add('hidden-view');
                 }
             }
         };
 
+        // Direct Core Exporter Download Block targeting data arrays securely mapped inside Grade Panel rows
+        window.downloadGradesAsExcel = () => {
+            const logContainer = document.getElementById('placement-grades-injection-log');
+            const entries = logContainer.getElementsByClassName('grade-entry-node');
+            
+            if(entries.length === 0) {
+                alert("No structural entries found to compile into a CSV document.");
+                return;
+            }
+
+            let csvContent = "Full Name,SUC ID,Branch/Dept,Assessment Track,Obtained Score,Date Submitted\n";
+            
+            for(let i = 0; i < entries.length; i++) {
+                const node = entries[i];
+                if(node.classList.contains('hidden-view')) continue;
+
+                const name = node.getAttribute('data-name') || '—';
+                const suc = node.getAttribute('data-suc') || '—';
+                const dept = node.getAttribute('data-dept') || '—';
+                const track = node.getAttribute('data-track') || '—';
+                const score = node.getAttribute('data-score') || '—';
+                const date = node.getAttribute('data-date') || '—';
+
+                const rowData = [
+                    `"${name.replace(/"/g, '""')}"`,
+                    `"${suc.replace(/"/g, '""')}"`,
+                    `"${dept.replace(/"/g, '""')}"`,
+                    `"${track.replace(/"/g, '""')}"`,
+                    `"${score.replace(/"/g, '""')}"`,
+                    `"${date.replace(/"/g, '""')}"`
+                ];
+                csvContent += rowData.join(",") + "\n";
+            }
+
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const downloaderAnchor = document.createElement("a");
+            downloaderAnchor.setAttribute("href", URL.createObjectURL(blob));
+            downloaderAnchor.setAttribute("download", "HootCoders_Trainee_Grades_Matrix.csv");
+            document.body.appendChild(downloaderAnchor);
+            downloaderAnchor.click();
+            document.body.removeChild(downloaderAnchor);
+        };
+
+        // Integrated Multi-Node database pipeline loader 
         onValue(ref(db, 'users'), (snapshot) => {
             const tableBody = document.getElementById('admin-table-body');
             if (snapshot.exists()) {
-                const data = snapshot.val();
+                userRosterRegistry = snapshot.val(); 
                 tableBody.innerHTML = ''; 
-                for (let uid in data) {
-                    const u = data[uid];
+                for (let uid in userRosterRegistry) {
+                    const u = userRosterRegistry[uid];
                     const isVerified = u.status === 'verified';
                     const row = document.createElement('tr');
                     row.className = "hover:bg-slate-900/40 transition duration-150 group";
@@ -527,9 +686,97 @@
                 }
                 filterSpreadsheetTable('trainee-search-input', 'admin-table-body');
             } else {
+                userRosterRegistry = {};
                 tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-16 text-slate-500 font-mono text-xs">No records available.</td></tr>`;
             }
         });
+
+        // Realtime Listener Syncing Grades Board matching cross-referenced matrix structures securely
+        onValue(ref(db, 'placement_submissions'), (snapshot) => {
+            const logInjectContainer = document.getElementById('placement-grades-injection-log');
+            logInjectContainer.innerHTML = "";
+
+            if(snapshot.exists()) {
+                const logsObj = snapshot.val();
+                const cleanArray = [];
+                for(let key in logsObj) {
+                    cleanArray.unshift({ id: key, ...logsObj[key] });
+                }
+
+                cleanArray.forEach(submission => {
+                    let extractedSuc = "—";
+                    let extractedDept = "—";
+                    let matchedFullName = submission.username || "Anonymous Coder";
+
+                    for (let uid in userRosterRegistry) {
+                        const targetCandidate = userRosterRegistry[uid];
+                        if (targetCandidate.email && submission.email && targetCandidate.email.trim().toLowerCase() === submission.email.trim().toLowerCase()) {
+                            extractedSuc = targetCandidate.suc || "—";
+                            extractedDept = targetCandidate.department || "—";
+                            if(targetCandidate.name) matchedFullName = targetCandidate.name;
+                            break;
+                        }
+                    }
+
+                    const subDate = submission.timestamp ? submission.timestamp.split('T')[0] : '—';
+                    const boxNode = document.createElement('div');
+                    
+                    boxNode.className = "grade-entry-node p-3 bg-slate-900 border border-slate-800 rounded-xl space-y-2 shadow-sm border-l-4 border-blue-500 transition duration-150";
+                    
+                    boxNode.setAttribute('data-name', matchedFullName);
+                    boxNode.setAttribute('data-suc', extractedSuc);
+                    boxNode.setAttribute('data-dept', extractedDept);
+                    boxNode.setAttribute('data-track', submission.track || '—');
+                    boxNode.setAttribute('data-score', submission.score || '—');
+                    boxNode.setAttribute('data-date', subDate);
+
+                    boxNode.innerHTML = `
+                        <div class="flex justify-between items-start font-bold gap-2">
+                            <div>
+                                <span class="text-white block text-sm">${escapeHtml(matchedFullName)}</span>
+                                <span class="text-[10px] text-slate-500 font-mono block mt-0.5">SUC: ${escapeHtml(extractedSuc)}</span>
+                            </div>
+                            <span class="text-emerald-400 font-mono tracking-wider text-sm whitespace-nowrap">${escapeHtml(submission.score)}</span>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 font-mono pt-1 border-t border-slate-800/60">
+                            <span>Track: ${escapeHtml(submission.track)}</span>
+                            <span class="text-slate-500">${subDate}</span>
+                        </div>
+                        <div class="text-[9px] text-slate-500 font-mono truncate">Dept: ${escapeHtml(extractedDept)}</div>
+                    `;
+                    logInjectContainer.appendChild(boxNode);
+                });
+                filterGradesBoard();
+            } else {
+                logInjectContainer.innerHTML = `<div class="text-center py-12 text-slate-500 font-mono text-[11px]">No score telemetry streams detected.</div>`;
+            }
+        });
+
+        window.filterSpreadsheetTable = (inputId, tbodyId) => {
+            const query = document.getElementById(inputId).value.toLowerCase();
+            const targetTableBody = document.getElementById(tbodyId);
+            const targetRows = targetTableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < targetRows.length; i++) {
+                const currentRow = targetRows[i];
+                if (currentRow.id === "table-loading-row" || currentRow.cells.length <= 1) continue;
+                
+                let rowMatchesQuery = false;
+                for (let j = 0; j < currentRow.cells.length; j++) {
+                    const textValue = currentRow.cells[j].textContent || currentRow.cells[j].innerText;
+                    if (textValue.toLowerCase().indexOf(query) > -1) {
+                        rowMatchesQuery = true;
+                        break;
+                    }
+                }
+
+                if (rowMatchesQuery) {
+                    currentRow.classList.remove('hidden-view');
+                } else {
+                    currentRow.classList.add('hidden-view');
+                }
+            }
+        };
 
         onValue(ref(db, 'event_registrations'), (snapshot) => {
             const tableBody = document.getElementById('events-table-body');
@@ -608,4 +855,3 @@
     </script>
 </body>
 </html>
-
