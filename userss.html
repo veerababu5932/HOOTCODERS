@@ -26,7 +26,6 @@
             animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        /* Perspective and 3D Click-Flip Card System Styles */
         .perspective-container {
             perspective: 1000px;
         }
@@ -52,7 +51,6 @@
             transform: rotateY(180deg);
         }
 
-        /* Majestic Slower Owl Particle Flight Animation Engine */
         .owl-particle {
             position: fixed;
             pointer-events: none;
@@ -63,26 +61,15 @@
             filter: drop-shadow(0 4px 12px rgba(251, 146, 60, 0.4));
         }
         @keyframes flyAwaySlower {
-            0% {
-                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
-                opacity: 0;
-            }
-            15% {
-                opacity: 1;
-            }
-            70% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translate(var(--tw-tx), var(--tw-ty)) scale(1.8) rotate(var(--tw-rot));
-                opacity: 0;
-            }
+            0% { transform: translate(-50%, -50%) scale(0.3) rotate(0deg); opacity: 0; }
+            15% { opacity: 1; }
+            70% { opacity: 0.7; }
+            100% { transform: translate(var(--tw-tx), var(--tw-ty)) scale(1.8) rotate(var(--tw-rot)); opacity: 0; }
         }
 
-        /* Interactive Eye Lid Blinking Eyelid Layers */
         .owl-eyelid {
             position: absolute;
-            background-color: #3b2314; /* Matches character head palette */
+            background-color: #3b2314;
             border-radius: 50%;
             height: 0%;
             width: 58px;
@@ -93,6 +80,13 @@
         .owl-container.is-blinking .owl-eyelid {
             height: 58px;
         }
+        
+        .secure-exam-zone {
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+        }
     </style>
 </head>
 <body class="bg-[#0B0F1A] text-slate-100 antialiased">
@@ -100,22 +94,20 @@
     <header class="sticky top-0 z-50 bg-[#111827]/90 backdrop-blur-md border-b border-white/10 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center gap-2 cursor-pointer" onclick="showView('landing')">
-                <div class="h-10 w-10 bg-[#F15D49] flex items-center justify-center rounded-lg text-white font-bold text-xl tracking-tighter shadow-md shadow-[#F15D49]/20">
-                    🦉
-                </div>
+                <div class="h-10 w-10 bg-[#F15D49] flex items-center justify-center rounded-lg text-white font-bold text-xl tracking-tighter shadow-md shadow-[#F15D49]/20">🦉</div>
                 <span class="text-2xl font-extrabold text-white tracking-tight">HOOT<span class="text-[#F15D49]">CODERS</span></span>
             </div>
 
             <nav class="hidden lg:flex items-center gap-8 font-semibold text-gray-300 text-sm">
-                <a href="#" onclick="showView('landing')" class="text-[#F15D49] hover:text-[#D94E3B] transition">My Wings</a>
-                <a href="#" onclick="showView('events')" class="hover:text-[#F15D49] transition">EVENTS</a>
-                <a href="#" id="nav-dash-link" onclick="showView('dashboard')" class="hidden-view hover:text-[#F15D49] transition">WORKSPACE</a>
+                <a href="#" id="nav-wings-link" onclick="showView('landing')" class="text-[#F15D49] hover:text-[#D94E3B] transition">My Wings</a>
+                <a href="#" id="nav-events-link" onclick="showView('events')" class="hover:text-[#F15D49] transition">EVENTS</a>
+                <a href="#" id="nav-placements-link" onclick="showView('placements')" class="hover:text-[#F15D49] transition">PLACEMENTS</a>
             </nav>
 
             <div class="flex items-center gap-4">
                 <div id="guest-actions" class="flex items-center gap-4">
                     <button onclick="openLoginModal()" class="text-sm font-semibold text-gray-200 hover:text-[#F15D49] transition">Login</button>
-                    <button onclick="openRegisterModal()" class="bg-[#F15D49] hover:bg-[#D94E3B] text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-[#F15D49]/10 transition-all">Register</button>
+                    <button onclick="openRegisterModal()" class="bg-[#F15D49] hover:bg-[#D94E3B] text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg transition-all">Register</button>
                 </div>
 
                 <div id="auth-actions" class="hidden-view relative">
@@ -127,15 +119,8 @@
                             <p class="text-xs text-gray-400 font-medium">Signed in as</p>
                             <p id="dropdown-name" class="font-bold text-white truncate text-sm"></p>
                             <p id="dropdown-email" class="text-xs text-gray-400 truncate mb-2"></p>
-                            
-                            <div id="status-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold">
-                                <i class="fa-solid fa-circle-notch animate-spin text-xxs"></i> Verification Check
-                            </div>
                         </div>
                         <div class="px-2 pt-2">
-                            <button onclick="showView('dashboard')" class="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-[#0B0F1A] rounded-lg transition font-medium">
-                                <i class="fa-solid fa-gauge mr-2 opacity-70"></i> Workspace Dashboard
-                            </button>
                             <button onclick="logoutUser()" class="w-full text-left px-3 py-2 text-xs text-[#F15D49] hover:bg-[#F15D49]/10 rounded-lg transition font-bold mt-1">
                                 <i class="fa-solid fa-right-from-bracket mr-2 opacity-70"></i> Secure Logout
                             </button>
@@ -151,37 +136,20 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right" data-aos-duration="1000">
                     <div class="inline-flex items-center gap-2 bg-[#F15D49]/10 text-[#F15D49] px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border border-[#F15D49]/20">
-                        <span class="flex h-2 w-2 rounded-full bg-[#F15D49] animate-pulse"></span>
-                        The Gateway to Tech Excellence
+                        <span class="flex h-2 w-2 rounded-full bg-[#F15D49] animate-pulse"></span> The Gateway to Tech Excellence
                     </div>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
                         Code Wise Fly High. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F15D49] to-orange-400">with HOOT</span>
                     </h1>
                     <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-xl">
-                        Inspired by the wisdom of the owl, Hoot Coders empowers learners to code with confidence, think creatively, and build innovative solutions. Through practical training, live projects, and real-world experiences, we help every learner code wisely and fly high.
+                        Inspired by the wisdom of the owl, Hoot Coders empowers learners to code with confidence and fly high.
                     </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-white/5 pt-8">
-                        <div class="flex items-start gap-3">
-                            <div class="p-2 bg-[#F15D49]/10 text-[#F15D49] rounded-lg"><i class="fa-solid fa-graduation-cap"></i></div>
-                            <div><h4 class="font-bold text-white text-sm">100+ Courses</h4><p class="text-xs text-gray-400">Industry-aligned paths</p></div>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <div class="p-2 bg-[#F15D49]/10 text-[#F15D49] rounded-lg"><i class="fa-solid fa-user-tie"></i></div>
-                            <div><h4 class="font-bold text-white text-sm">Top Instructors</h4><p class="text-xs text-gray-400">Seasoned experts</p></div>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i class="fa-solid fa-certificate"></i></div>
-                            <div><h4 class="font-bold text-white text-sm">Global Certs</h4><p class="text-xs text-gray-400">Validate your skills</p></div>
-                        </div>
-                    </div>
                 </div>
-
                 <div class="relative lg:ml-4 flex justify-center items-center select-none" data-aos="fade-left" data-aos-duration="1000">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-[#F15D49]/20 to-orange-500/10 rounded-3xl opacity-40 blur-2xl pointer-events-none"></div>
-                    <div id="interactive-owl-node" onclick="triggerOwlHootEffects()" class="owl-container relative w-full max-w-[450px] transform hover:scale-[1.03] active:scale-95 transition duration-500 cursor-pointer">
+                    <div id="interactive-owl-node" onclick="triggerOwlHootEffects()" class="owl-container relative w-full max-w-[450px] transform hover:scale-[1.03] transition duration-500 cursor-pointer">
                         <div class="owl-eyelid top-[108px] left-[163px]"></div>
                         <div class="owl-eyelid top-[108px] left-[229px]"></div>
-                        <img src="https://file.garden/alSdpaXzClCO76yf/Jul%2013%2C%202026%2C%2012_20_55%20PM%20(1).png" alt="Hoot Coders Graphic Logo" class="w-full h-auto object-contain drop-shadow-[0_10px_30px_rgba(241,93,73,0.15)] rounded-2xl"/>
+                        <img src="https://file.garden/alSdpaXzClCO76yf/Jul%2013%2C%202026%2C%2012_20_55%20PM%20(1).png" alt="Hoot Coders Logo" class="w-full h-auto object-contain rounded-2xl"/>
                     </div>
                 </div>
             </div>
@@ -189,514 +157,217 @@
     </main>
 
     <main id="view-events" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="mb-12 text-center">
-            <h2 class="text-3xl font-extrabold tracking-tight text-white">Upcoming Hackathons & Tech Events</h2>
-            <p class="text-sm text-gray-400 mt-2">Click anywhere on the card container layout to flip it around.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="mb-12 text-center"><h2 class="text-3xl font-extrabold tracking-tight text-white">Upcoming Events</h2></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-1')">
                 <div id="event-card-inner-1" class="flip-card-inner w-full h-full">
-                    <div class="flip-card-front rounded-2xl overflow-hidden flex flex-col justify-end shadow-2xl relative border-2 border-[#F15D49] group bg-[#0F1322]">
-                        <div class="absolute inset-0 z-0 flex items-center justify-center">
-                            <img src="https://file.garden/alSdpaXzClCO76yf/typing.PNG" alt="Typing Sprint Background" class="w-full h-full aspect-square object-cover select-none group-hover:scale-[1.03] transition duration-700 ease-out" />
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-                        </div>
+                    <div class="flip-card-front rounded-2xl overflow-hidden flex flex-col justify-end shadow-2xl relative border-2 border-[#F15D49] bg-[#0F1322]">
+                        <img src="https://file.garden/alSdpaXzClCO76yf/typing.PNG" class="w-full h-full object-cover absolute inset-0 opacity-40" />
                         <div class="relative z-10 p-6 w-full">
-                            <button onclick="handleRegisterTrigger(event, 'Owl Code Sprint 2026')" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-xl transform active:scale-95 tracking-wide">
-                                Register for Event
-                            </button>
+                            <button onclick="handleRegisterTrigger(event, 'Owl Code Sprint 2026')" class="w-full bg-[#F15D49] text-white font-bold text-xs py-3.5 rounded-xl transition">Register for Event</button>
                         </div>
                     </div>
-                    <div class="flip-card-back bg-slate-950 text-slate-200 border-2 border-[#F15D49] p-8 flex flex-col justify-between shadow-xl">
-                        <div class="space-y-4">
-                            <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-circle-info text-orange-500"></i> About the Event
-                            </h4>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                A high-intensity programming challenge testing full-stack performance optimization and deep custom data parsing. Teams will compete live within the Owl Code terminal engine.
-                            </p>
-                        </div>
-                        <div class="text-center text-xs font-mono text-slate-500 uppercase tracking-wider">Click anywhere to flip back</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-2')">
-                <div id="event-card-inner-2" class="flip-card-inner w-full h-full">
-                    <div class="flip-card-front rounded-2xl overflow-hidden flex flex-col justify-end shadow-2xl relative border-2 border-[#F15D49] group bg-[#0F1322]">
-                        <div class="absolute inset-0 z-0 flex items-center justify-center">
-                            <img src="https://file.garden/alSdpaXzClCO76yf/coder.jpeg" alt="Coder Challenge Background" class="w-full h-full aspect-square object-cover select-none group-hover:scale-[1.03] transition duration-700 ease-out" />
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-                        </div>
-                        <div class="relative z-10 p-6 w-full">
-                            <button onclick="handleRegisterTrigger(event, 'Crowlytics Logic Array')" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-xl transform active:scale-95 tracking-wide">
-                                Register for Event
-                            </button>
-                        </div>
-                    </div>
-                    <div class="flip-card-back bg-slate-950 text-slate-200 border-2 border-[#F15D49] p-8 flex flex-col justify-between shadow-xl">
-                        <div class="space-y-4">
-                            <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-circle-info text-orange-500"></i> About the Event
-                            </h4>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                Deep dive session on algorithmic logical pattern recognition and data structures metrics mapping.
-                            </p>
-                        </div>
-                        <div class="text-center text-xs font-mono text-slate-500 uppercase tracking-wider">Click anywhere to flip back</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-3')">
-                <div id="event-card-inner-3" class="flip-card-inner w-full h-full">
-                    <div class="flip-card-front rounded-2xl overflow-hidden flex flex-col justify-end shadow-2xl relative border-2 border-[#F15D49] group bg-[#0F1322]">
-                        <div class="absolute inset-0 z-0 flex items-center justify-center">
-                            <img src="https://file.garden/alSdpaXzClCO76yf/Programming%20quiz.png" alt="Programming Quiz Challenge Background" class="w-full h-full aspect-square object-cover select-none group-hover:scale-[1.03] transition duration-700 ease-out" />
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-                        </div>
-                        <div class="relative z-10 p-6 w-full">
-                            <button onclick="handleRegisterTrigger(event, 'Programming Quiz')" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-xl transform active:scale-95 tracking-wide">
-                                Register for Event
-                            </button>
-                        </div>
-                    </div>
-                    <div class="flip-card-back bg-slate-950 text-slate-200 border-2 border-[#F15D49] p-8 flex flex-col justify-between shadow-xl">
-                        <div class="space-y-4">
-                            <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-circle-info text-orange-500"></i> Event Target Data
-                            </h4>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                Join the dynamic algorithmic evaluation array. Test your code execution efficiency, syntactic optimization, and parsing benchmarks.
-                            </p>
-                        </div>
-                        <div class="text-center text-xs font-mono text-slate-500 uppercase tracking-wider">Click anywhere to flip back</div>
+                    <div class="flip-card-back bg-slate-950 p-8 flex flex-col justify-between border-2 border-[#F15D49]">
+                        <p class="text-xs text-slate-400">High intensity full stack performance sprint tracks.</p>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <main id="view-dashboard" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="bg-[#111827] rounded-3xl border border-white/10 p-8 sm:p-12 text-center shadow-xl space-y-6 max-w-2xl mx-auto">
-            <div class="h-24 w-24 bg-[#F15D49]/10 text-[#F15D49] rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce">
-                <i class="fa-solid fa-rocket"></i>
-            </div>
-            <h1 class="text-3xl font-extrabold text-white tracking-tight">Welcome to Your Torii Gate Portal</h1>
-            <p class="text-sm text-gray-400 leading-relaxed max-w-md mx-auto">
-                Your credentials are safe and registered. The comprehensive learning matrices, Owl Code platform, and evaluation metrics interfaces are <span class="font-bold text-[#F15D49]">Coming Soon!</span>
-            </p>
-        </div>
+    <main id="view-placements" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center py-12"><i class="fa-solid fa-spinner animate-spin text-2xl text-[#F15D49]"></i></div>
     </main>
 
     <div id="modal-overlay" class="hidden-view fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-        
-        <div id="register-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-2xl rounded-2xl p-6 sm:p-8 shadow-2xl relative">
-            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">🦉 Create HOOT Account</h2>
-            
-            <form id="regForm" onsubmit="handleRegistrationSubmit(event)" class="space-y-5">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">SUC <span class="text-[#F15D49]">*</span></label>
-                        <input type="text" id="reg-suc" required placeholder="e.g., 1NC24CS123" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Full Name <span class="text-[#F15D49]">*</span></label>
-                        <input type="text" id="reg-name" required placeholder="Enter your full name" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Department <span class="text-[#F15D49]">*</span></label>
-                        <select id="reg-dept" required class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
-                            <option value="" disabled selected>Select Department</option>
-                            <option value="Computer Science">Computer Science Engineering</option>
-                            <option value="Information Science">Information Science Engineering</option>
-                            <option value="Electronics & Comm">Electronics & Comm Engineering</option>
-                            <option value="Data Science">Data Science / AI</option>
-                        </select>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Phone Number <span class="text-[#F15D49]">*</span></label>
-                        <input type="tel" id="reg-phone" required pattern="[0-9]{10}" placeholder="Enter 10 digit number" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
-                    </div>
-                </div>
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Email Address <span class="text-[#F15D49]">*</span></label>
-                    <input type="email" id="reg-email" required placeholder="your.email@example.com" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
-                </div>
-                <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/5">
-                    <button type="button" onclick="resetRegistrationForm()" class="px-4 py-2.5 rounded-xl border border-white/10 text-xs font-semibold text-gray-400 hover:text-white transition">Reset Form</button>
-                    <button type="submit" class="bg-[#F15D49] hover:bg-[#D94E3B] text-white text-xs font-semibold px-6 py-2.5 rounded-xl shadow-lg transition">Confirm Registration</button>
-                </div>
-            </form>
         </div>
-
-        <div id="event-register-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-3xl rounded-2xl p-6 sm:p-8 shadow-2xl relative">
-            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h2 class="text-lg font-bold text-white mb-1 flex items-center gap-2"><span class="text-orange-500">🏆</span> Event Registration</h2>
-            <p id="event-target-title" class="text-xs font-mono text-gray-400 mb-6 truncate"></p>
-            
-            <form id="eventRegForm" onsubmit="handleEventRegistrationSubmit(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                <div class="space-y-4">
-                    <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Full Name <span class="text-orange-500">*</span></label>
-                        <input type="text" id="event-name" required placeholder="Enter your full name" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">SUC Number <span class="text-orange-500">*</span></label>
-                        <input type="text" id="event-suc" required placeholder="e.g., 1NC24CS123" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Branch / Department <span class="text-orange-500">*</span></label>
-                        <input type="text" id="event-dept" required placeholder="e.g., Computer Science" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Group Designation <span class="text-orange-500">*</span></label>
-                        <input type="text" id="event-group" required placeholder="e.g., Group A" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
-                    </div>
-                </div>
-
-                <div class="bg-[#0B0F1A] border border-white/5 rounded-xl p-5 flex flex-col items-center justify-between h-full text-center min-h-[300px]">
-                    <div>
-                        <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded-md mb-2 inline-block">Fee Verification Required</span>
-                        <h4 class="text-xs font-bold text-slate-300">Scan UPI Node via Admin Terminal</h4>
-                    </div>
-                    
-                    <div class="my-4 h-36 w-36 bg-white p-2 rounded-lg shadow-inner flex items-center justify-center relative group">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=HOOT_CODERS_GATEWAY_VERIFICATION" alt="Admin Gate QR Terminal Address" class="w-full h-full object-contain" />
-                    </div>
-
-                    <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3 rounded-xl shadow-lg transition duration-200">
-                        Submit & Complete Registration
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div id="success-card" class="hidden-view bg-white text-slate-800 w-full max-w-sm rounded-2xl p-8 text-center shadow-2xl border border-slate-100">
-            <div class="h-20 w-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner">
-                <i class="fa-solid fa-circle-check animate-scale"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900">Submitted Successfully</h3>
-            <p class="text-xs text-slate-500 mt-2">Proceeding to next step...</p>
-        </div>
-
-        <div id="password-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative">
-            <h2 class="text-lg font-bold text-white mb-2">Set Account Password</h2>
-            <p class="text-xs text-gray-400 mb-6">Create a secure entry key to access the capability platforms automatically next time.</p>
-            
-            <form id="passForm" onsubmit="handlePasswordSubmit(event)" class="space-y-4">
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Password</label>
-                    <input type="password" id="reg-password" required minlength="6" placeholder="••••••••" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
-                </div>
-                <button type="submit" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white text-xs font-bold py-3 rounded-xl shadow-lg transition mt-4">Complete Setup & Sign In</button>
-            </form>
-        </div>
-
-        <div id="login-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative">
-            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h2 class="text-lg font-bold text-white mb-6">Welcome Back</h2>
-            
-            <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-4">
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Email Address</label>
-                    <input type="email" id="login-email" required placeholder="name@example.com" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
-                </div>
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Password</label>
-                    <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
-                </div>
-                <button type="submit" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white text-xs font-bold py-3 rounded-xl shadow-lg transition mt-4">Sign In</button>
-            </form>
-        </div>
-    </div>
-
-    <footer class="bg-slate-950 text-gray-500 pt-16 pb-12 border-t border-white/5 mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-[11px]">
-            <p>&copy; 2026 HOOT CODERS. All Rights Reserved.</p>
-        </div>
-    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, set, push, get, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDRSv7X-cxaxvoE6UGPAy9DUFjAeLPFeGc",
             authDomain: "useasfriendshub.firebaseapp.com",
             databaseURL: "https://useasfriendshub-default-rtdb.firebaseio.com",
-            projectId: "useasfriendshub",
-            storageBucket: "useasfriendshub.firebasestorage.app",
-            messagingSenderId: "673386892232",
-            appId: "1:673386892232:web:09c8dc0ed93cfd79d58efd",
-            measurementId: "G-2X2E9XTYY0"
+            projectId: "useasfriendshub"
         };
-
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         const auth = getAuth(app);
 
-        let currentRegSessionData = null;
-        let authenticatedUserRecord = null;
-        let selectedEventTitle = "";
+        let availableExamsCache = {};
+        let activeExamId = null;
+        let testCountdownInterval = null;
+        let activeSecondsRemaining = 0;
+        let isExamActiveNow = false;
 
-        // Track Auth Changes State Session Loop
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                onValue(ref(db, `users/${user.uid}`), (snapshot) => {
-                    if (snapshot.exists()) {
-                        authenticatedUserRecord = snapshot.val();
-                        updateUIForAuthenticatedUser(authenticatedUserRecord);
-                    }
-                });
-            } else {
-                authenticatedUserRecord = null;
-                updateUIForGuest();
-            }
-        });
-
-        // Web Audio API Sound Generation Module
-        let audioCtx = null;
-        window.triggerOwlHootEffects = () => {
-            const container = document.getElementById('interactive-owl-node');
-            container.classList.add('is-blinking');
-            setTimeout(() => container.classList.remove('is-blinking'), 250);
-
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            function playSingleHootTone(startTime, duration) {
-                const osc = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(260, startTime); 
-                osc.frequency.exponentialRampToValueAtTime(290, startTime + duration * 0.4);
-                osc.frequency.exponentialRampToValueAtTime(240, startTime + duration);
-                gainNode.gain.setValueAtTime(0, startTime);
-                gainNode.gain.linearRampToValueAtTime(0.4, startTime + 0.05);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
-                osc.connect(gainNode); gainNode.connect(audioCtx.destination);
-                osc.start(startTime); osc.stop(startTime + duration);
-            }
-            const now = audioCtx.currentTime;
-            playSingleHootTone(now, 0.22);
-            playSingleHootTone(now + 0.28, 0.38);
-        };
-
-        window.toggleCardFlip = (cardElementId) => {
-            const cardInner = document.getElementById(cardElementId);
-            if (cardInner) cardInner.classList.toggle('is-flipped');
-        };
-
-        window.handleRegisterTrigger = (event, eventTitle) => {
-            event.stopPropagation();
-            selectedEventTitle = eventTitle;
-
-            const clientX = event.clientX;
-            const clientY = event.clientY;
-
-            for (let i = 0; i < 14; i++) {
-                const particle = document.createElement("div");
-                particle.className = "owl-particle";
-                particle.innerText = Math.random() > 0.5 ? "🦉" : "🦅";
-                particle.style.left = clientX + "px";
-                particle.style.top = clientY + "px";
-
-                const angle = Math.random() * Math.PI * 2;
-                const distance = 180 + Math.random() * 320;
-                particle.style.setProperty('--tw-tx', Math.cos(angle) * distance + "px");
-                particle.style.setProperty('--tw-ty', Math.sin(angle) * distance + "px");
-                particle.style.setProperty('--tw-rot', (Math.random() * 360) + "deg");
-
-                document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 2500);
-            }
-
-            setTimeout(() => {
-                resetModalTree();
-                document.getElementById('event-target-title').innerText = "// Event: " + eventTitle;
-                
-                // Pre-populate fields if user is already signed in
-                if (authenticatedUserRecord) {
-                    document.getElementById('event-name').value = authenticatedUserRecord.name || "";
-                    document.getElementById('event-suc').value = authenticatedUserRecord.suc || "";
-                    document.getElementById('event-dept').value = authenticatedUserRecord.department || "";
+        // ASYNCHRONICALLY BIND THE PLACEMENTS TEMPLATE TO COMPONENT TARGETS
+        async function bootstrapPlacementsTemplateEngine() {
+            try {
+                const response = await fetch('placements.html');
+                if (response.ok) {
+                    document.getElementById('view-placements').innerHTML = await response.text();
+                    attachFirebaseLiveAptitudeSync();
                 }
+            } catch (err) { console.error("Template injection fault: ", err); }
+        }
 
-                document.getElementById('modal-overlay').classList.remove('hidden-view');
-                document.getElementById('event-register-card').classList.remove('hidden-view');
-            }, 450);
-        };
-
-        window.handleEventRegistrationSubmit = async (e) => {
-            e.preventDefault();
-            const eventPayload = {
-                eventTitle: selectedEventTitle,
-                name: document.getElementById('event-name').value,
-                suc: document.getElementById('event-suc').value,
-                department: document.getElementById('event-dept').value,
-                group: document.getElementById('event-group').value,
-                timestamp: new Date().toISOString()
-            };
-
-            try {
-                const eventRef = ref(db, 'event_registrations');
-                await push(eventRef, eventPayload);
-
-                document.getElementById('event-register-card').classList.add('hidden-view');
-                document.getElementById('success-card').classList.remove('hidden-view');
-                setTimeout(() => {
-                    closeActiveModals();
-                    document.getElementById('eventRegForm').reset();
-                }, 2000);
-            } catch (error) {
-                alert("Event registration failed: " + error.message);
-            }
-        };
-
-        window.handleRegistrationSubmit = (e) => {
-            e.preventDefault();
-            currentRegSessionData = {
-                suc: document.getElementById('reg-suc').value,
-                name: document.getElementById('reg-name').value,
-                department: document.getElementById('reg-dept').value,
-                phone: document.getElementById('reg-phone').value,
-                email: document.getElementById('reg-email').value,
-                status: "pending"
-            };
-
-            document.getElementById('register-card').classList.add('hidden-view');
-            document.getElementById('success-card').classList.remove('hidden-view');
-
-            setTimeout(() => {
-                document.getElementById('success-card').classList.add('hidden-view');
-                document.getElementById('password-card').classList.remove('hidden-view');
-            }, 1800);
-        };
-
-        window.handlePasswordSubmit = async (e) => {
-            e.preventDefault();
-            const password = document.getElementById('reg-password').value;
-            if (!currentRegSessionData) return;
-
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, currentRegSessionData.email, password);
-                await set(ref(db, `users/${userCredential.user.uid}`), currentRegSessionData);
-                closeActiveModals();
-                document.getElementById('passForm').reset();
-                document.getElementById('regForm').reset();
-                showView('dashboard');
-            } catch (error) {
-                alert("Auth Error Stack: " + error.message);
-            }
-        };
-
-        window.handleLoginSubmit = async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                closeActiveModals();
-                document.getElementById('loginForm').reset();
-                showView('dashboard');
-            } catch (error) {
-                alert("Login Match Exception: " + error.message);
-            }
-        };
-
-        window.openRegisterModal = () => {
-            resetModalTree();
-            document.getElementById('modal-overlay').classList.remove('hidden-view');
-            document.getElementById('register-card').classList.remove('hidden-view');
-        };
-
-        window.openLoginModal = () => {
-            resetModalTree();
-            document.getElementById('modal-overlay').classList.remove('hidden-view');
-            document.getElementById('login-card').classList.remove('hidden-view');
-        };
-
-        window.closeActiveModals = () => {
-            document.getElementById('modal-overlay').classList.add('hidden-view');
-            resetModalTree();
-        };
-
-        window.resetRegistrationForm = () => {
-            document.getElementById('regForm').reset();
-            currentRegSessionData = null;
-        };
-
-        window.toggleProfileDropdown = () => {
-            document.getElementById('profile-dropdown').classList.toggle('hidden-view');
-        };
-
-        window.showView = (viewName) => {
-            document.getElementById('view-landing').classList.add('hidden-view');
-            document.getElementById('view-dashboard').classList.add('hidden-view');
-            document.getElementById('view-events').classList.add('hidden-view');
-            
-            if (viewName === 'dashboard' && authenticatedUserRecord) {
-                document.getElementById('view-dashboard').classList.remove('hidden-view');
-            } else if (viewName === 'events') {
-                document.getElementById('view-events').classList.remove('hidden-view');
-            } else {
-                document.getElementById('view-landing').classList.remove('hidden-view');
-            }
-            document.getElementById('profile-dropdown').classList.add('hidden-view');
-        };
-
-        window.logoutUser = () => {
-            signOut(auth).then(() => {
-                document.getElementById('profile-dropdown').classList.add('hidden-view');
-                showView('landing');
+        function attachFirebaseLiveAptitudeSync() {
+            onValue(ref(db, 'aptitude_exams'), (snapshot) => {
+                const container = document.getElementById('live-exams-list-container');
+                if (!container) return;
+                if (snapshot.exists()) {
+                    availableExamsCache = snapshot.val();
+                    container.innerHTML = '';
+                    for (let examId in availableExamsCache) {
+                        const exam = availableExamsCache[examId];
+                        const qCount = exam.questions ? exam.questions.length : 0;
+                        const btn = document.createElement('button');
+                        btn.className = "w-full text-left bg-[#0B0F1A] border border-white/5 hover:border-[#F15D49] rounded-xl p-3 flex justify-between items-center group transition";
+                        btn.onclick = () => launchTargetTest(examId);
+                        btn.innerHTML = `<div><h5 class="text-xs font-bold text-slate-200">${exam.title}</h5><p class="text-[10px] text-gray-500">${qCount} Questions · ${exam.duration} Mins</p></div><i class="fa-solid fa-circle-play text-gray-600 group-hover:text-[#F15D49] text-sm"></i>`;
+                        container.appendChild(btn);
+                    }
+                } else {
+                    container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">No active quizzes hosted yet.</p>`;
+                }
             });
+        }
+
+        window.showAptitudeTestList = () => {
+            document.getElementById('aptitude-overview-panel').classList.add('hidden-view');
+            document.getElementById('aptitude-test-live-panel').classList.add('hidden-view');
+            document.getElementById('aptitude-score-panel').classList.add('hidden-view');
+            document.getElementById('aptitude-test-list-panel').classList.remove('hidden-view');
         };
 
-        function resetModalTree() {
-            document.getElementById('register-card').classList.add('hidden-view');
-            document.getElementById('event-register-card').classList.add('hidden-view');
-            document.getElementById('success-card').classList.add('hidden-view');
-            document.getElementById('password-card').classList.add('hidden-view');
-            document.getElementById('login-card').classList.add('hidden-view');
-        }
+        window.backToAptitudeOverview = () => {
+            disableExamSecurityListeners();
+            document.getElementById('aptitude-test-list-panel').classList.add('hidden-view');
+            document.getElementById('aptitude-test-live-panel').classList.add('hidden-view');
+            document.getElementById('aptitude-score-panel').classList.add('hidden-view');
+            document.getElementById('aptitude-overview-panel').classList.remove('hidden-view');
+        };
 
-        function updateUIForAuthenticatedUser(userRecord) {
-            document.getElementById('guest-actions').classList.add('hidden-view');
-            document.getElementById('auth-actions').classList.remove('hidden-view');
-            document.getElementById('nav-dash-link').classList.remove('hidden-view');
-            document.getElementById('profile-initials').innerText = userRecord.name ? userRecord.name.charAt(0).toUpperCase() : 'U';
-            document.getElementById('dropdown-name').innerText = userRecord.name || 'Torii User';
-            document.getElementById('dropdown-email').innerText = userRecord.email || '';
-            renderStatusBadge(userRecord.status);
-        }
+        window.launchTargetTest = (examId) => {
+            activeExamId = examId;
+            const targetExam = availableExamsCache[examId];
+            document.getElementById('aptitude-test-list-panel').classList.add('hidden-view');
+            document.getElementById('live-test-title-node').innerText = targetExam.title;
+            
+            const questionBox = document.getElementById('live-questions-display-box');
+            questionBox.innerHTML = '';
+            
+            if (targetExam.questions) {
+                targetExam.questions.forEach((q, idx) => {
+                    const qDiv = document.createElement('div');
+                    qDiv.className = "bg-[#0B0F1A] rounded-xl p-4 border border-white/5 text-xs space-y-2";
+                    qDiv.innerHTML = `
+                        <p class="text-slate-300 font-medium">Q${idx+1}: ${q.text}</p>
+                        <div class="space-y-1.5 pt-1">
+                            <label class="flex items-center gap-2 p-1 rounded hover:bg-white/5 cursor-pointer text-[11px]"><input type="radio" name="ans-${idx}" value="A"> A: ${q.a}</label>
+                            <label class="flex items-center gap-2 p-1 rounded hover:bg-white/5 cursor-pointer text-[11px]"><input type="radio" name="ans-${idx}" value="B"> B: ${q.b}</label>
+                            <label class="flex items-center gap-2 p-1 rounded hover:bg-white/5 cursor-pointer text-[11px]"><input type="radio" name="ans-${idx}" value="C"> C: ${q.c}</label>
+                            <label class="flex items-center gap-2 p-1 rounded hover:bg-white/5 cursor-pointer text-[11px]"><input type="radio" name="ans-${idx}" value="D"> D: ${q.d}</label>
+                        </div>
+                    `;
+                    questionBox.appendChild(qDiv);
+                });
+            }
 
-        function updateUIForGuest() {
-            document.getElementById('auth-actions').classList.add('hidden-view');
-            document.getElementById('nav-dash-link').classList.add('hidden-view');
-            document.getElementById('guest-actions').classList.remove('hidden-view');
-        }
+            enableExamSecurityListeners();
+            clearInterval(testCountdownInterval);
+            activeSecondsRemaining = parseInt(targetExam.duration || 10) * 60;
+            
+            testCountdownInterval = setInterval(() => {
+                activeSecondsRemaining--;
+                const mins = Math.floor(activeSecondsRemaining / 60).toString().padStart(2, '0');
+                const secs = (activeSecondsRemaining % 60).toString().padStart(2, '0');
+                document.getElementById('live-timer-node').innerText = `${mins}:${secs}`;
+                if (activeSecondsRemaining <= 0) submitLiveTestExecution(false);
+            }, 1000);
 
-        function renderStatusBadge(status) {
-            const badge = document.getElementById('status-badge');
-            if (!badge) return;
-            badge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-all ";
-            if (status === 'verified') {
-                badge.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border', 'border-emerald-500/20');
-                badge.innerHTML = `<i class="fa-solid fa-circle-check text-xs"></i> Verified`;
-            } else {
-                badge.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/20');
-                badge.innerHTML = `<i class="fa-solid fa-clock text-xs"></i> Pending Approval`;
+            document.getElementById('aptitude-test-live-panel').classList.remove('hidden-view');
+        };
+
+        window.submitLiveTestExecution = (wasCaughtCheating = false) => {
+            clearInterval(testCountdownInterval);
+            disableExamSecurityListeners();
+            const targetExam = availableExamsCache[activeExamId];
+            let finalScore = 0;
+
+            if (wasCaughtCheating) {
+                finalScore = 0;
+                document.getElementById('score-icon-badge').className = "h-16 w-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center text-3xl shadow-inner";
+                document.getElementById('score-icon-badge').innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`;
+                document.getElementById('score-status-header').innerText = "Security Disconnect Violation";
+                document.getElementById('score-status-desc').innerText = "Malpractice event identified (Window blur, tab switch, or copy-paste trace). Score forced to zero.";
+            } else if (targetExam && targetExam.questions) {
+                targetExam.questions.forEach((q, idx) => {
+                    const checked = document.querySelector(`input[name="ans-${idx}"]:checked`);
+                    if (checked && checked.value.trim().toUpperCase() === q.correct.trim().toUpperCase()) finalScore++;
+                });
+                document.getElementById('score-icon-badge').className = "h-16 w-16 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center text-3xl shadow-inner";
+                document.getElementById('score-icon-badge').innerHTML = `<i class="fa-solid fa-square-poll-vertical"></i>`;
+                document.getElementById('score-status-header').innerText = "Assessment Evaluated!";
+                document.getElementById('score-status-desc').innerText = "Your verified matrix tracking execution score:";
+            }
+
+            document.getElementById('user-score-node').innerText = finalScore;
+            document.getElementById('total-score-node').innerText = targetExam ? targetExam.questions.length : 0;
+            document.getElementById('aptitude-test-live-panel').classList.add('hidden-view');
+            document.getElementById('aptitude-score-panel').classList.remove('hidden-view');
+        };
+
+        // INTEGRATED RE-STABILIZED SECURITY PREVENTION SANDBOX RULES
+        function preventDefaultsEngine(e) { e.preventDefault(); return false; }
+        function handleVisibilityMalpracticeCheck() {
+            if ((document.hidden || !document.hasFocus()) && isExamActiveNow) {
+                submitLiveTestExecution(true);
             }
         }
+
+        function enableExamSecurityListeners() {
+            isExamActiveNow = true;
+            const targetZone = document.getElementById('secure-aptitude-card-root');
+            if (targetZone) {
+                targetZone.addEventListener('contextmenu', preventDefaultsEngine);
+                targetZone.addEventListener('copy', preventDefaultsEngine);
+                targetZone.addEventListener('paste', preventDefaultsEngine);
+                targetZone.addEventListener('cut', preventDefaultsEngine);
+            }
+            window.addEventListener('blur', handleVisibilityMalpracticeCheck);
+            document.addEventListener('visibilitychange', handleVisibilityMalpracticeCheck);
+        }
+
+        function disableExamSecurityListeners() {
+            isExamActiveNow = false;
+            const targetZone = document.getElementById('secure-aptitude-card-root');
+            if (targetZone) {
+                targetZone.removeEventListener('contextmenu', preventDefaultsEngine);
+                targetZone.removeEventListener('copy', preventDefaultsEngine);
+                targetZone.removeEventListener('paste', preventDefaultsEngine);
+                targetZone.removeEventListener('cut', preventDefaultsEngine);
+            }
+            window.removeEventListener('blur', handleVisibilityMalpracticeCheck);
+            document.removeEventListener('visibilitychange', handleVisibilityMalpracticeCheck);
+        }
+
+        window.showView = (name) => {
+            document.getElementById('view-landing').classList.add('hidden-view');
+            document.getElementById('view-events').classList.add('hidden-view');
+            document.getElementById('view-placements').classList.add('hidden-view');
+            if (name === 'events') document.getElementById('view-events').classList.remove('hidden-view');
+            else if (name === 'placements') { document.getElementById('view-placements').classList.remove('hidden-view'); backToAptitudeOverview(); }
+            else document.getElementById('view-landing').classList.remove('hidden-view');
+        };
+
+        window.toggleCardFlip = (id) => { const card = document.getElementById(id); if(card) card.classList.toggle('is-flipped'); };
+        
+        // Initialize Placements Runtime Asynchronously
+        bootstrapPlacementsTemplateEngine();
     </script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: true });</script>
 </body>
 </html>
-
-
