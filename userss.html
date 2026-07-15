@@ -9,7 +9,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -107,8 +107,9 @@
             </div>
 
             <nav class="hidden lg:flex items-center gap-8 font-semibold text-gray-300 text-sm">
-                <a href="#" onclick="showView('landing')" class="text-[#F15D49] hover:text-[#D94E3B] transition">My Wings</a>
+                <a href="#" onclick="showView('landing')" class="hover:text-[#F15D49] transition">My Wings</a>
                 <a href="#" onclick="showView('events')" class="hover:text-[#F15D49] transition">EVENTS</a>
+                <a href="#" onclick="showView('placements')" class="hover:text-[#F15D49] transition text-orange-400"><i class="fa-solid fa-briefcase mr-1"></i> PLACEMENTS</a>
                 <a href="#" id="nav-dash-link" onclick="showView('dashboard')" class="hidden-view hover:text-[#F15D49] transition">WORKSPACE</a>
             </nav>
 
@@ -278,6 +279,60 @@
         </div>
     </main>
 
+    <main id="view-placements" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div id="placement-level-1" class="space-y-12">
+            <div class="text-center">
+                <span class="text-xs font-bold text-[#F15D49] uppercase tracking-widest bg-[#F15D49]/10 px-3 py-1 rounded-full">Assessment Matrix</span>
+                <h2 class="text-4xl font-extrabold text-white mt-2">Placement Training Tracks</h2>
+                <p class="text-gray-400 text-sm mt-2">Select a framework panel to enter secondary assessment routing.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div onclick="drillIntoPlacementTrack('programming-quiz')" class="bg-[#111827] border-2 border-[#F15D49] hover:border-orange-400 rounded-2xl p-8 cursor-pointer transform hover:-translate-y-2 transition-all shadow-xl flex flex-col justify-between min-h-[320px]">
+                    <div>
+                        <div class="h-14 w-14 bg-[#F15D49]/10 text-[#F15D49] rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner"><i class="fa-solid fa-code"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Programming Quiz</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Evaluate structural paradigms across Python arrays and C compilation pipelines.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-6 border-t border-white/5 mt-4 text-xs font-bold text-orange-400">
+                        <span>EXPLORE COGNITIVE RUNTIMES</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+                <div class="bg-[#111827] border border-white/10 opacity-60 rounded-2xl p-8 min-h-[320px] flex flex-col justify-between">
+                    <h3 class="text-xl font-bold text-white mb-2">Technical Mock Interviews</h3>
+                    <span class="text-[10px] uppercase font-bold text-gray-500 tracking-wider">Locked Engine Matrix</span>
+                </div>
+                <div class="bg-[#111827] border border-white/10 opacity-60 rounded-2xl p-8 min-h-[320px] flex flex-col justify-between">
+                    <h3 class="text-xl font-bold text-white mb-2">Aptitude & Logic Array</h3>
+                    <span class="text-[10px] uppercase font-bold text-gray-500 tracking-wider">Locked Engine Matrix</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="placement-level-2" class="hidden-view space-y-8">
+            <div class="flex items-center gap-4">
+                <button onclick="revertPlacementLevel(1)" class="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-xs font-bold text-gray-300 transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Main Matrix
+                </button>
+            </div>
+            <div class="text-center max-w-xl mx-auto">
+                <h3 class="text-2xl font-extrabold text-white">Programming Quiz Segment Channels</h3>
+                <p class="text-xs text-gray-400 mt-2">Select an engine to launch the exam securely in a anti-cheat sandbox window.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto pt-4">
+                <div onclick="initializeExamEngine('Python')" class="bg-gradient-to-br from-[#0B0F1A] to-[#16223F] border border-[#F15D49]/30 hover:border-[#F15D49] p-8 rounded-2xl cursor-pointer shadow-2xl flex flex-col justify-between min-h-[260px]">
+                    <h4 class="text-xl font-bold text-white mb-1">Python Language Assessment</h4>
+                    <span class="text-xs text-[#F15D49] font-bold">Launch Python Exam Window 🚀</span>
+                </div>
+                <div onclick="initializeExamEngine('C')" class="bg-gradient-to-br from-[#0B0F1A] to-[#251210] border border-[#F15D49]/30 hover:border-[#F15D49] p-8 rounded-2xl cursor-pointer shadow-2xl flex flex-col justify-between min-h-[260px]">
+                    <h4 class="text-xl font-bold text-white mb-1">C Language Assessment</h4>
+                    <span class="text-xs text-[#F15D49] font-bold">Launch C Exam Window 🚀</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <main id="view-dashboard" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="bg-[#111827] rounded-3xl border border-white/10 p-8 sm:p-12 text-center shadow-xl space-y-6 max-w-2xl mx-auto">
             <div class="h-24 w-24 bg-[#F15D49]/10 text-[#F15D49] rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce">
@@ -292,6 +347,16 @@
 
     <div id="modal-overlay" class="hidden-view fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
         
+        <div id="placement-result-card" class="hidden-view bg-[#111827] border border-emerald-500/30 w-full max-w-md rounded-2xl p-8 text-center shadow-2xl">
+            <h3 class="text-2xl font-extrabold text-white">Evaluation Matrix Complete</h3>
+            <div class="my-6 p-4 bg-[#0B0F1A] rounded-xl border border-white/5 space-y-2">
+                <div class="flex justify-between text-xs"><span class="text-gray-400">Username:</span><span id="res-modal-user" class="font-bold text-white">-</span></div>
+                <div class="flex justify-between text-xs"><span class="text-gray-400">Track:</span><span id="res-modal-track" class="font-bold text-orange-400">-</span></div>
+                <div class="flex justify-between text-sm pt-2 border-t border-white/5 font-bold"><span class="text-gray-300">Score:</span><span id="res-modal-score" class="text-emerald-400">-</span></div>
+            </div>
+            <button onclick="closeActiveModals()" class="w-full bg-white/5 border border-white/10 text-xs font-bold py-3 rounded-xl text-slate-200 hover:bg-white/10 transition">Close & Exit</button>
+        </div>
+
         <div id="register-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-2xl rounded-2xl p-6 sm:p-8 shadow-2xl relative">
             <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">🦉 Create HOOT Account</h2>
@@ -491,6 +556,170 @@
             if (cardInner) cardInner.classList.toggle('is-flipped');
         };
 
+        window.drillIntoPlacementTrack = (trackId) => {
+            if(trackId === 'programming-quiz') {
+                document.getElementById('placement-level-1').classList.add('hidden-view');
+                document.getElementById('placement-level-2').classList.remove('hidden-view');
+            }
+        };
+
+        window.revertPlacementLevel = (levelTarget) => {
+            if(levelTarget === 1) {
+                document.getElementById('placement-level-1').classList.remove('hidden-view');
+                document.getElementById('placement-level-2').classList.add('hidden-view');
+            }
+        };
+
+        // MALPRACTICE-ENABLED ENGINE: Launches an independent browser context window
+        window.initializeExamEngine = async (languageTrack) => {
+            if(!authenticatedUserRecord) {
+                alert("🔒 Authentication required.");
+                openLoginModal();
+                return;
+            }
+
+            const targetedNodeRef = ref(db, `placement_questions/${languageTrack.toLowerCase()}`);
+            try {
+                const snapshot = await get(targetedNodeRef);
+                if(!snapshot.exists()) {
+                    alert("⚠️ No questions configured for this track yet.");
+                    return;
+                }
+
+                const questionsData = JSON.stringify(snapshot.val());
+                const userData = JSON.stringify({
+                    name: authenticatedUserRecord.name || 'Anonymous Coder',
+                    email: authenticatedUserRecord.email || ''
+                });
+
+                // Spawn secure target sandboxed window
+                const width = 900, height = 750;
+                const left = (window.screen.width / 2) - (width / 2);
+                const top = (window.screen.height / 2) - (height / 2);
+                
+                const examWindow = window.open("", "_blank", `width=${width},height=${height},left=${left},top=${top},menubar=no,status=no,toolbar=no`);
+                
+                // Write standard runtime execution application logic structure directly to child window
+                examWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>HOOT CODERS SECURE RUNTIME - ${languageTrack} Assessment</title>
+                        <script src="https://cdn.tailwindcss.com"><\/script>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    </head>
+                    <body class="bg-[#0B0F1A] text-slate-100 p-8 select-none" oncontextmenu="return false;">
+                        <div class="max-w-3xl mx-auto space-y-6">
+                            <div class="bg-red-500/10 border border-red-500/20 p-4 rounded-xl text-xs text-red-400 font-bold mb-4">
+                                ⚠️ ANTI-MALPRACTICE ALERT: Navigating away, minimizing, resizing, or changing focus from this tab flags immediate failure.
+                            </div>
+                            <div class="flex justify-between items-center border-b border-white/10 pb-4">
+                                <h1 class="text-xl font-bold text-white">${languageTrack} Live Secure Exam</h1>
+                                <span class="text-xs bg-orange-500/20 text-orange-400 px-3 py-1 rounded-full font-mono">Anti-Cheat Matrix: Active</span>
+                            </div>
+                            <div id="questions-container" class="space-y-6 pt-4"></div>
+                            <button onclick="submitExam()" class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider mt-8">Submit Assessment</button>
+                        </div>
+
+                        <script>
+                            const rawQuestions = ${questionsData};
+                            const user = ${userData};
+                            const track = "${languageTrack}";
+                            let isProcessed = false;
+                            
+                            const qList = [];
+                            for(let k in rawQuestions) { qList.push({ id: k, ...rawQuestions[k] }); }
+
+                            const container = document.getElementById('questions-container');
+                            qList.forEach((q, idx) => {
+                                const el = document.createElement('div');
+                                el.className = "p-5 bg-[#111827] border border-white/5 rounded-xl space-y-3";
+                                el.innerHTML = \`
+                                    <p class="text-sm font-semibold text-white">Q\${idx+1}. \${q.questionText}</p>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                        <label class="flex items-center gap-2 p-2.5 bg-[#0B0F1A] rounded-lg cursor-pointer"><input type="radio" name="q_\${idx}" value="A" class="accent-orange-500"> <span>\${q.optionA}</span></label>
+                                        <label class="flex items-center gap-2 p-2.5 bg-[#0B0F1A] rounded-lg cursor-pointer"><input type="radio" name="q_\${idx}" value="B" class="accent-orange-500"> <span>\${q.optionB}</span></label>
+                                        <label class="flex items-center gap-2 p-2.5 bg-[#0B0F1A] rounded-lg cursor-pointer"><input type="radio" name="q_\${idx}" value="C" class="accent-orange-500"> <span>\${q.optionC}</span></label>
+                                        <label class="flex items-center gap-2 p-2.5 bg-[#0B0F1A] rounded-lg cursor-pointer"><input type="radio" name="q_\${idx}" value="D" class="accent-orange-500"> <span>\${q.optionD}</span></label>
+                                    </div>
+                                \`;
+                                container.appendChild(el);
+                            });
+
+                            async function syncGradeData(finalScore) {
+                                isProcessed = true;
+                                if (window.opener && !window.opener.closed) {
+                                    window.opener.postMessage({
+                                        type: "EXAM_COMPLETE",
+                                        username: user.name,
+                                        email: user.email,
+                                        track: track,
+                                        score: finalScore
+                                    }, "*");
+                                }
+                                window.close();
+                            }
+
+                            function submitExam() {
+                                if(isProcessed) return;
+                                let score = 0;
+                                qList.forEach((q, idx) => {
+                                    const radios = document.getElementsByName(\`q_\${idx}\`);
+                                    let ans = "";
+                                    for(let r of radios) { if(r.checked) ans = r.value; }
+                                    if(ans.trim().toUpperCase() === q.correctAnswer.trim().toUpperCase()) score++;
+                                });
+                                syncGradeData(\`\${score} / \${qList.length}\`);
+                            }
+
+                            function triggerMalpractice() {
+                                if(isProcessed) return;
+                                alert("🚨 MALPRACTICE VIOLATION REGISTERED: Tab focus manipulation detected. System locking out.");
+                                syncGradeData("MALPRACTICE LOCKOUT");
+                            }
+
+                            window.onblur = triggerMalpractice;
+                            document.addEventListener("visibilitychange", () => {
+                                if (document.hidden) triggerMalpractice();
+                            });
+                        <\/script>
+                    </body>
+                    </html>
+                `);
+                examWindow.document.close();
+            } catch(e) {
+                alert("Error launching secure panel: " + e.message);
+            }
+        };
+
+        // Window Communication System Listener for Immediate Submission Hook Responses
+        window.addEventListener("message", async (event) => {
+            if (event.data && event.data.type === "EXAM_COMPLETE") {
+                const { username, email, track, score } = event.data;
+                const syncPayload = { username, email, track, score, timestamp: new Date().toISOString() };
+                
+                try {
+                    await push(ref(db, 'placement_submissions'), syncPayload);
+                    document.getElementById('res-modal-user').innerText = username;
+                    document.getElementById('res-modal-track').innerText = track;
+                    document.getElementById('res-modal-score').innerText = score;
+                    
+                    if(score === "MALPRACTICE LOCKOUT") {
+                        document.getElementById('placement-result-card').className = "hidden-view bg-[#111827] border border-red-500/40 w-full max-w-md rounded-2xl p-8 text-center shadow-2xl";
+                    } else {
+                        document.getElementById('placement-result-card').className = "hidden-view bg-[#111827] border border-emerald-500/30 w-full max-w-md rounded-2xl p-8 text-center shadow-2xl";
+                    }
+
+                    resetModalTree();
+                    document.getElementById('modal-overlay').classList.remove('hidden-view');
+                    document.getElementById('placement-result-card').classList.remove('hidden-view');
+                    revertPlacementLevel(1);
+                } catch(err) {
+                    alert("Telemetry error: " + err.message);
+                }
+            }
+        });
+
         window.handleRegisterTrigger = (event, eventTitle) => {
             event.stopPropagation();
             selectedEventTitle = eventTitle;
@@ -519,7 +748,6 @@
                 resetModalTree();
                 document.getElementById('event-target-title').innerText = "// Event: " + eventTitle;
                 
-                // Pre-populate fields if user is already signed in
                 if (authenticatedUserRecord) {
                     document.getElementById('event-name').value = authenticatedUserRecord.name || "";
                     document.getElementById('event-suc').value = authenticatedUserRecord.suc || "";
@@ -639,11 +867,15 @@
             document.getElementById('view-landing').classList.add('hidden-view');
             document.getElementById('view-dashboard').classList.add('hidden-view');
             document.getElementById('view-events').classList.add('hidden-view');
+            document.getElementById('view-placements').classList.add('hidden-view');
             
             if (viewName === 'dashboard' && authenticatedUserRecord) {
                 document.getElementById('view-dashboard').classList.remove('hidden-view');
             } else if (viewName === 'events') {
                 document.getElementById('view-events').classList.remove('hidden-view');
+            } else if (viewName === 'placements') {
+                document.getElementById('view-placements').classList.remove('hidden-view');
+                revertPlacementLevel(1);
             } else {
                 document.getElementById('view-landing').classList.remove('hidden-view');
             }
@@ -663,6 +895,7 @@
             document.getElementById('success-card').classList.add('hidden-view');
             document.getElementById('password-card').classList.add('hidden-view');
             document.getElementById('login-card').classList.add('hidden-view');
+            document.getElementById('placement-result-card').classList.add('hidden-view');
         }
 
         function updateUIForAuthenticatedUser(userRecord) {
@@ -698,5 +931,3 @@
     <script>AOS.init({ duration: 800, once: true });</script>
 </body>
 </html>
-
-
