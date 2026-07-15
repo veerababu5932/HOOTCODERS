@@ -1,0 +1,104 @@
+<div class="mb-12 text-center" data-aos="fade-down">
+    <h2 class="text-3xl font-extrabold tracking-tight text-white">Placement Training & Accelerator</h2>
+    <p class="text-sm text-gray-400 mt-2">Sharpen your core engineering matrices and conquer technical interviews.</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+    <div class="bg-[#111827] border-2 border-[#F15D49] rounded-2xl p-8 flex flex-col justify-between shadow-xl hover:scale-[1.01] transition-all duration-300 group" data-aos="fade-right">
+        <div>
+            <div class="h-14 w-14 bg-[#F15D49]/10 text-[#F15D49] rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition duration-300">
+                <i class="fa-solid fa-code"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Coding Practice Matrix</h3>
+            <p class="text-xs text-gray-400 leading-relaxed mb-6">
+                Master data structures, algorithm tracks, and problem-solving dynamic design frameworks. Includes system optimization tests across modern runtime compilers.
+            </p>
+            <div class="space-y-2 mb-8">
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                    <i class="fa-solid fa-chevron-right text-[#F15D49] text-[10px]"></i> Array & Hash Manipulations
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                    <i class="fa-solid fa-chevron-right text-[#F15D49] text-[10px]"></i> Tree & Advanced Graph Metrics
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                    <i class="fa-solid fa-chevron-right text-[#F15D49] text-[10px]"></i> Dynamic Architecture Paradigms
+                </div>
+            </div>
+        </div>
+        <button onclick="alert('Coding Practice Arena coming soon!')" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-lg transform active:scale-95 tracking-wide mt-auto">
+            Launch Code Terminal
+        </button>
+    </div>
+
+    <div id="secure-aptitude-card-root" class="bg-[#111827] border-2 border-[#F15D49] rounded-2xl p-8 flex flex-col justify-between shadow-xl hover:scale-[1.01] transition-all duration-300 relative overflow-hidden secure-exam-zone" data-aos="fade-left">
+        
+        <div id="aptitude-overview-panel" class="flex flex-col h-full justify-between">
+            <div>
+                <div class="h-14 w-14 bg-[#F15D49]/10 text-[#F15D49] rounded-xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Aptitude & Reasoning Matrix</h3>
+                <p class="text-xs text-gray-400 leading-relaxed mb-6">
+                    Train your quantitative analysis speed and master advanced logical arrays. High-security environment checks are active.
+                </p>
+                <div class="space-y-2 mb-8">
+                    <div class="flex items-center gap-2 text-xs text-slate-300">
+                        <i class="fa-solid fa-chevron-right text-[#F15D49] text-[10px]"></i> Admin-Managed Live Quizzes
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-300">
+                        <i class="fa-solid fa-chevron-right text-[#F15D49] text-[10px]"></i> Dynamic Countdown Chronometers
+                    </div>
+                </div>
+            </div>
+            <button onclick="showAptitudeTestList()" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-lg transform active:scale-95 tracking-wide mt-auto">
+                Start Evaluation Deck
+            </button>
+        </div>
+
+        <div id="aptitude-test-list-panel" class="hidden-view flex flex-col h-full justify-between">
+            <div>
+                <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
+                    <h4 class="text-md font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-[#F15D49]"></i> Select Active Test
+                    </h4>
+                    <button onclick="backToAptitudeOverview()" class="text-xs text-gray-400 hover:text-white transition font-semibold"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                </div>
+                <div id="live-exams-list-container" class="space-y-3 my-4 max-h-[220px] overflow-y-auto pr-1">
+                    <p class="text-xs text-slate-500 font-mono text-center py-4">Checking testing configurations...</p>
+                </div>
+            </div>
+            <p class="text-[10px] text-center text-gray-500 text-red-400 font-medium">Warning: Copying questions or switching tabs automatically fails the exam.</p>
+        </div>
+
+        <div id="aptitude-test-live-panel" class="hidden-view flex flex-col h-full justify-between select-none">
+            <div class="space-y-4">
+                <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                    <span id="live-test-title-node" class="text-xs font-mono font-bold text-[#F15D49] truncate max-w-[55%]">Live Assessment</span>
+                    <div class="bg-red-500/10 border border-red-500/20 rounded px-2 py-0.5 text-[11px] font-mono font-bold text-red-400 flex items-center gap-1">
+                        <i class="fa-solid fa-clock animate-pulse"></i><span id="live-timer-node">00:00</span>
+                    </div>
+                </div>
+                <div id="live-questions-display-box" class="max-h-[200px] overflow-y-auto space-y-4 pr-1 text-slate-300">
+                    </div>
+            </div>
+            <button onclick="submitLiveTestExecution(false)" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-3 rounded-xl transition shadow-lg mt-4 font-mono uppercase tracking-wider">
+                Submit Assessment
+            </button>
+        </div>
+
+        <div id="aptitude-score-panel" class="hidden-view flex flex-col h-full items-center justify-center text-center space-y-4 py-6">
+            <div id="score-icon-badge" class="h-16 w-16 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center text-3xl shadow-inner">
+                <i class="fa-solid fa-square-poll-vertical"></i>
+            </div>
+            <div>
+                <h4 id="score-status-header" class="text-lg font-bold text-white">Assessment Evaluated!</h4>
+                <p id="score-status-desc" class="text-xs text-slate-400 mt-1">Your verified matrix tracking execution score:</p>
+                <h2 class="text-4xl font-extrabold text-[#F15D49] mt-3 font-mono"><span id="user-score-node">0</span> / <span id="total-score-node">0</span></h2>
+            </div>
+            <button onclick="backToAptitudeOverview()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs px-5 py-2.5 rounded-xl transition font-semibold">
+                Return to Accelerator Deck
+            </button>
+        </div>
+
+    </div>
+</div>
