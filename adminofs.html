@@ -9,340 +9,379 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; } .hidden-view { display: none !important; }</style>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .table-container::-webkit-scrollbar { height: 6px; }
+        .table-container::-webkit-scrollbar-track { background: #0f172a; }
+        .table-container::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        .hidden-view { display: none !important; }
+    </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
 
+    <!-- Top Admin Header Bar -->
     <header class="bg-slate-950 border-b border-slate-800 py-6 px-8 sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div onclick="showAdminView('dashboard')" class="cursor-pointer">
-                <h1 class="text-2xl font-extrabold text-white flex items-center gap-2">🦉 HOOT CODERS <span class="text-slate-500 font-mono text-sm">/ Admin Deck</span></h1>
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div class="cursor-pointer" onclick="showAdminView('dashboard')">
+                <span class="text-xs font-mono font-bold uppercase tracking-widest text-red-500 block mb-1">Central Matrix Scope</span>
+                <h1 class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">🦉 HOOT CODERS <span class="text-slate-500 font-light font-mono text-sm">/ Admin Backoffice</span></h1>
             </div>
-            <button id="back-to-dash-btn" onclick="showAdminView('dashboard')" class="hidden-view text-xs font-semibold text-slate-400 hover:text-white bg-slate-900 border border-slate-800 px-3 py-2 rounded-xl"><i class="fa-solid fa-arrow-left"></i> Dashboard Hub</button>
+            <div class="flex items-center gap-4">
+                <button id="back-to-dash-btn" onclick="showAdminView('dashboard')" class="hidden-view text-xs font-semibold text-slate-400 hover:text-white transition flex items-center gap-1.5 bg-slate-900 border border-slate-800 px-3 py-2 rounded-xl">
+                    <i class="fa-solid fa-arrow-left"></i> Dashboard Hub
+                </button>
+                <div class="bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl text-xs font-mono text-slate-400">
+                    Database Stack: <span class="text-emerald-400 font-bold animate-pulse">● Live Syncing</span>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main id="admin-dashboard-view" class="max-w-7xl mx-auto px-4 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div onclick="showAdminView('registry')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl cursor-pointer">
-                <h3 class="text-lg font-bold text-white">Trainee Data</h3>
-                <p class="text-xs text-slate-400 mt-1">Manage users pipeline records.</p>
-            </div>
-            <div onclick="showAdminView('events-grid')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl cursor-pointer">
-                <h3 class="text-lg font-bold text-white">Event Registration Data</h3>
-                <p class="text-xs text-slate-400 mt-1">Review live competition signups.</p>
-            </div>
-            <div onclick="showAdminView('aptitude-control')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl cursor-pointer border-red-500/40">
-                <h3 class="text-lg font-bold text-red-400">Aptitude Bulk Exam Manager</h3>
-                <p class="text-xs text-slate-400 mt-1">Upload bulk CSV files containing dynamic questionnaire metrics.</p>
-            </div>
+    <!-- SECTION 1: ADMIN DASHBOARD HUB PANEL -->
+    <main id="admin-dashboard-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="mb-8">
+            <h2 class="text-xl font-bold text-white">Operational Dashboard Controls</h2>
+            <p class="text-xs text-slate-400 mt-1">Select an active repository below to manage system metrics.</p>
         </div>
-    </main>
 
-    <main id="admin-registry-view" class="max-w-7xl mx-auto px-4 py-12 hidden-view"><p class="text-xs text-slate-400">Trainee registry logs grid mapping pipeline synced layout...</p></main>
-    <main id="admin-events-view" class="max-w-7xl mx-auto px-4 py-12 hidden-view"><p class="text-xs text-slate-400">Event roster grid mappings pipeline active channels...</p></main>
-
-    <main id="admin-aptitude-view" class="max-w-7xl mx-auto px-4 py-12 hidden-view">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <!-- Admin Navigation Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            <!-- Exam Creator Controls Container -->
-            <div class="space-y-6 lg:col-span-1">
-                <!-- Meta Config Fields -->
-                <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-3">
-                    <h3 class="text-sm font-mono uppercase font-bold text-white border-b border-slate-800 pb-2"><i class="fa-solid fa-gear"></i> Core Exam Settings</h3>
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase">Exam Title</label>
-                        <input type="text" id="bulk-exam-title" placeholder="e.g. Advanced Vectors Assessment" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-500">
+            <!-- Registration Trainee Data Card -->
+            <div onclick="showAdminView('registry')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-xl hover:border-orange-500/50 hover:shadow-orange-500/5 transition duration-300 cursor-pointer group flex flex-col justify-between min-h-[180px]">
+                <div class="space-y-3">
+                    <div class="h-12 w-12 bg-orange-500/10 text-orange-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition duration-300">
+                        <i class="fa-solid fa-users-viewfinder"></i>
                     </div>
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase">Duration (Minutes)</label>
-                        <input type="number" id="bulk-exam-duration" placeholder="e.g. 45" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-red-500">
+                    <div>
+                        <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition">Registration Trainee Data</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-1">View, evaluate, approve, filter, and extract newly registered cadet applications inside the database pipeline.</p>
                     </div>
                 </div>
-
-                <!-- Toggle Options Engine -->
-                <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl flex gap-2">
-                    <button onclick="toggleCreationMode('csv')" id="btn-mode-csv" class="flex-1 text-center py-2 text-xs font-bold rounded-xl transition bg-red-600/20 text-red-400 border border-red-500/30">CSV Upload</button>
-                    <button onclick="toggleCreationMode('manual')" id="btn-mode-manual" class="flex-1 text-center py-2 text-xs font-bold rounded-xl transition bg-slate-900 text-slate-400 border border-transparent hover:text-white">Manual Input</button>
-                </div>
-
-                <!-- Option A: Bulk CSV Engine Interface Component -->
-                <div id="engine-csv-pane" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-4">
-                    <h3 class="text-sm font-mono uppercase font-bold text-red-400 border-b border-slate-800 pb-2"><i class="fa-solid fa-file-csv"></i> Bulk Upload Engine</h3>
-                    <div class="bg-slate-900/50 rounded-xl p-3 border border-white/5 space-y-1">
-                        <span class="text-[10px] font-mono tracking-wider font-bold text-amber-400 block">Spreadsheet Column Index Pattern:</span>
-                        <p class="text-[9px] text-slate-400 font-mono">Question , Option A , Option B , Option C , Option D , Correct Answer</p>
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase">Choose CSV Document</label>
-                        <input type="file" id="csv-file-selector" accept=".csv" class="w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-red-500/10 file:text-red-400 hover:file:bg-red-500/20 cursor-pointer">
-                    </div>
-                    <button onclick="processBulkCsvData()" class="w-full bg-red-600 hover:bg-red-500 text-white text-xs font-bold py-2.5 rounded-xl uppercase tracking-wider transition">Process & Deploy Bulk Exam</button>
-                </div>
-
-                <!-- Option B: Manual Input Engine Component -->
-                <div id="engine-manual-pane" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-4 hidden-view">
-                    <h3 class="text-sm font-mono uppercase font-bold text-emerald-400 border-b border-slate-800 pb-2"><i class="fa-solid fa-pen-to-square"></i> Manual Entry Board</h3>
-                    <div class="space-y-3">
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase">Question Prompt Statement</label>
-                            <textarea id="manual-q-text" rows="2" placeholder="Enter question description logic..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"></textarea>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-400 uppercase">Option A</label>
-                                <input type="text" id="manual-q-a" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none">
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-400 uppercase">Option B</label>
-                                <input type="text" id="manual-q-b" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none">
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-400 uppercase">Option C</label>
-                                <input type="text" id="manual-q-c" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none">
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-400 uppercase">Option D</label>
-                                <input type="text" id="manual-q-d" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none">
-                            </div>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase">Target Correct Key</label>
-                            <select id="manual-q-correct" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
-                                <option value="A">Option A</option>
-                                <option value="B">Option B</option>
-                                <option value="C">Option C</option>
-                                <option value="D">Option D</option>
-                            </select>
-                        </div>
-                        <button onclick="appendManualQuestionItem()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold py-2 rounded-xl border border-slate-700 transition">+ Append To Working Array (<span id="manual-array-counter">0</span>)</button>
-                        <button onclick="deployManualExamDataset()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2.5 rounded-xl uppercase tracking-wider transition">Deploy Staged Exam Deck</button>
-                    </div>
+                <div class="flex items-center justify-between text-xs font-mono text-slate-500 pt-4 border-t border-slate-900 mt-4">
+                    <span>Database Path: /users</span>
+                    <span class="text-orange-500 flex items-center gap-1 group-hover:translate-x-1 transition duration-200">Access Grid <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                 </div>
             </div>
 
-            <!-- Databases Monitoring Realtime Grid Layout Container -->
-            <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl lg:col-span-2 space-y-4">
-                <h3 class="text-sm font-mono uppercase font-bold text-slate-400 border-b border-slate-800 pb-2">Published Testing Datasets</h3>
-                <div class="overflow-x-auto w-full">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="bg-slate-900 text-[10px] text-slate-400 border-b border-slate-800">
-                                <th class="py-3 px-4">Exam Module Title</th>
-                                <th class="py-3 px-4">Duration</th>
-                                <th class="py-3 px-4">Total Items</th>
-                                <th class="py-3 px-4 text-right">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-exams-table-body" class="divide-y divide-slate-800 text-xs"></tbody>
-                    </table>
+            <!-- Event Registration Data Card -->
+            <div onclick="showAdminView('events-grid')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-xl hover:border-emerald-500/50 hover:shadow-emerald-500/5 transition duration-300 cursor-pointer group flex flex-col justify-between min-h-[180px]">
+                <div class="space-y-3">
+                    <div class="h-12 w-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition duration-300">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition">Event Registration Data</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-1">Review live competition sign-ups, sub-group choices, and custom event logs from the live site metrics.</p>
+                    </div>
                 </div>
+                <div class="flex items-center justify-between text-xs font-mono text-slate-500 pt-4 border-t border-slate-900 mt-4">
+                    <span>Database Path: /event_registrations</span>
+                    <span class="text-emerald-400 flex items-center gap-1 group-hover:translate-x-1 transition duration-200">Access Grid <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SECTION 2: EXCEL SPREADSHEET REGISTRY VIEW -->
+    <main id="admin-registry-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden-view">
+        <div class="mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
+                    <span class="cursor-pointer hover:text-white" onclick="showAdminView('dashboard')">Dashboard</span> 
+                    <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i> 
+                    <span class="text-orange-400">Registration Trainee Data</span>
+                </div>
+                <h2 class="text-xl font-bold text-white">Registered Trainees Registry</h2>
+                <p class="text-xs text-slate-400 mt-1">Spreadsheet optimization format with integrated real-time dynamic text queries filtering engine.</p>
+            </div>
+            
+            <!-- Realtime Filter Interface and Actions Panel -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                <div class="relative flex-1 sm:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                    <input type="text" id="trainee-search-input" onkeyup="filterSpreadsheetTable('trainee-search-input', 'admin-table-body')" placeholder="Search SUC ID, name, department..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition">
+                </div>
+                <button onclick="downloadExcelFormat('trainee-table-data', 'HootCoders_Trainees_Registry')" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 transition tracking-wide shadow-lg whitespace-nowrap">
+                    <i class="fa-solid fa-file-excel text-emerald-400 text-sm"></i> Download Excel (CSV)
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+            <div class="table-container overflow-x-auto w-full">
+                <table class="w-full text-left border-collapse" id="trainee-table-data">
+                    <thead>
+                        <tr class="bg-slate-900 border-b border-slate-800 text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                            <th class="py-4 px-6 font-bold">SUC ID</th>
+                            <th class="py-4 px-6 font-bold">Full Name</th>
+                            <th class="py-4 px-6 font-bold">Email Address</th>
+                            <th class="py-4 px-6 font-bold">Department</th>
+                            <th class="py-4 px-6 font-bold">Phone</th>
+                            <th class="py-4 px-6 font-bold text-center">Status</th>
+                            <th class="py-4 px-6 font-bold text-right">Action Interface</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-table-body" class="divide-y divide-slate-800 text-sm">
+                        <tr id="table-loading-row"><td colspan="7" class="text-center py-16 text-slate-500 font-mono text-xs">Reading data nodes table cluster grid...</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>
 
+    <!-- SECTION 3: EXCEL SPREADSHEET EVENTS VIEW -->
+    <main id="admin-events-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden-view">
+        <div class="mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
+                    <span class="cursor-pointer hover:text-white" onclick="showAdminView('dashboard')">Dashboard</span> 
+                    <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i> 
+                    <span class="text-emerald-400">Event Registrations</span>
+                </div>
+                <h2 class="text-xl font-bold text-white">Event Sign-Ups Matrix</h2>
+                <p class="text-xs text-slate-400 mt-1">Excel-view spreadsheet optimization format for tracking competition rosters.</p>
+            </div>
+            
+            <!-- Realtime Filter Interface and Actions Panel -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                <div class="relative flex-1 sm:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                    <input type="text" id="events-search-input" onkeyup="filterSpreadsheetTable('events-search-input', 'events-table-body')" placeholder="Search participant, event title, group..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition">
+                </div>
+                <button onclick="downloadExcelFormat('events-table-data', 'HootCoders_Event_Registrations')" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 transition tracking-wide shadow-lg whitespace-nowrap">
+                    <i class="fa-solid fa-file-excel text-emerald-400 text-sm"></i> Download Excel (CSV)
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+            <div class="table-container overflow-x-auto w-full">
+                <table class="w-full text-left border-collapse" id="events-table-data">
+                    <thead>
+                        <tr class="bg-slate-900 border-b border-slate-800 text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                            <th class="py-4 px-6 font-bold">Event Title</th>
+                            <th class="py-4 px-6 font-bold">Participant Name</th>
+                            <th class="py-4 px-6 font-bold">SUC ID</th>
+                            <th class="py-4 px-6 font-bold">Branch/Dept</th>
+                            <th class="py-4 px-6 font-bold">Group Desig</th>
+                            <th class="py-4 px-6 font-bold text-right">Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-table-body" class="divide-y divide-slate-800 text-sm">
+                        <tr><td colspan="6" class="text-center py-16 text-slate-500 font-mono text-xs">No event entries recorded inside the cluster path yet.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 text-slate-500 pt-12 pb-12 border-t border-slate-900 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-[11px]">
+            <p>&copy; 2026 HOOT CODERS Hub. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase Script Logic Matrix Modules -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, update, remove, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDRSv7X-cxaxvoE6UGPAy9DUFjAeLPFeGc",
             authDomain: "useasfriendshub.firebaseapp.com",
             databaseURL: "https://useasfriendshub-default-rtdb.firebaseio.com",
-            projectId: "useasfriendshub"
+            projectId: "useasfriendshub",
+            storageBucket: "useasfriendshub.firebasestorage.app",
+            messagingSenderId: "673386892232",
+            appId: "1:673386892232:web:09c8dc0ed93cfd79d58efd",
+            measurementId: "G-2X2E9XTYY0"
         };
+
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Memory allocation array node tracker for explicit manually staged testing schemas
-        let manualQuestionsStagingStack = [];
+        window.showAdminView = (targetView) => {
+            const dashboardLayout = document.getElementById('admin-dashboard-view');
+            const registryLayout = document.getElementById('admin-registry-view');
+            const eventsLayout = document.getElementById('admin-events-view');
+            const backBtn = document.getElementById('back-to-dash-btn');
 
-        window.showAdminView = (name) => {
-            document.getElementById('admin-dashboard-view').classList.add('hidden-view');
-            document.getElementById('admin-registry-view').classList.add('hidden-view');
-            document.getElementById('admin-events-view').classList.add('hidden-view');
-            document.getElementById('admin-aptitude-view').classList.add('hidden-view');
-            document.getElementById('back-to-dash-btn').classList.add('hidden-view');
+            dashboardLayout.classList.add('hidden-view');
+            registryLayout.classList.add('hidden-view');
+            eventsLayout.classList.add('hidden-view');
+            backBtn.classList.add('hidden-view');
 
-            if (name === 'aptitude-control') {
-                document.getElementById('admin-aptitude-view').classList.remove('hidden-view');
-                document.getElementById('back-to-dash-btn').classList.remove('hidden-view');
-            } else if (name === 'registry') {
-                document.getElementById('admin-registry-view').classList.remove('hidden-view');
-                document.getElementById('back-to-dash-btn').classList.remove('hidden-view');
-            } else if (name === 'events-grid') {
-                document.getElementById('admin-events-view').classList.remove('hidden-view');
-                document.getElementById('back-to-dash-btn').classList.remove('hidden-view');
+            // Clear searches on view switch to prevent data disconnect
+            document.getElementById('trainee-search-input').value = "";
+            document.getElementById('events-search-input').value = "";
+
+            if (targetView === 'registry') {
+                registryLayout.classList.remove('hidden-view');
+                backBtn.classList.remove('hidden-view');
+            } else if (targetView === 'events-grid') {
+                eventsLayout.classList.remove('hidden-view');
+                backBtn.classList.remove('hidden-view');
             } else {
-                document.getElementById('admin-dashboard-view').classList.remove('hidden-view');
+                dashboardLayout.classList.remove('hidden-view');
             }
         };
 
-        // UI Creation Mode State Mutation Dynamic Function Manager
-        window.toggleCreationMode = (targetMode) => {
-            const csvPane = document.getElementById('engine-csv-pane');
-            const manualPane = document.getElementById('engine-manual-pane');
-            const csvBtn = document.getElementById('btn-mode-csv');
-            const manualBtn = document.getElementById('btn-mode-manual');
+        // Instant Dynamic Frontend Multi-Column Table Search Engine Row-Pruning Filter Logic
+        window.filterSpreadsheetTable = (inputId, tbodyId) => {
+            const query = document.getElementById(inputId).value.toLowerCase();
+            const targetTableBody = document.getElementById(tbodyId);
+            const targetRows = targetTableBody.getElementsByTagName('tr');
 
-            if (targetMode === 'manual') {
-                csvPane.classList.add('hidden-view');
-                manualPane.classList.remove('hidden-view');
-                manualBtn.className = "flex-1 text-center py-2 text-xs font-bold rounded-xl transition bg-emerald-600/20 text-emerald-400 border border-emerald-500/30";
-                csvBtn.className = "flex-1 text-center py-2 text-xs font-bold rounded-xl transition bg-slate-900 text-slate-400 border border-transparent hover:text-white";
-            } else {
-                manualPane.classList.add('hidden-view');
-                csvPane.classList.remove('hidden-view');
-                csvBtn.className = "flex-1 text-center py-2 text-xs font-bold rounded-xl transition bg-red-600/20 text-red-400 border border-red-500/30";
-                manualBtn.className = "flex-1 text-center py-2 text-xs font-bold rounded-xl transition bg-slate-900 text-slate-400 border border-transparent hover:text-white";
-            }
-        };
-
-        // Manual Staging Mutation Core Operations Engine
-        window.appendManualQuestionItem = () => {
-            const text = document.getElementById('manual-q-text').value.trim();
-            const a = document.getElementById('manual-q-a').value.trim();
-            const b = document.getElementById('manual-q-b').value.trim();
-            const c = document.getElementById('manual-q-c').value.trim();
-            const d = document.getElementById('manual-q-d').value.trim();
-            const correct = document.getElementById('manual-q-correct').value;
-
-            if (!text || !a || !b || !c || !d) {
-                alert("Please fill out all parts of the question form before staging.");
-                return;
-            }
-
-            manualQuestionsStagingStack.push({ text, a, b, c, d, correct });
-            document.getElementById('manual-array-counter').innerText = manualQuestionsStagingStack.length;
-
-            // Flash input layout reset nodes values safely
-            document.getElementById('manual-q-text').value = '';
-            document.getElementById('manual-q-a').value = '';
-            document.getElementById('manual-q-b').value = '';
-            document.getElementById('manual-q-c').value = '';
-            document.getElementById('manual-q-d').value = '';
-        };
-
-        // Deploy Staged Memory Collection Pipeline out directly onto standard RTDB structure nodes
-        window.deployManualExamDataset = async () => {
-            const title = document.getElementById('bulk-exam-title').value.trim();
-            const duration = document.getElementById('bulk-exam-duration').value.trim();
-
-            if (!title || !duration) {
-                alert("Please complete core parameter metrics (Title & Duration) at top window parameters node configuration space.");
-                return;
-            }
-
-            if (manualQuestionsStagingStack.length === 0) {
-                alert("Zero operational matrix records allocated inside current operational session arrays pipeline stack configuration spaces.");
-                return;
-            }
-
-            const newExamRef = push(ref(db, 'aptitude_exams'));
-            try {
-                await update(newExamRef, {
-                    title: title,
-                    duration: duration,
-                    questions: manualQuestionsStagingStack
-                });
-                alert(`Successfully deployed ${manualQuestionsStagingStack.length} questions into DB dataset pipeline environment setup!`);
+            for (let i = 0; i < targetRows.length; i++) {
+                const currentRow = targetRows[i];
                 
-                // Pure clean standard resetting operation
-                manualQuestionsStagingStack = [];
-                document.getElementById('manual-array-counter').innerText = '0';
-                document.getElementById('bulk-exam-title').value = '';
-                document.getElementById('bulk-exam-duration').value = '';
-            } catch (error) {
-                alert("Deployment pipeline structural fault error exception raised: " + error.message);
-            }
-        };
-
-        // Realtime Listener for Exams Array
-        onValue(ref(db, 'aptitude_exams'), (snapshot) => {
-            const tbody = document.getElementById('admin-exams-table-body');
-            tbody.innerHTML = '';
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                for (let examId in data) {
-                    const exam = data[examId];
-                    const qCount = exam.questions ? exam.questions.length : 0;
-                    const tr = document.createElement('tr');
-                    tr.className = "hover:bg-slate-900/60 text-slate-300";
-                    tr.innerHTML = `
-                        <td class="py-3 px-4 font-bold text-white">${exam.title}</td>
-                        <td class="py-3 px-4">${exam.duration} Minutes</td>
-                        <td class="py-3 px-4 text-amber-400">${qCount} Questions Loaded</td>
-                        <td class="py-3 px-4 text-right">
-                            <button onclick="adminDeleteExam('${examId}')" class="bg-red-600 hover:bg-red-500 text-white px-2 py-1 rounded transition"><i class="fa-solid fa-trash-can"></i></button>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                }
-            } else {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-500">No testing assets mapped.</td></tr>`;
-            }
-        });
-
-        // Bulk CSV File Line-Parser Processor Engine
-        window.processBulkCsvData = () => {
-            const title = document.getElementById('bulk-exam-title').value;
-            const duration = document.getElementById('bulk-exam-duration').value;
-            const fileInput = document.getElementById('csv-file-selector');
-
-            if (!title || !duration || !fileInput.files[0]) {
-                alert("Please fill all descriptive fields and check the target CSV upload configuration file parameter nodes.");
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.readAsText(fileInput.files[0]);
-            reader.onload = async (e) => {
-                const csvText = e.target.result;
-                const lines = csvText.split(/\r?\n/);
-                const generatedQuestionsArray = [];
-
-                for (let i = 1; i < lines.length; i++) {
-                    if (!lines[i].trim()) continue;
-                    
-                    const columns = lines[i].split(",");
-                    if (columns.length >= 6) {
-                        generatedQuestionsArray.push({
-                            text: columns[0].trim(),
-                            a: columns[1].trim(),
-                            b: columns[2].trim(),
-                            c: columns[3].trim(),
-                            d: columns[4].trim(),
-                            correct: columns[5].trim().toUpperCase()
-                        });
+                // Keep loading rows or empty state flags safe from search pruning
+                if (currentRow.id === "table-loading-row" || currentRow.cells.length <= 1) continue;
+                
+                let rowMatchesQuery = false;
+                for (let j = 0; j < currentRow.cells.length; j++) {
+                    const textValue = currentRow.cells[j].textContent || currentRow.cells[j].innerText;
+                    if (textValue.toLowerCase().indexOf(query) > -1) {
+                        rowMatchesQuery = true;
+                        break;
                     }
                 }
 
-                if (generatedQuestionsArray.length === 0) {
-                    alert("Zero structural questions mapped successfully. Verify columns match specification patterns.");
-                    return;
+                if (rowMatchesQuery) {
+                    currentRow.classList.remove('hidden-view');
+                } else {
+                    currentRow.classList.add('hidden-view');
                 }
-
-                const newExamRef = push(ref(db, 'aptitude_exams'));
-                try {
-                    await update(newExamRef, {
-                        title: title,
-                        duration: duration,
-                        questions: generatedQuestionsArray
-                    });
-                    alert(`Successfully parsed and synchronized ${generatedQuestionsArray.length} items to database workspace!`);
-                    document.getElementById('bulk-exam-title').value = '';
-                    document.getElementById('bulk-exam-duration').value = '';
-                    fileInput.value = '';
-                } catch (error) {
-                    alert("Push process halted unexpectedly: " + error.message);
-                }
-            };
+            }
         };
 
-        window.adminDeleteExam = async (id) => {
-            if (confirm("Purge chosen exam data array structure permanently?")) {
-                await remove(ref(db, `aptitude_exams/${id}`));
+        // Realtime User Spreadsheet Pipeline listener loop
+        onValue(ref(db, 'users'), (snapshot) => {
+            const tableBody = document.getElementById('admin-table-body');
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                tableBody.innerHTML = ''; 
+                for (let uid in data) {
+                    const u = data[uid];
+                    const isVerified = u.status === 'verified';
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-900/40 transition duration-150 group";
+                    row.innerHTML = `
+                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400 group-hover:text-white transition">${u.suc || '—'}</td>
+                        <td class="py-3.5 px-6 font-bold text-white whitespace-nowrap">${u.name || 'N/A'}</td>
+                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400 group-hover:text-slate-300 transition">${u.email || '—'}</td>
+                        <td class="py-3.5 px-6 text-slate-300 font-medium whitespace-nowrap">${u.department || '—'}</td>
+                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400">${u.phone || '—'}</td>
+                        <td class="py-3.5 px-6 text-center whitespace-nowrap">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-mono font-bold tracking-wider ${isVerified ? 'bg-emerald-950 text-emerald-400 border border-emerald-900/60' : 'bg-amber-950 text-amber-400 border border-amber-900/60'}">
+                                <span class="h-1.5 w-1.5 rounded-full ${isVerified ? 'bg-emerald-400' : 'bg-amber-400 animate-pulse'}"></span>
+                                ${u.status ? u.status.toUpperCase() : 'PENDING'}
+                            </span>
+                        </td>
+                        <td class="py-3.5 px-6 text-right whitespace-nowrap">
+                            <div class="flex items-center justify-end gap-2">
+                                ${!isVerified ? `
+                                    <button onclick="adminApproveUser('${uid}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition duration-150 shadow-md">
+                                        <i class="fa-solid fa-square-check"></i> Approve
+                                    </button>
+                                ` : `
+                                    <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1 pr-1 select-none">
+                                        <i class="fa-solid fa-circle-check"></i> Done
+                                    </span>
+                                `}
+                                <button onclick="adminDeleteUser('${uid}', '${u.name ? u.name.replace(/'/g, "\\'") : 'Trainee'}')" class="bg-red-600 hover:bg-red-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition duration-150 shadow-md" title="Delete Records">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                }
+                // Run text filter automatically to ensure newly arrived sync snapshots obey the current query layout
+                filterSpreadsheetTable('trainee-search-input', 'admin-table-body');
+            } else {
+                tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-16 text-slate-500 font-mono text-xs">No records available.</td></tr>`;
             }
+        });
+
+        // Realtime Event Pipeline listener loop
+        onValue(ref(db, 'event_registrations'), (snapshot) => {
+            const tableBody = document.getElementById('events-table-body');
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                tableBody.innerHTML = '';
+                for (let id in data) {
+                    const item = data[id];
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-900/40 transition text-slate-300";
+                    row.innerHTML = `
+                        <td class="py-3.5 px-6 font-bold text-orange-400">${item.eventTitle || '—'}</td>
+                        <td class="py-3.5 px-6 font-semibold text-white">${item.name || '—'}</td>
+                        <td class="py-3.5 px-6 font-mono text-xs">${item.suc || '—'}</td>
+                        <td class="py-3.5 px-6">${item.department || '—'}</td>
+                        <td class="py-3.5 px-6 font-mono text-xs text-amber-400">${item.group || '—'}</td>
+                        <td class="py-3.5 px-6 text-right font-mono text-xs text-slate-500">${item.timestamp ? item.timestamp.split('T')[0] : '—'}</td>
+                    `;
+                    tableBody.appendChild(row);
+                }
+                filterSpreadsheetTable('events-search-input', 'events-table-body');
+            } else {
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center py-16 text-slate-500 font-mono text-xs">No event sign-ups recorded yet.</td></tr>`;
+            }
+        });
+
+        // User Approval Handler
+        window.adminApproveUser = async (uid) => {
+            try {
+                await update(ref(db, `users/${uid}`), { status: 'verified' });
+            } catch (error) {
+                alert("Database Update Interrupted: " + error.message);
+            }
+        };
+
+        // User Removal Handler with Confirmation Barrier
+        window.adminDeleteUser = async (uid, username) => {
+            const confirmPurge = confirm(`Are you sure you want to permanently delete the profile data node for "${username}"? This cannot be undone.`);
+            if (!confirmPurge) return;
+            
+            try {
+                await remove(ref(db, `users/${uid}`));
+            } catch (error) {
+                alert("Database Deletion Execution Interrupted: " + error.message);
+            }
+        };
+
+        // Spreadsheet Engine (CSV exporter)
+        window.downloadExcelFormat = (tableId, fileName) => {
+            const table = document.getElementById(tableId);
+            const rows = table.querySelectorAll("tr");
+            let csvContent = "";
+
+            rows.forEach((row) => {
+                // Ensure hidden rows (filtered out elements) are bypassed during spreadsheet compilation builds
+                if (row.classList.contains('hidden-view')) return;
+
+                const cols = row.querySelectorAll("th, td");
+                const rowData = [];
+                const limit = tableId === 'trainee-table-data' ? cols.length - 1 : cols.length;
+                
+                for (let i = 0; i < limit; i++) {
+                    let cleanText = cols[i].innerText.replace(/\r?\n|\r/g, " ").trim();
+                    cleanText = cleanText.replace(/"/g, '""'); 
+                    rowData.push(`"${cleanText}"`);
+                }
+                if(rowData.length > 0) csvContent += rowData.join(",") + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.setAttribute("href", URL.createObjectURL(blob));
+            link.setAttribute("download", `${fileName}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         };
     </script>
 </body>
