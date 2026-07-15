@@ -3,320 +3,528 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOOT CODERS - Admin Backoffice Platform</title>
+    <title>HOOT CODERS - Gateway to Tech Excellence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .table-container::-webkit-scrollbar { height: 6px; }
-        .table-container::-webkit-scrollbar-track { background: #0f172a; }
-        .table-container::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        .hidden-view { display: none !important; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        .hidden-view {
+            display: none !important;
+        }
+        @keyframes scaleIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-scale {
+            animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Perspective and 3D Click-Flip Card System Styles */
+        .perspective-container {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Majestic Slower Owl Particle Flight Animation Engine */
+        .owl-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            font-size: 1.8rem;
+            animation: flyAwaySlower 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            filter: drop-shadow(0 4px 12px rgba(251, 146, 60, 0.4));
+        }
+        @keyframes flyAwaySlower {
+            0% {
+                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(var(--tw-tx), var(--tw-ty)) scale(1.8) rotate(var(--tw-rot));
+                opacity: 0;
+            }
+        }
+
+        /* Interactive Eye Lid Blinking Eyelid Layers */
+        .owl-eyelid {
+            position: absolute;
+            background-color: #3b2314; /* Matches character head palette */
+            border-radius: 50%;
+            height: 0%;
+            width: 58px;
+            transition: height 0.12s ease-in-out;
+            z-index: 20;
+            border: 2px solid #1a0f0d;
+        }
+        .owl-container.is-blinking .owl-eyelid {
+            height: 58px;
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen">
+<body class="bg-[#0B0F1A] text-slate-100 antialiased">
 
-    <header class="bg-slate-950 border-b border-slate-800 py-6 px-8 sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div class="cursor-pointer" onclick="showAdminView('dashboard')">
-                <span class="text-xs font-mono font-bold uppercase tracking-widest text-red-500 block mb-1">Central Matrix Scope</span>
-                <h1 class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">🦉 HOOT CODERS <span class="text-slate-500 font-light font-mono text-sm">/ Admin Backoffice</span></h1>
+    <header class="sticky top-0 z-50 bg-[#111827]/90 backdrop-blur-md border-b border-white/10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showView('landing')">
+                <div class="h-10 w-10 bg-[#F15D49] flex items-center justify-center rounded-lg text-white font-bold text-xl tracking-tighter shadow-md shadow-[#F15D49]/20">
+                    🦉
+                </div>
+                <span class="text-2xl font-extrabold text-white tracking-tight">HOOT<span class="text-[#F15D49]">CODERS</span></span>
             </div>
+
+            <nav class="hidden lg:flex items-center gap-8 font-semibold text-gray-300 text-sm">
+                <a href="#" onclick="showView('landing')" class="hover:text-[#F15D49] transition">My Wings</a>
+                <a href="#" onclick="showView('events')" class="hover:text-[#F15D49] transition">EVENTS</a>
+                <a href="#" onclick="showView('placements')" class="hover:text-[#F15D49] transition text-orange-400"><i class="fa-solid fa-briefcase mr-1"></i> PLACEMENTS</a>
+                <a href="#" id="nav-dash-link" onclick="showView('dashboard')" class="hidden-view hover:text-[#F15D49] transition">WORKSPACE</a>
+            </nav>
+
             <div class="flex items-center gap-4">
-                <button id="back-to-dash-btn" onclick="showAdminView('dashboard')" class="hidden-view text-xs font-semibold text-slate-400 hover:text-white transition flex items-center gap-1.5 bg-slate-900 border border-slate-800 px-3 py-2 rounded-xl">
-                    <i class="fa-solid fa-arrow-left"></i> Dashboard Hub
-                </button>
-                <div class="bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl text-xs font-mono text-slate-400">
-                    Database Stack: <span class="text-emerald-400 font-bold animate-pulse">● Live Syncing</span>
+                <div id="guest-actions" class="flex items-center gap-4">
+                    <button onclick="openLoginModal()" class="text-sm font-semibold text-gray-200 hover:text-[#F15D49] transition">Login</button>
+                    <button onclick="openRegisterModal()" class="bg-[#F15D49] hover:bg-[#D94E3B] text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-[#F15D49]/10 transition-all">Register</button>
+                </div>
+
+                <div id="auth-actions" class="hidden-view relative">
+                    <button onclick="toggleProfileDropdown()" class="h-10 w-10 bg-[#F15D49] text-white rounded-full flex items-center justify-center font-bold shadow-md hover:scale-105 transition focus:outline-none">
+                        <span id="profile-initials">U</span>
+                    </button>
+                    <div id="profile-dropdown" class="hidden-view absolute right-0 mt-3 w-64 bg-[#111827] rounded-2xl border border-white/10 shadow-xl py-4 z-50">
+                        <div class="px-4 pb-3 border-b border-white/5">
+                            <p class="text-xs text-gray-400 font-medium">Signed in as</p>
+                            <p id="dropdown-name" class="font-bold text-white truncate text-sm"></p>
+                            <p id="dropdown-email" class="text-xs text-gray-400 truncate mb-2"></p>
+                            
+                            <div id="status-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold">
+                                <i class="fa-solid fa-circle-notch animate-spin text-xxs"></i> Verification Check
+                            </div>
+                        </div>
+                        <div class="px-2 pt-2">
+                            <button onclick="showView('dashboard')" class="w-full text-left px-3 py-2 text-xs text-gray-200 hover:bg-[#0B0F1A] rounded-lg transition font-medium">
+                                <i class="fa-solid fa-gauge mr-2 opacity-70"></i> Workspace Dashboard
+                            </button>
+                            <button onclick="logoutUser()" class="w-full text-left px-3 py-2 text-xs text-[#F15D49] hover:bg-[#F15D49]/10 rounded-lg transition font-bold mt-1">
+                                <i class="fa-solid fa-right-from-bracket mr-2 opacity-70"></i> Secure Logout
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <main id="admin-dashboard-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="mb-8">
-            <h2 class="text-xl font-bold text-white">Operational Dashboard Controls</h2>
-            <p class="text-xs text-slate-400 mt-1">Select an active repository below to manage system metrics.</p>
+    <main id="view-landing">
+        <section class="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28 bg-[#0B0F1A]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right" data-aos-duration="1000">
+                    <div class="inline-flex items-center gap-2 bg-[#F15D49]/10 text-[#F15D49] px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border border-[#F15D49]/20">
+                        <span class="flex h-2 w-2 rounded-full bg-[#F15D49] animate-pulse"></span>
+                        The Gateway to Tech Excellence
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
+                        Code Wise Fly High. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F15D49] to-orange-400">with HOOT</span>
+                    </h1>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-xl">
+                        Inspired by the wisdom of the owl, Hoot Coders empowers learners to code with confidence, think creatively, and build innovative solutions. Through practical training, live projects, and real-world experiences, we help every learner code wisely and fly high.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-white/5 pt-8">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 bg-[#F15D49]/10 text-[#F15D49] rounded-lg"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div><h4 class="font-bold text-white text-sm">100+ Courses</h4><p class="text-xs text-gray-400">Industry-aligned paths</p></div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 bg-[#F15D49]/10 text-[#F15D49] rounded-lg"><i class="fa-solid fa-user-tie"></i></div>
+                            <div><h4 class="font-bold text-white text-sm">Top Instructors</h4><p class="text-xs text-gray-400">Seasoned experts</p></div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i class="fa-solid fa-certificate"></i></div>
+                            <div><h4 class="font-bold text-white text-sm">Global Certs</h4><p class="text-xs text-gray-400">Validate your skills</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative lg:ml-4 flex justify-center items-center select-none" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-[#F15D49]/20 to-orange-500/10 rounded-3xl opacity-40 blur-2xl pointer-events-none"></div>
+                    <div id="interactive-owl-node" onclick="triggerOwlHootEffects()" class="owl-container relative w-full max-w-[450px] transform hover:scale-[1.03] active:scale-95 transition duration-500 cursor-pointer">
+                        <div class="owl-eyelid top-[108px] left-[163px]"></div>
+                        <div class="owl-eyelid top-[108px] left-[229px]"></div>
+                        <img src="https://file.garden/alSdpaXzClCO76yf/Jul%2013%2C%202026%2C%2012_20_55%20PM%20(1).png" alt="Hoot Coders Graphic Logo" class="w-full h-auto object-contain drop-shadow-[0_10px_30px_rgba(241,93,73,0.15)] rounded-2xl"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <main id="view-events" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="mb-12 text-center">
+            <h2 class="text-3xl font-extrabold tracking-tight text-white">Upcoming Hackathons & Tech Events</h2>
+            <p class="text-sm text-gray-400 mt-2">Click anywhere on the card container layout to flip it around.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <div onclick="showAdminView('registry')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-xl hover:border-orange-500/50 hover:shadow-orange-500/5 transition duration-300 cursor-pointer group flex flex-col justify-between min-h-[180px]">
-                <div class="space-y-3">
-                    <div class="h-12 w-12 bg-orange-500/10 text-orange-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition duration-300">
-                        <i class="fa-solid fa-users-viewfinder"></i>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-1')">
+                <div id="event-card-inner-1" class="flip-card-inner w-full h-full">
+                    <div class="flip-card-front rounded-2xl overflow-hidden flex flex-col justify-end shadow-2xl relative border-2 border-[#F15D49] group bg-[#0F1322]">
+                        <div class="absolute inset-0 z-0 flex items-center justify-center">
+                            <img src="https://file.garden/alSdpaXzClCO76yf/typing.PNG" alt="Typing Sprint Background" class="w-full h-full aspect-square object-cover select-none group-hover:scale-[1.03] transition duration-700 ease-out" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                        </div>
+                        <div class="relative z-10 p-6 w-full">
+                            <button onclick="handleRegisterTrigger(event, 'Owl Code Sprint 2026')" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-xl transform active:scale-95 tracking-wide">
+                                Register for Event
+                            </button>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white group-hover:text-orange-400 transition">Registration Trainee Data</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed mt-1">View, evaluate, approve, filter, and extract newly registered cadet applications inside the database pipeline.</p>
+                    <div class="flip-card-back bg-slate-950 text-slate-200 border-2 border-[#F15D49] p-8 flex flex-col justify-between shadow-xl">
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-info text-orange-500"></i> About the Event
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                A high-intensity programming challenge testing full-stack performance optimization and deep custom data parsing. Teams will compete live within the Owl Code terminal engine.
+                            </p>
+                        </div>
+                        <div class="text-center text-xs font-mono text-slate-500 uppercase tracking-wider">Click anywhere to flip back</div>
                     </div>
-                </div>
-                <div class="flex items-center justify-between text-xs font-mono text-slate-500 pt-4 border-t border-slate-900 mt-4">
-                    <span>Database Path: /users</span>
-                    <span class="text-orange-500 flex items-center gap-1 group-hover:translate-x-1 transition duration-200">Access Grid <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                 </div>
             </div>
 
-            <div onclick="showAdminView('events-grid')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-xl hover:border-emerald-500/50 hover:shadow-emerald-500/5 transition duration-300 cursor-pointer group flex flex-col justify-between min-h-[180px]">
-                <div class="space-y-3">
-                    <div class="h-12 w-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition duration-300">
-                        <i class="fa-solid fa-trophy"></i>
+            <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-2')">
+                <div id="event-card-inner-2" class="flip-card-inner w-full h-full">
+                    <div class="flip-card-front rounded-2xl overflow-hidden flex flex-col justify-end shadow-2xl relative border-2 border-[#F15D49] group bg-[#0F1322]">
+                        <div class="absolute inset-0 z-0 flex items-center justify-center">
+                            <img src="https://file.garden/alSdpaXzClCO76yf/coder.jpeg" alt="Coder Challenge Background" class="w-full h-full aspect-square object-cover select-none group-hover:scale-[1.03] transition duration-700 ease-out" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                        </div>
+                        <div class="relative z-10 p-6 w-full">
+                            <button onclick="handleRegisterTrigger(event, 'Crowlytics Logic Array')" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-xl transform active:scale-95 tracking-wide">
+                                Register for Event
+                            </button>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition">Event Registration Data</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed mt-1">Review live competition sign-ups, sub-group choices, and custom event logs from the live site metrics.</p>
+                    <div class="flip-card-back bg-slate-950 text-slate-200 border-2 border-[#F15D49] p-8 flex flex-col justify-between shadow-xl">
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-info text-orange-500"></i> About the Event
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Deep dive session on algorithmic logical pattern recognition and data structures metrics mapping.
+                            </p>
+                        </div>
+                        <div class="text-center text-xs font-mono text-slate-500 uppercase tracking-wider">Click anywhere to flip back</div>
                     </div>
-                </div>
-                <div class="flex items-center justify-between text-xs font-mono text-slate-500 pt-4 border-t border-slate-900 mt-4">
-                    <span>Database Path: /event_registrations</span>
-                    <span class="text-emerald-400 flex items-center gap-1 group-hover:translate-x-1 transition duration-200">Access Grid <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
-                </div>
-            </div>
-
-            <div onclick="showAdminView('placements-panel')" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-xl hover:border-blue-500/50 hover:shadow-blue-500/5 transition duration-300 cursor-pointer group flex flex-col justify-between min-h-[180px]">
-                <div class="space-y-3">
-                    <div class="h-12 w-12 bg-blue-500/10 text-blue-400 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition duration-300">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition">Placements & Assessments</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed mt-1">Inject evaluation configurations (C/Python) manually or in bulk using CSV files, and monitor incoming live grades.</p>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between text-xs font-mono text-slate-500 pt-4 border-t border-slate-900 mt-4">
-                    <span>Database Path: /placement_*</span>
-                    <span class="text-blue-400 flex items-center gap-1 group-hover:translate-x-1 transition duration-200">Open Module <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                 </div>
             </div>
 
+            <div class="perspective-container h-[420px] w-full" onclick="toggleCardFlip('event-card-inner-3')">
+                <div id="event-card-inner-3" class="flip-card-inner w-full h-full">
+                    <div class="flip-card-front rounded-2xl overflow-hidden flex flex-col justify-end shadow-2xl relative border-2 border-[#F15D49] group bg-[#0F1322]">
+                        <div class="absolute inset-0 z-0 flex items-center justify-center">
+                            <img src="https://file.garden/alSdpaXzClCO76yf/Programming%20quiz.png" alt="Programming Quiz Challenge Background" class="w-full h-full aspect-square object-cover select-none group-hover:scale-[1.03] transition duration-700 ease-out" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                        </div>
+                        <div class="relative z-10 p-6 w-full">
+                            <button onclick="handleRegisterTrigger(event, 'Programming Quiz')" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white font-bold text-xs py-3.5 rounded-xl transition shadow-xl transform active:scale-95 tracking-wide">
+                                Register for Event
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flip-card-back bg-slate-950 text-slate-200 border-2 border-[#F15D49] p-8 flex flex-col justify-between shadow-xl">
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-bold text-white border-b border-slate-800 pb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-info text-orange-500"></i> Event Target Data
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Join the dynamic algorithmic evaluation array. Test your code execution efficiency, syntactic optimization, and parsing benchmarks.
+                            </p>
+                        </div>
+                        <div class="text-center text-xs font-mono text-slate-500 uppercase tracking-wider">Click anywhere to flip back</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <main id="admin-registry-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden-view">
-        <div class="mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-            <div>
-                <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
-                    <span class="cursor-pointer hover:text-white" onclick="showAdminView('dashboard')">Dashboard</span> 
-                    <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i> 
-                    <span class="text-orange-400">Registration Trainee Data</span>
-                </div>
-                <h2 class="text-xl font-bold text-white">Registered Trainees Registry</h2>
-                <p class="text-xs text-slate-400 mt-1">Spreadsheet optimization format with integrated real-time dynamic text queries filtering engine.</p>
+    <main id="view-placements" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div id="placement-level-1" class="space-y-12">
+            <div class="text-center">
+                <span class="text-xs font-bold text-[#F15D49] uppercase tracking-widest bg-[#F15D49]/10 px-3 py-1 rounded-full">Assessment Matrix</span>
+                <h2 class="text-4xl font-extrabold text-white mt-2">Placement Training Tracks</h2>
+                <p class="text-gray-400 text-sm mt-2">Select a framework panel to enter secondary assessment routing.</p>
             </div>
             
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
-                <div class="relative flex-1 sm:w-64">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
-                    <input type="text" id="trainee-search-input" onkeyup="filterSpreadsheetTable('trainee-search-input', 'admin-table-body')" placeholder="Search SUC ID, name, department..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div onclick="drillIntoPlacementTrack('programming-quiz')" class="bg-[#111827] border-2 border-[#F15D49] hover:border-orange-400 rounded-2xl p-8 cursor-pointer transform hover:-translate-y-2 transition-all shadow-xl flex flex-col justify-between min-h-[320px]">
+                    <div>
+                        <div class="h-14 w-14 bg-[#F15D49]/10 text-[#F15D49] rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner"><i class="fa-solid fa-code"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Programming Quiz</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Evaluate structural paradigms across Python arrays and C compilation pipelines.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-6 border-t border-white/5 mt-4 text-xs font-bold text-orange-400">
+                        <span>EXPLORE COGNITIVE RUNTIMES</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
                 </div>
-                <button onclick="downloadExcelFormat('trainee-table-data', 'HootCoders_Trainees_Registry')" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 transition tracking-wide shadow-lg whitespace-nowrap">
-                    <i class="fa-solid fa-file-excel text-emerald-400 text-sm"></i> Download Excel (CSV)
+                <div class="bg-[#111827] border border-white/10 opacity-60 rounded-2xl p-8 min-h-[320px] flex flex-col justify-between">
+                    <h3 class="text-xl font-bold text-white mb-2">Technical Mock Interviews</h3>
+                    <span class="text-[10px] uppercase font-bold text-gray-500 tracking-wider">Locked Engine Matrix</span>
+                </div>
+                <div class="bg-[#111827] border border-white/10 opacity-60 rounded-2xl p-8 min-h-[320px] flex flex-col justify-between">
+                    <h3 class="text-xl font-bold text-white mb-2">Aptitude & Logic Array</h3>
+                    <span class="text-[10px] uppercase font-bold text-gray-500 tracking-wider">Locked Engine Matrix</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="placement-level-2" class="hidden-view space-y-8">
+            <div class="flex items-center gap-4">
+                <button onclick="revertPlacementLevel(1)" class="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-xs font-bold text-gray-300 transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Main Matrix
                 </button>
             </div>
-        </div>
-
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-            <div class="table-container overflow-x-auto w-full">
-                <table class="w-full text-left border-collapse" id="trainee-table-data">
-                    <thead>
-                        <tr class="bg-slate-900 border-b border-slate-800 text-[11px] font-mono uppercase tracking-wider text-slate-400">
-                            <th class="py-4 px-6 font-bold">SUC ID</th>
-                            <th class="py-4 px-6 font-bold">Full Name</th>
-                            <th class="py-4 px-6 font-bold">Email Address</th>
-                            <th class="py-4 px-6 font-bold">Department</th>
-                            <th class="py-4 px-6 font-bold">Phone</th>
-                            <th class="py-4 px-6 font-bold text-center">Status</th>
-                            <th class="py-4 px-6 font-bold text-right">Action Interface</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-table-body" class="divide-y divide-slate-800 text-sm">
-                        <tr id="table-loading-row"><td colspan="7" class="text-center py-16 text-slate-500 font-mono text-xs">Reading data nodes table cluster grid...</td></tr>
-                    </tbody>
-                </table>
+            <div class="text-center max-w-xl mx-auto">
+                <h3 class="text-2xl font-extrabold text-white">Programming Quiz Segment Channels</h3>
+                <p class="text-xs text-gray-400 mt-2">Select an engine to launch the exam securely in a anti-cheat sandbox window.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto pt-4">
+                <div onclick="showPythonLevels()" class="bg-gradient-to-br from-[#0B0F1A] to-[#16223F] border border-[#F15D49]/30 hover:border-[#F15D49] p-8 rounded-2xl cursor-pointer shadow-2xl flex flex-col justify-between min-h-[260px]">
+                    <h4 class="text-xl font-bold text-white mb-1">Python Language Assessment</h4>
+                    <span class="text-xs text-[#F15D49] font-bold">Launch Python Level Matrix 🚀</span>
+                </div>
+                <div onclick="initializeExamEngine('C', 600)" class="bg-gradient-to-br from-[#0B0F1A] to-[#251210] border border-[#F15D49]/30 hover:border-[#F15D49] p-8 rounded-2xl cursor-pointer shadow-2xl flex flex-col justify-between min-h-[260px]">
+                    <h4 class="text-xl font-bold text-white mb-1">C Language Assessment</h4>
+                    <span class="text-xs text-[#F15D49] font-bold">Launch C Exam Window (10 Mins) 🚀</span>
+                </div>
             </div>
         </div>
-    </main>
 
-    <main id="admin-events-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden-view">
-        <div class="mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-            <div>
-                <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
-                    <span class="cursor-pointer hover:text-white" onclick="showAdminView('dashboard')">Dashboard</span> 
-                    <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i> 
-                    <span class="text-emerald-400">Event Registrations</span>
-                </div>
-                <h2 class="text-xl font-bold text-white">Event Sign-Ups Matrix</h2>
-                <p class="text-xs text-slate-400 mt-1">Excel-view spreadsheet optimization format for tracking competition rosters.</p>
-            </div>
-            
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
-                <div class="relative flex-1 sm:w-64">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
-                    <input type="text" id="events-search-input" onkeyup="filterSpreadsheetTable('events-search-input', 'events-table-body')" placeholder="Search participant, event title, group..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition">
-                </div>
-                <button onclick="downloadExcelFormat('events-table-data', 'HootCoders_Event_Registrations')" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs font-bold px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 transition tracking-wide shadow-lg whitespace-nowrap">
-                    <i class="fa-solid fa-file-excel text-emerald-400 text-sm"></i> Download Excel (CSV)
+        <div id="placement-level-3" class="hidden-view space-y-8">
+            <div class="flex items-center gap-4">
+                <button onclick="revertPlacementLevel(2)" class="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-xs font-bold text-gray-300 transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Language Selection
                 </button>
             </div>
-        </div>
-
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-            <div class="table-container overflow-x-auto w-full">
-                <table class="w-full text-left border-collapse" id="events-table-data">
-                    <thead>
-                        <tr class="bg-slate-900 border-b border-slate-800 text-[11px] font-mono uppercase tracking-wider text-slate-400">
-                            <th class="py-4 px-6 font-bold">Event Title</th>
-                            <th class="py-4 px-6 font-bold">Participant Name</th>
-                            <th class="py-4 px-6 font-bold">SUC ID</th>
-                            <th class="py-4 px-6 font-bold">Branch/Dept</th>
-                            <th class="py-4 px-6 font-bold">Group Desig</th>
-                            <th class="py-4 px-6 font-bold text-right">Timestamp</th>
-                        </tr>
-                    </thead>
-                    <tbody id="events-table-body" class="divide-y divide-slate-800 text-sm">
-                        <tr><td colspan="6" class="text-center py-16 text-slate-500 font-mono text-xs">No event entries recorded inside the cluster path yet.</td></tr>
-                    </tbody>
-                </table>
+            <div class="text-center max-w-xl mx-auto">
+                <h3 class="text-2xl font-extrabold text-white">Python Assessment Tracks</h3>
+                <p class="text-xs text-gray-400 mt-2">Choose a tier to launch your secure timed assessment session.</p>
             </div>
-        </div>
-    </main>
-
-    <main id="admin-placements-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden-view">
-        <div class="mb-6">
-            <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
-                <span class="cursor-pointer hover:text-white" onclick="showAdminView('dashboard')">Dashboard</span> 
-                <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i> 
-                <span class="text-blue-400">Placements Console</span>
-            </div>
-            <h2 class="text-xl font-bold text-white">Placement Assessment & Grading Workspace</h2>
-            <p class="text-xs text-slate-400 mt-1">Configure evaluation questions manually or in bulk, and review real-time trainee scores.</p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            <div class="lg:col-span-2 space-y-8">
-                
-                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                    <h3 class="text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-keyboard text-orange-400"></i> Manual Question Input Engine
-                    </h3>
-                    
-                    <form id="placementManualForm" onsubmit="handlePlacementQuestionManualSubmit(event)" class="space-y-4 text-xs">
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div class="space-y-1.5">
-                                <label class="font-semibold text-slate-300">Target Framework Selection</label>
-                                <select id="placement-lang-select" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white">
-                                    <option value="python-basics">⭐ Python Basics</option>
-                                    <option value="python-datastructures">⭐⭐ Python Data Structures</option>
-                                    <option value="python-advanced">⭐⭐⭐ Python Advanced</option>
-                                    <option value="c">C Quiz Array</option>
-                                </select>
-                            </div>
-                            <div class="space-y-1.5">
-                                <label class="font-semibold text-slate-300">Assessment Time Limit</label>
-                                <select id="placement-duration-select" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono">
-                                    <option value="300">5 Minutes (300s)</option>
-                                    <option value="600" selected>10 Minutes (600s)</option>
-                                    <option value="900">15 Minutes (900s)</option>
-                                    <option value="1200">20 Minutes (1200s)</option>
-                                    <option value="1800">30 Minutes (1800s)</option>
-                                </select>
-                            </div>
-                            <div class="space-y-1.5">
-                                <label class="font-semibold text-slate-300">Correct Target Choice Value</label>
-                                <select id="placement-correct-select" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white">
-                                    <option value="A">Option A</option>
-                                    <option value="B">Option B</option>
-                                    <option value="C">Option C</option>
-                                    <option value="D">Option D</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="space-y-1.5">
-                            <label class="font-semibold text-slate-300">Evaluation Query Description / Question</label>
-                            <textarea id="placement-question-text" required rows="3" placeholder="Enter programming query logic layout text..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-blue-500"></textarea>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <input type="text" id="placement-optA" required placeholder="Option A Description String" class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
-                            <input type="text" id="placement-optB" required placeholder="Option B Description String" class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
-                            <input type="text" id="placement-optC" required placeholder="Option C Description String" class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
-                            <input type="text" id="placement-optD" required placeholder="Option D Description String" class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
-                        </div>
-
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition text-xs uppercase tracking-widest">
-                            Sync Manual Question Node
-                        </button>
-                    </form>
-                </div>
-
-                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                    <h3 class="text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-file-csv text-emerald-400"></i> Bulk Assessment Injector Engine (.CSV)
-                    </h3>
-                    <p class="text-[11px] text-slate-400">Parse spreadsheet rows immediately into live target database matrices.</p>
-                    
-                    <div class="text-[10px] font-mono bg-slate-900 p-3 rounded-xl text-slate-400 border border-slate-800 space-y-1">
-                        <p class="text-white font-bold">// Standard CSV Column Hierarchy Index Map:</p>
-                        <p>QuestionText, OptionA, OptionB, OptionC, OptionD, CorrectAnswer (A/B/C/D), DurationInSeconds (Optional)</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto pt-4">
+                <div onclick="initializeExamEngine('Python-Basics', 600)" class="bg-gradient-to-br from-[#0B0F1A] to-[#122A1E] border border-emerald-500/30 hover:border-emerald-500 p-6 rounded-2xl cursor-pointer shadow-2xl flex flex-col justify-between min-h-[220px] transition duration-300 transform hover:-translate-y-1">
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-2">⭐ Python Basics</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Basic syntax loops, variable scopes, simple expressions, and arrays.</p>
                     </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs items-center pt-2">
-                        <div>
-                            <label class="block font-semibold text-slate-300 mb-1">Target Language Track</label>
-                            <select id="bulk-placement-lang" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white">
-                                <option value="python-basics">Python Basics</option>
-                                <option value="python-datastructures">Python Data Structures</option>
-                                <option value="python-advanced">Python Advanced</option>
-                                <option value="c">C Language</option>
-                            </select>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block font-semibold text-slate-300 mb-1">Select Document Address File</label>
-                            <input type="file" id="bulkPlacementCsvFile" accept=".csv" class="w-full block text-slate-400 file:mr-4 file:py-2 file:file:px-4 file:rounded-xl file:border-0 file:text-xs file:bg-emerald-500/10 file:text-emerald-400 file:font-bold hover:file:bg-emerald-500/20 file:cursor-pointer">
-                        </div>
+                    <span class="text-xs text-emerald-400 font-bold flex items-center gap-1">10 Mins • Start Exam <i class="fa-solid fa-play text-[10px]"></i></span>
+                </div>
+                <div onclick="initializeExamEngine('Python-DataStructures', 900)" class="bg-gradient-to-br from-[#0B0F1A] to-[#1A253E] border border-blue-500/30 hover:border-blue-500 p-6 rounded-2xl cursor-pointer shadow-2xl flex flex-col justify-between min-h-[220px] transition duration-300 transform hover:-translate-y-1">
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-2">⭐⭐ Python Data Structures</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Lists parsing algorithms, dictionaries, slicing vectors, tuples structure.</p>
                     </div>
-
-                    <button onclick="executeBulkPlacementCsvUpload()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-xs uppercase tracking-widest mt-2">
-                        Execute Bulk Parse & Push Data Matrix
-                    </button>
+                    <span class="text-xs text-blue-400 font-bold flex items-center gap-1">15 Mins • Start Exam <i class="fa-solid fa-play text-[10px]"></i></span>
                 </div>
-            </div>
-
-            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4 min-h-[500px] flex flex-col">
-                <div class="border-b border-slate-800 pb-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                    <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                        <i class="fa-solid fa-square-poll-vertical text-blue-400"></i> Trainee Live Grades Board
-                    </h3>
-                    <button onclick="downloadGradesAsExcel()" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition">
-                        <i class="fa-solid fa-file-excel text-emerald-400"></i> Export Excel
-                    </button>
-                </div>
-                
-                <div class="relative mb-2">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
-                    <input type="text" id="grades-search-input" onkeyup="filterGradesBoard()" placeholder="Filter candidate name, SUC or track..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-8 pr-4 py-2 text-[11px] text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition">
-                </div>
-
-                <div id="placement-grades-injection-log" class="space-y-3 overflow-y-auto max-h-[550px] pr-1 flex-1 text-xs">
-                    <div class="text-center py-12 text-slate-500 font-mono text-[11px]">No score telemetry streams detected.</div>
+                <div onclick="initializeExamEngine('Python-Advanced', 1200)" class="bg-gradient-to-br from-[#0B0F1A] to-[#251528] border border-purple-500/30 hover:border-purple-500 p-6 rounded-2xl cursor-pointer shadow-2xl flex flex-col justify-between min-h-[220px] transition duration-300 transform hover:-translate-y-1">
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-2">⭐⭐⭐ Python Advanced</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Generators structural, decorators runtime optimization, inheritance matrices.</p>
+                    </div>
+                    <span class="text-xs text-purple-400 font-bold flex items-center gap-1">20 Mins • Start Exam <i class="fa-solid fa-play text-[10px]"></i></span>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="bg-slate-950 text-slate-500 pt-12 pb-12 border-t border-slate-900 mt-20">
+    <main id="view-dashboard" class="hidden-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="bg-[#111827] rounded-3xl border border-white/10 p-8 sm:p-12 text-center shadow-xl space-y-6 max-w-2xl mx-auto">
+            <div class="h-24 w-24 bg-[#F15D49]/10 text-[#F15D49] rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce">
+                <i class="fa-solid fa-rocket"></i>
+            </div>
+            <h1 class="text-3xl font-extrabold text-white tracking-tight">Welcome to Your Torii Gate Portal</h1>
+            <p class="text-sm text-gray-400 leading-relaxed max-w-md mx-auto">
+                Your credentials are safe and registered. The comprehensive learning matrices, Owl Code platform, and evaluation metrics interfaces are <span class="font-bold text-[#F15D49]">Coming Soon!</span>
+            </p>
+        </div>
+    </main>
+
+    <div id="modal-overlay" class="hidden-view fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+        
+        <div id="placement-result-card" class="hidden-view bg-[#111827] border border-emerald-500/30 w-full max-w-md rounded-2xl p-8 text-center shadow-2xl">
+            <h3 class="text-2xl font-extrabold text-white">Evaluation Matrix Complete</h3>
+            <div class="my-6 p-4 bg-[#0B0F1A] rounded-xl border border-white/5 space-y-2">
+                <div class="flex justify-between text-xs"><span class="text-gray-400">Username:</span><span id="res-modal-user" class="font-bold text-white">-</span></div>
+                <div class="flex justify-between text-xs"><span class="text-gray-400">Track:</span><span id="res-modal-track" class="font-bold text-orange-400">-</span></div>
+                <div class="flex justify-between text-sm pt-2 border-t border-white/5 font-bold"><span class="text-gray-300">Score:</span><span id="res-modal-score" class="text-emerald-400">-</span></div>
+            </div>
+            <button onclick="closeActiveModals()" class="w-full bg-white/5 border border-white/10 text-xs font-bold py-3 rounded-xl text-slate-200 hover:bg-white/10 transition">Close & Exit</button>
+        </div>
+
+        <div id="register-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-2xl rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">🦉 Create HOOT Account</h2>
+            
+            <form id="regForm" onsubmit="handleRegistrationSubmit(event)" class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">SUC <span class="text-[#F15D49]">*</span></label>
+                        <input type="text" id="reg-suc" required placeholder="e.g., 1NC24CS123" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Full Name <span class="text-[#F15D49]">*</span></label>
+                        <input type="text" id="reg-name" required placeholder="Enter your full name" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Department <span class="text-[#F15D49]">*</span></label>
+                        <select id="reg-dept" required class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
+                            <option value="" disabled selected>Select Department</option>
+                            <option value="Computer Science">Computer Science Engineering</option>
+                            <option value="Information Science">Information Science Engineering</option>
+                            <option value="Electronics & Comm">Electronics & Comm Engineering</option>
+                            <option value="Data Science">Data Science / AI</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Phone Number <span class="text-[#F15D49]">*</span></label>
+                        <input type="tel" id="reg-phone" required pattern="[0-9]{10}" placeholder="Enter 10 digit number" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
+                    </div>
+                </div>
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Email Address <span class="text-[#F15D49]">*</span></label>
+                    <input type="email" id="reg-email" required placeholder="your.email@example.com" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
+                </div>
+                <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/5">
+                    <button type="button" onclick="resetRegistrationForm()" class="px-4 py-2.5 rounded-xl border border-white/10 text-xs font-semibold text-gray-400 hover:text-white transition">Reset Form</button>
+                    <button type="submit" class="bg-[#F15D49] hover:bg-[#D94E3B] text-white text-xs font-semibold px-6 py-2.5 rounded-xl shadow-lg transition">Confirm Registration</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="event-register-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-3xl rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h2 class="text-lg font-bold text-white mb-1 flex items-center gap-2"><span class="text-orange-500">🏆</span> Event Registration</h2>
+            <p id="event-target-title" class="text-xs font-mono text-gray-400 mb-6 truncate"></p>
+            
+            <form id="eventRegForm" onsubmit="handleEventRegistrationSubmit(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <div class="space-y-4">
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Full Name <span class="text-orange-500">*</span></label>
+                        <input type="text" id="event-name" required placeholder="Enter your full name" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">SUC Number <span class="text-orange-500">*</span></label>
+                        <input type="text" id="event-suc" required placeholder="e.g., 1NC24CS123" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Branch / Department <span class="text-orange-500">*</span></label>
+                        <input type="text" id="event-dept" required placeholder="e.g., Computer Science" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Group Designation <span class="text-orange-500">*</span></label>
+                        <input type="text" id="event-group" required placeholder="e.g., Group A" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500">
+                    </div>
+                </div>
+
+                <div class="bg-[#0B0F1A] border border-white/5 rounded-xl p-5 flex flex-col items-center justify-between h-full text-center min-h-[300px]">
+                    <div>
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded-md mb-2 inline-block">Fee Verification Required</span>
+                        <h4 class="text-xs font-bold text-slate-300">Scan UPI Node via Admin Terminal</h4>
+                    </div>
+                    
+                    <div class="my-4 h-36 w-36 bg-white p-2 rounded-lg shadow-inner flex items-center justify-center relative group">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=HOOT_CODERS_GATEWAY_VERIFICATION" alt="Admin Gate QR Terminal Address" class="w-full h-full object-contain" />
+                    </div>
+
+                    <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-3 rounded-xl shadow-lg transition duration-200">
+                        Submit & Complete Registration
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="success-card" class="hidden-view bg-white text-slate-800 w-full max-w-sm rounded-2xl p-8 text-center shadow-2xl border border-slate-100">
+            <div class="h-20 w-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner">
+                <i class="fa-solid fa-circle-check animate-scale"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Submitted Successfully</h3>
+            <p class="text-xs text-slate-500 mt-2">Proceeding to next step...</p>
+        </div>
+
+        <div id="password-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+            <h2 class="text-lg font-bold text-white mb-2">Set Account Password</h2>
+            <p class="text-xs text-gray-400 mb-6">Create a secure entry key to access the capability platforms automatically next time.</p>
+            
+            <form id="passForm" onsubmit="handlePasswordSubmit(event)" class="space-y-4">
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Password</label>
+                    <input type="password" id="reg-password" required minlength="6" placeholder="••••••••" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
+                </div>
+                <button type="submit" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white text-xs font-bold py-3 rounded-xl shadow-lg transition mt-4">Complete Setup & Sign In</button>
+            </form>
+        </div>
+
+        <div id="login-card" class="hidden-view bg-[#111827] text-slate-200 border border-white/10 w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+            <button onclick="closeActiveModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h2 class="text-lg font-bold text-white mb-6">Welcome Back</h2>
+            
+            <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Email Address</label>
+                    <input type="email" id="login-email" required placeholder="name@example.com" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
+                </div>
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-gray-200 uppercase tracking-wide">Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-[#0B0F1A] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#F15D49]">
+                </div>
+                <button type="submit" class="w-full bg-[#F15D49] hover:bg-[#D94E3B] text-white text-xs font-bold py-3 rounded-xl shadow-lg transition mt-4">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="bg-slate-950 text-gray-500 pt-16 pb-12 border-t border-white/5 mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-[11px]">
-            <p>&copy; 2026 HOOT CODERS Hub. All Rights Reserved.</p>
+            <p>&copy; 2026 HOOT CODERS. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, update, remove, push, get, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, set, push, get, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDRSv7X-cxaxvoE6UGPAy9DUFjAeLPFeGc",
@@ -331,387 +539,471 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+        const auth = getAuth(app);
 
-        // Global cache to safely manage database map logic across structural paths
-        let userRosterRegistry = {};
+        let currentRegSessionData = null;
+        let authenticatedUserRecord = null;
+        let selectedEventTitle = "";
 
-        window.showAdminView = (targetView) => {
-            const dashboardLayout = document.getElementById('admin-dashboard-view');
-            const registryLayout = document.getElementById('admin-registry-view');
-            const eventsLayout = document.getElementById('admin-events-view');
-            const placementsLayout = document.getElementById('admin-placements-view');
-            const backBtn = document.getElementById('back-to-dash-btn');
-
-            dashboardLayout.classList.add('hidden-view');
-            registryLayout.classList.add('hidden-view');
-            eventsLayout.classList.add('hidden-view');
-            placementsLayout.classList.add('hidden-view');
-            backBtn.classList.add('hidden-view');
-
-            document.getElementById('trainee-search-input').value = "";
-            document.getElementById('events-search-input').value = "";
-
-            if (targetView === 'registry') {
-                registryLayout.classList.remove('hidden-view');
-                backBtn.classList.remove('hidden-view');
-            } else if (targetView === 'events-grid') {
-                eventsLayout.classList.remove('hidden-view');
-                backBtn.classList.remove('hidden-view');
-            } else if (targetView === 'placements-panel') {
-                placementsLayout.classList.remove('hidden-view');
-                backBtn.classList.remove('hidden-view');
-            } else {
-                dashboardLayout.classList.remove('hidden-view');
-            }
-        };
-
-        // Manual Submission Logic Block for Placement Matrix Questions with Time Controls
-        window.handlePlacementQuestionManualSubmit = async (e) => {
-            e.preventDefault();
-            const targetLang = document.getElementById('placement-lang-select').value;
-            const durationVal = document.getElementById('placement-duration-select').value;
-            
-            const itemPayload = {
-                questionText: document.getElementById('placement-question-text').value,
-                optionA: document.getElementById('placement-optA').value,
-                optionB: document.getElementById('placement-optB').value,
-                optionC: document.getElementById('placement-optC').value,
-                optionD: document.getElementById('placement-optD').value,
-                correctAnswer: document.getElementById('placement-correct-select').value,
-                durationLimit: parseInt(durationVal, 10)
-            };
-
-            try {
-                await push(ref(db, `placement_questions/${targetLang}`), itemPayload);
-                alert("🚀 Structural question configured live inside dynamic arrays successfully.");
-                document.getElementById('placementManualForm').reset();
-            } catch(ex) {
-                alert("Database writing anomaly: " + ex.message);
-            }
-        };
-
-        // Bulk CSV Spreadsheet Parsing Engine with Time Support
-        window.executeBulkPlacementCsvUpload = () => {
-            const selectedFile = document.getElementById('bulkPlacementCsvFile').files[0];
-            const chosenLangKey = document.getElementById('bulk-placement-lang').value;
-
-            if(!selectedFile) {
-                alert("Please drop a valid .csv template matrix structure array file first.");
-                return;
-            }
-
-            const binaryFileReader = new FileReader();
-            binaryFileReader.onload = async function(evt) {
-                const globalString = evt.target.result;
-                const lines = globalString.split(/\r?\n/);
-                let uploadCount = 0;
-
-                const branchTargetRef = ref(db, `placement_questions/${chosenLangKey}`);
-
-                for(let i = 1; i < lines.length; i++) {
-                    const cleanLineText = lines[i].trim();
-                    if(!cleanLineText) continue;
-
-                    const rowColumns = processRegexCsvSplitting(cleanLineText);
-                    if(rowColumns.length >= 6) {
-                        const rowPayload = {
-                            questionText: rowColumns[0].trim(),
-                            optionA: rowColumns[1].trim(),
-                            optionB: rowColumns[2].trim(),
-                            optionC: rowColumns[3].trim(),
-                            optionD: rowColumns[4].trim(),
-                            correctAnswer: rowColumns[5].trim().toUpperCase(),
-                            durationLimit: rowColumns[6] ? parseInt(rowColumns[6].trim(), 10) : 600
-                        };
-                        
-                        await push(branchTargetRef, rowPayload);
-                        uploadCount++;
+        // Track Auth Changes State Session Loop
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                onValue(ref(db, `users/${user.uid}`), (snapshot) => {
+                    if (snapshot.exists()) {
+                        authenticatedUserRecord = snapshot.val();
+                        updateUIForAuthenticatedUser(authenticatedUserRecord);
                     }
-                }
-                alert(`Successfully parsed and synchronized ${uploadCount} questions to /placement_questions/${chosenLangKey}`);
-                document.getElementById('bulkPlacementCsvFile').value = "";
-            };
-            binaryFileReader.readAsText(selectedFile);
+                });
+            } else {
+                authenticatedUserRecord = null;
+                updateUIForGuest();
+            }
+        });
+
+        // Web Audio API Sound Generation Module
+        let audioCtx = null;
+        window.triggerOwlHootEffects = () => {
+            const container = document.getElementById('interactive-owl-node');
+            container.classList.add('is-blinking');
+            setTimeout(() => container.classList.remove('is-blinking'), 250);
+
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            function playSingleHootTone(startTime, duration) {
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(260, startTime); 
+                osc.frequency.exponentialRampToValueAtTime(290, startTime + duration * 0.4);
+                osc.frequency.exponentialRampToValueAtTime(240, startTime + duration);
+                gainNode.gain.setValueAtTime(0, startTime);
+                gainNode.gain.linearRampToValueAtTime(0.4, startTime + 0.05);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+                osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+                osc.start(startTime); osc.stop(startTime + duration);
+            }
+            const now = audioCtx.currentTime;
+            playSingleHootTone(now, 0.22);
+            playSingleHootTone(now + 0.28, 0.38);
         };
 
-        function processRegexCsvSplitting(textLine) {
-            var matches = textLine.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-            if(!matches) return textLine.split(',');
-            return matches.map(val => val.replace(/^"|"$/g, ''));
+        window.toggleCardFlip = (cardElementId) => {
+            const cardInner = document.getElementById(cardElementId);
+            if (cardInner) cardInner.classList.toggle('is-flipped');
+        };
+
+        window.drillIntoPlacementTrack = (trackId) => {
+            if(trackId === 'programming-quiz') {
+                document.getElementById('placement-level-1').classList.add('hidden-view');
+                document.getElementById('placement-level-2').classList.remove('hidden-view');
+                document.getElementById('placement-level-3').classList.add('hidden-view');
+            }
+        };
+
+        window.showPythonLevels = () => {
+            document.getElementById('placement-level-2').classList.add('hidden-view');
+            document.getElementById('placement-level-3').classList.remove('hidden-view');
         }
 
-        // Realtime Grades Board filtering controller
-        window.filterGradesBoard = () => {
-            const query = document.getElementById('grades-search-input').value.toLowerCase();
-            const logContainer = document.getElementById('placement-grades-injection-log');
-            const nodes = logContainer.getElementsByClassName('grade-entry-node');
-
-            for (let i = 0; i < nodes.length; i++) {
-                const node = nodes[i];
-                const text = node.textContent || node.innerText;
-                if (text.toLowerCase().indexOf(query) > -1) {
-                    node.classList.remove('hidden-view');
-                } else {
-                    node.classList.add('hidden-view');
-                }
+        window.revertPlacementLevel = (levelTarget) => {
+            if(levelTarget === 1) {
+                document.getElementById('placement-level-1').classList.remove('hidden-view');
+                document.getElementById('placement-level-2').classList.add('hidden-view');
+                document.getElementById('placement-level-3').classList.add('hidden-view');
+            } else if (levelTarget === 2) {
+                document.getElementById('placement-level-2').classList.remove('hidden-view');
+                document.getElementById('placement-level-3').classList.add('hidden-view');
             }
         };
 
-        // Direct Core Exporter Download Block targeting data arrays securely mapped inside Grade Panel rows
-        window.downloadGradesAsExcel = () => {
-            const logContainer = document.getElementById('placement-grades-injection-log');
-            const entries = logContainer.getElementsByClassName('grade-entry-node');
-            
-            if(entries.length === 0) {
-                alert("No structural entries found to compile into a CSV document.");
+        // TIMED & MALPRACTICE-ENABLED ENGINE: Launches secure exams with an automated countdown submission timer
+        window.initializeExamEngine = async (languageTrack, durationInSeconds = 600) => {
+            if(!authenticatedUserRecord) {
+                alert("🔒 Authentication required.");
+                openLoginModal();
                 return;
             }
 
-            let csvContent = "Full Name,SUC ID,Branch/Dept,Assessment Track,Obtained Score,Date Submitted\n";
+            let dbNodeName = languageTrack.toLowerCase();
+            const targetedNodeRef = ref(db, `placement_questions/${dbNodeName}`);
             
-            for(let i = 0; i < entries.length; i++) {
-                const node = entries[i];
-                if(node.classList.contains('hidden-view')) continue;
-
-                const name = node.getAttribute('data-name') || '—';
-                const suc = node.getAttribute('data-suc') || '—';
-                const dept = node.getAttribute('data-dept') || '—';
-                const track = node.getAttribute('data-track') || '—';
-                const score = node.getAttribute('data-score') || '—';
-                const date = node.getAttribute('data-date') || '—';
-
-                const rowData = [
-                    `"${name.replace(/"/g, '""')}"`,
-                    `"${suc.replace(/"/g, '""')}"`,
-                    `"${dept.replace(/"/g, '""')}"`,
-                    `"${track.replace(/"/g, '""')}"`,
-                    `"${score.replace(/"/g, '""')}"`,
-                    `"${date.replace(/"/g, '""')}"`
-                ];
-                csvContent += rowData.join(",") + "\n";
-            }
-
-            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-            const downloaderAnchor = document.createElement("a");
-            downloaderAnchor.setAttribute("href", URL.createObjectURL(blob));
-            downloaderAnchor.setAttribute("download", "HootCoders_Trainee_Grades_Matrix.csv");
-            document.body.appendChild(downloaderAnchor);
-            downloaderAnchor.click();
-            document.body.removeChild(downloaderAnchor);
-        };
-
-        // Integrated Multi-Node database pipeline loader 
-        onValue(ref(db, 'users'), (snapshot) => {
-            const tableBody = document.getElementById('admin-table-body');
-            if (snapshot.exists()) {
-                userRosterRegistry = snapshot.val(); // Sync internal global address map cache architecture
-                tableBody.innerHTML = ''; 
-                for (let uid in userRosterRegistry) {
-                    const u = userRosterRegistry[uid];
-                    const isVerified = u.status === 'verified';
-                    const row = document.createElement('tr');
-                    row.className = "hover:bg-slate-900/40 transition duration-150 group";
-                    row.innerHTML = `
-                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400 group-hover:text-white transition">${u.suc || '—'}</td>
-                        <td class="py-3.5 px-6 font-bold text-white whitespace-nowrap">${u.name || 'N/A'}</td>
-                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400 group-hover:text-slate-300 transition">${u.email || '—'}</td>
-                        <td class="py-3.5 px-6 text-slate-300 font-medium whitespace-nowrap">${u.department || '—'}</td>
-                        <td class="py-3.5 px-6 font-mono text-xs text-slate-400">${u.phone || '—'}</td>
-                        <td class="py-3.5 px-6 text-center whitespace-nowrap">
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-mono font-bold tracking-wider ${isVerified ? 'bg-emerald-950 text-emerald-400 border border-emerald-900/60' : 'bg-amber-950 text-amber-400 border border-amber-900/60'}">
-                                <span class="h-1.5 w-1.5 rounded-full ${isVerified ? 'bg-emerald-400' : 'bg-amber-400 animate-pulse'}"></span>
-                                ${u.status ? u.status.toUpperCase() : 'PENDING'}
-                            </span>
-                        </td>
-                        <td class="py-3.5 px-6 text-right whitespace-nowrap">
-                            <div class="flex items-center justify-end gap-2">
-                                ${!isVerified ? `
-                                    <button onclick="adminApproveUser('${uid}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition duration-150 shadow-md">
-                                        <i class="fa-solid fa-square-check"></i> Approve
-                                    </button>
-                                ` : `
-                                    <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1 pr-1 select-none">
-                                        <i class="fa-solid fa-circle-check"></i> Done
-                                    </span>
-                                `}
-                                <button onclick="adminDeleteUser('${uid}', '${u.name ? u.name.replace(/'/g, "\\'") : 'Trainee'}')" class="bg-red-600 hover:bg-red-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition duration-150 shadow-md" title="Delete Records">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
-                            </div>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                }
-                filterSpreadsheetTable('trainee-search-input', 'admin-table-body');
-            } else {
-                userRosterRegistry = {};
-                tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-16 text-slate-500 font-mono text-xs">No records available.</td></tr>`;
-            }
-        });
-
-        // Realtime Listener Syncing Grades Board matching cross-referenced matrix structures securely
-        onValue(ref(db, 'placement_submissions'), (snapshot) => {
-            const logInjectContainer = document.getElementById('placement-grades-injection-log');
-            logInjectContainer.innerHTML = "";
-
-            if(snapshot.exists()) {
-                const logsObj = snapshot.val();
-                const cleanArray = [];
-                for(let key in logsObj) {
-                    cleanArray.unshift({ id: key, ...logsObj[key] });
+            try {
+                let snapshot = await get(targetedNodeRef);
+                // Fallback to general 'python' node if specific level config does not exist in DB yet
+                if(!snapshot.exists() && dbNodeName.startsWith('python-')) {
+                    const fallbackRef = ref(db, `placement_questions/python`);
+                    snapshot = await get(fallbackRef);
                 }
 
-                cleanArray.forEach(submission => {
-                    // Extract corresponding student nodes using cross-reference fallback parameters
-                    let extractedSuc = "—";
-                    let extractedDept = "—";
-                    let matchedFullName = submission.username || "Anonymous Coder";
+                if(!snapshot.exists()) {
+                    alert("⚠️ No questions configured for this track yet.");
+                    return;
+                }
 
-                    for (let uid in userRosterRegistry) {
-                        const targetCandidate = userRosterRegistry[uid];
-                        if (targetCandidate.email && submission.email && targetCandidate.email.trim().toLowerCase() === submission.email.trim().toLowerCase()) {
-                            extractedSuc = targetCandidate.suc || "—";
-                            extractedDept = targetCandidate.department || "—";
-                            if(targetCandidate.name) matchedFullName = targetCandidate.name;
-                            break;
-                        }
-                    }
-
-                    const subDate = submission.timestamp ? submission.timestamp.split('T')[0] : '—';
-                    const boxNode = document.createElement('div');
-                    
-                    boxNode.className = "grade-entry-node p-3 bg-slate-900 border border-slate-800 rounded-xl space-y-2 shadow-sm border-l-4 border-blue-500 transition duration-150";
-                    
-                    // Attach clean processing attributes directly for full Excel context mapping extraction
-                    boxNode.setAttribute('data-name', matchedFullName);
-                    boxNode.setAttribute('data-suc', extractedSuc);
-                    boxNode.setAttribute('data-dept', extractedDept);
-                    boxNode.setAttribute('data-track', submission.track || '—');
-                    boxNode.setAttribute('data-score', submission.score || '—');
-                    boxNode.setAttribute('data-date', subDate);
-
-                    boxNode.innerHTML = `
-                        <div class="flex justify-between items-start font-bold gap-2">
-                            <div>
-                                <span class="text-white block text-sm">${escapeHtml(matchedFullName)}</span>
-                                <span class="text-[10px] text-slate-500 font-mono block mt-0.5">SUC: ${escapeHtml(extractedSuc)}</span>
-                            </div>
-                            <span class="text-emerald-400 font-mono tracking-wider text-sm whitespace-nowrap">${escapeHtml(submission.score)}</span>
-                        </div>
-                        <div class="flex justify-between items-center text-[10px] text-slate-400 font-mono pt-1 border-t border-slate-800/60">
-                            <span>Track: ${escapeHtml(submission.track)}</span>
-                            <span class="text-slate-500">${subDate}</span>
-                        </div>
-                        <div class="text-[9px] text-slate-500 font-mono truncate">Dept: ${escapeHtml(extractedDept)}</div>
-                    `;
-                    logInjectContainer.appendChild(boxNode);
+                const questionsData = JSON.stringify(snapshot.val());
+                const userData = JSON.stringify({
+                    name: authenticatedUserRecord.name || 'Anonymous Coder',
+                    email: authenticatedUserRecord.email || ''
                 });
-                filterGradesBoard();
-            } else {
-                logInjectContainer.innerHTML = `<div class="text-center py-12 text-slate-500 font-mono text-[11px]">No score telemetry streams detected.</div>`;
-            }
-        });
 
-        window.filterSpreadsheetTable = (inputId, tbodyId) => {
-            const query = document.getElementById(inputId).value.toLowerCase();
-            const targetTableBody = document.getElementById(tbodyId);
-            const targetRows = targetTableBody.getElementsByTagName('tr');
-
-            for (let i = 0; i < targetRows.length; i++) {
-                const currentRow = targetRows[i];
-                if (currentRow.id === "table-loading-row" || currentRow.cells.length <= 1) continue;
+                // Spawn secure target sandboxed window
+                const width = 900, height = 750;
+                const left = (window.screen.width / 2) - (width / 2);
+                const top = (window.screen.height / 2) - (height / 2);
                 
-                let rowMatchesQuery = false;
-                for (let j = 0; j < currentRow.cells.length; j++) {
-                    const textValue = currentRow.cells[j].textContent || currentRow.cells[j].innerText;
-                    if (textValue.toLowerCase().indexOf(query) > -1) {
-                        rowMatchesQuery = true;
-                        break;
+                const examWindow = window.open("", "_blank", `width=${width},height=${height},left=${left},top=${top},menubar=no,status=no,toolbar=no`);
+                
+                // Write standard timed execution application logic directly to child window
+                examWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>HOOT CODERS SECURE RUNTIME - ${languageTrack} Assessment</title>
+                        <script src="https://cdn.tailwindcss.com"><\/script>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    </head>
+                    <body class="bg-[#0B0F1A] text-slate-100 p-8 select-none" oncontextmenu="return false;">
+                        <div class="max-w-3xl mx-auto space-y-6">
+                            <div class="bg-red-500/10 border border-red-500/20 p-4 rounded-xl text-xs text-red-400 font-bold mb-4 flex justify-between items-center">
+                                <span>⚠️ ANTI-MALPRACTICE ALERT: Navigating away, minimizing, resizing, or changing focus flags immediate failure.</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-white/10 pb-4">
+                                <h1 class="text-xl font-bold text-white">${languageTrack} Live Secure Exam</h1>
+                                <div class="flex items-center gap-3">
+                                    <div id="exam-timer" class="text-xs bg-red-500/20 text-red-400 px-3 py-1 rounded-lg font-mono font-bold">Time Remaining: --:--</div>
+                                    <span class="text-xs bg-orange-500/20 text-orange-400 px-3 py-1 rounded-full font-mono">Anti-Cheat Matrix: Active</span>
+                                </div>
+                            </div>
+                            <div id="questions-container" class="space-y-6 pt-4"></div>
+                            <button onclick="submitExam()" class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider mt-8">Submit Assessment</button>
+                        </div>
+
+                        <script>
+                            const rawQuestions = ${questionsData};
+                            const user = ${userData};
+                            const track = "${languageTrack}";
+                            let isProcessed = false;
+                            let timeRemaining = ${durationInSeconds};
+                            
+                            const qList = [];
+                            for(let k in rawQuestions) { qList.push({ id: k, ...rawQuestions[k] }); }
+
+                            const container = document.getElementById('questions-container');
+                            qList.forEach((q, idx) => {
+                                const el = document.createElement('div');
+                                el.className = "p-5 bg-[#111827] border border-white/5 rounded-xl space-y-3";
+                                el.innerHTML = \`
+                                    <p class="text-sm font-semibold text-white">Q\${idx+1}. \${q.questionText}</p>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                        <label class="flex items-center gap-2 p-2.5 bg-[#0B0F1A] rounded-lg cursor-pointer"><input type="radio" name="q_\${idx}" value="A" class="accent-orange-500"> <span>\${q.optionA}</span></label>
+                                        <label class="flex items-center gap-2 p-2.5 bg-[#0B0F1A] rounded-lg cursor-pointer"><input type="radio" name="q_\${idx}" value="B" class="accent-orange-500"> <span>\${q.optionB}</span></label>
+                                        <label class="flex items-center gap-2 p-2.5 bg-[#0B0F1A] rounded-lg cursor-pointer"><input type="radio" name="q_\${idx}" value="C" class="accent-orange-500"> <span>\${q.optionC}</span></label>
+                                        <label class="flex items-center gap-2 p-2.5 bg-[#0B0F1A] rounded-lg cursor-pointer"><input type="radio" name="q_\${idx}" value="D" class="accent-orange-500"> <span>\${q.optionD}</span></label>
+                                    </div>
+                                \`;
+                                container.appendChild(el);
+                            });
+
+                            // Timer engine block
+                            const timerEl = document.getElementById('exam-timer');
+                            const timerInterval = setInterval(() => {
+                                if (isProcessed) return;
+                                timeRemaining--;
+                                const mins = Math.floor(timeRemaining / 60);
+                                const secs = timeRemaining % 60;
+                                timerEl.innerText = "Time Remaining: " + mins.toString().padStart(2, '0') + ":" + secs.toString().padStart(2, '0');
+
+                                if (timeRemaining <= 0) {
+                                    clearInterval(timerInterval);
+                                    alert("⏳ Time has expired! Automatically submitting your answers.");
+                                    submitExam();
+                                }
+                            }, 1000);
+
+                            async function syncGradeData(finalScore) {
+                                isProcessed = true;
+                                clearInterval(timerInterval);
+                                if (window.opener && !window.opener.closed) {
+                                    window.opener.postMessage({
+                                        type: "EXAM_COMPLETE",
+                                        username: user.name,
+                                        email: user.email,
+                                        track: track,
+                                        score: finalScore
+                                    }, "*");
+                                }
+                                window.close();
+                            }
+
+                            function submitExam() {
+                                if(isProcessed) return;
+                                let score = 0;
+                                qList.forEach((q, idx) => {
+                                    const radios = document.getElementsByName(\`q_\${idx}\`);
+                                    let ans = "";
+                                    for(let r of radios) { if(r.checked) ans = r.value; }
+                                    if(ans.trim().toUpperCase() === q.correctAnswer.trim().toUpperCase()) score++;
+                                });
+                                syncGradeData(\`\${score} / \${qList.length}\`);
+                            }
+
+                            function triggerMalpractice() {
+                                if(isProcessed) return;
+                                alert("🚨 MALPRACTICE VIOLATION REGISTERED: Tab focus manipulation detected. System locking out.");
+                                syncGradeData("MALPRACTICE LOCKOUT");
+                            }
+
+                            window.onblur = triggerMalpractice;
+                            document.addEventListener("visibilitychange", () => {
+                                if (document.hidden) triggerMalpractice();
+                            });
+                        <\/script>
+                    </body>
+                    </html>
+                `);
+                examWindow.document.close();
+            } catch(e) {
+                alert("Error launching secure panel: " + e.message);
+            }
+        };
+
+        // Window Communication System Listener for Immediate Submission Hook Responses
+        window.addEventListener("message", async (event) => {
+            if (event.data && event.data.type === "EXAM_COMPLETE") {
+                const { username, email, track, score } = event.data;
+                const syncPayload = { username, email, track, score, timestamp: new Date().toISOString() };
+                
+                try {
+                    await push(ref(db, 'placement_submissions'), syncPayload);
+                    document.getElementById('res-modal-user').innerText = username;
+                    document.getElementById('res-modal-track').innerText = track;
+                    document.getElementById('res-modal-score').innerText = score;
+                    
+                    if(score === "MALPRACTICE LOCKOUT") {
+                        document.getElementById('placement-result-card').className = "hidden-view bg-[#111827] border border-red-500/40 w-full max-w-md rounded-2xl p-8 text-center shadow-2xl";
+                    } else {
+                        document.getElementById('placement-result-card').className = "hidden-view bg-[#111827] border border-emerald-500/30 w-full max-w-md rounded-2xl p-8 text-center shadow-2xl";
                     }
-                }
 
-                if (rowMatchesQuery) {
-                    currentRow.classList.remove('hidden-view');
-                } else {
-                    currentRow.classList.add('hidden-view');
+                    resetModalTree();
+                    document.getElementById('modal-overlay').classList.remove('hidden-view');
+                    document.getElementById('placement-result-card').classList.remove('hidden-view');
+                    revertPlacementLevel(1);
+                } catch(err) {
+                    alert("Telemetry error: " + err.message);
                 }
-            }
-        };
-
-        onValue(ref(db, 'event_registrations'), (snapshot) => {
-            const tableBody = document.getElementById('events-table-body');
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                tableBody.innerHTML = '';
-                for (let id in data) {
-                    const item = data[id];
-                    const row = document.createElement('tr');
-                    row.className = "hover:bg-slate-900/40 transition text-slate-300";
-                    row.innerHTML = `
-                        <td class="py-3.5 px-6 font-bold text-orange-400">${item.eventTitle || '—'}</td>
-                        <td class="py-3.5 px-6 font-semibold text-white">${item.name || '—'}</td>
-                        <td class="py-3.5 px-6 font-mono text-xs">${item.suc || '—'}</td>
-                        <td class="py-3.5 px-6">${item.department || '—'}</td>
-                        <td class="py-3.5 px-6 font-mono text-xs text-amber-400">${item.group || '—'}</td>
-                        <td class="py-3.5 px-6 text-right font-mono text-xs text-slate-500">${item.timestamp ? item.timestamp.split('T')[0] : '—'}</td>
-                    `;
-                    tableBody.appendChild(row);
-                }
-                filterSpreadsheetTable('events-search-input', 'events-table-body');
-            } else {
-                tableBody.innerHTML = `<tr><td colspan="6" class="text-center py-16 text-slate-500 font-mono text-xs">No event sign-ups recorded yet.</td></tr>`;
             }
         });
 
-        window.adminApproveUser = async (uid) => {
-            try {
-                await update(ref(db, `users/${uid}`), { status: 'verified' });
-            } catch (error) {
-                alert("Database Update Interrupted: " + error.message);
+        window.handleRegisterTrigger = (event, eventTitle) => {
+            event.stopPropagation();
+            selectedEventTitle = eventTitle;
+
+            const clientX = event.clientX;
+            const clientY = event.clientY;
+
+            for (let i = 0; i < 14; i++) {
+                const particle = document.createElement("div");
+                particle.className = "owl-particle";
+                particle.innerText = Math.random() > 0.5 ? "🦉" : "🦅";
+                particle.style.left = clientX + "px";
+                particle.style.top = clientY + "px";
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 180 + Math.random() * 320;
+                particle.style.setProperty('--tw-tx', Math.cos(angle) * distance + "px");
+                particle.style.setProperty('--tw-ty', Math.sin(angle) * distance + "px");
+                particle.style.setProperty('--tw-rot', (Math.random() * 360) + "deg");
+
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 2500);
             }
-        };
 
-        window.adminDeleteUser = async (uid, username) => {
-            const confirmPurge = confirm(`Are you sure you want to permanently delete the profile data node for "${username}"? This cannot be undone.`);
-            if (!confirmPurge) return;
-            try {
-                await remove(ref(db, `users/${uid}`));
-            } catch (error) {
-                alert("Database Deletion Execution Interrupted: " + error.message);
-            }
-        };
-
-        window.downloadExcelFormat = (tableId, fileName) => {
-            const table = document.getElementById(tableId);
-            const rows = table.querySelectorAll("tr");
-            let csvContent = "";
-
-            rows.forEach((row) => {
-                if (row.classList.contains('hidden-view')) return;
-                const cols = row.querySelectorAll("th, td");
-                const rowData = [];
-                const limit = tableId === 'trainee-table-data' ? cols.length - 1 : cols.length;
+            setTimeout(() => {
+                resetModalTree();
+                document.getElementById('event-target-title').innerText = "// Event: " + eventTitle;
                 
-                for (let i = 0; i < limit; i++) {
-                    let cleanText = cols[i].innerText.replace(/\r?\n|\r/g, " ").trim();
-                    cleanText = cleanText.replace(/"/g, '""'); 
-                    rowData.push(`"${cleanText}"`);
+                if (authenticatedUserRecord) {
+                    document.getElementById('event-name').value = authenticatedUserRecord.name || "";
+                    document.getElementById('event-suc').value = authenticatedUserRecord.suc || "";
+                    document.getElementById('event-dept').value = authenticatedUserRecord.department || "";
                 }
-                if(rowData.length > 0) csvContent += rowData.join(",") + "\n";
-            });
 
-            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-            const link = document.createElement("a");
-            link.setAttribute("href", URL.createObjectURL(blob));
-            link.setAttribute("download", `${fileName}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+                document.getElementById('modal-overlay').classList.remove('hidden-view');
+                document.getElementById('event-register-card').classList.remove('hidden-view');
+            }, 450);
         };
 
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        window.handleEventRegistrationSubmit = async (e) => {
+            e.preventDefault();
+            const eventPayload = {
+                eventTitle: selectedEventTitle,
+                name: document.getElementById('event-name').value,
+                suc: document.getElementById('event-suc').value,
+                department: document.getElementById('event-dept').value,
+                group: document.getElementById('event-group').value,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const eventRef = ref(db, 'event_registrations');
+                await push(eventRef, eventPayload);
+
+                document.getElementById('event-register-card').classList.add('hidden-view');
+                document.getElementById('success-card').classList.remove('hidden-view');
+                setTimeout(() => {
+                    closeActiveModals();
+                    document.getElementById('eventRegForm').reset();
+                }, 2000);
+            } catch (error) {
+                alert("Event registration failed: " + error.message);
+            }
+        };
+
+        window.handleRegistrationSubmit = (e) => {
+            e.preventDefault();
+            currentRegSessionData = {
+                suc: document.getElementById('reg-suc').value,
+                name: document.getElementById('reg-name').value,
+                department: document.getElementById('reg-dept').value,
+                phone: document.getElementById('reg-phone').value,
+                email: document.getElementById('reg-email').value,
+                status: "pending"
+            };
+
+            document.getElementById('register-card').classList.add('hidden-view');
+            document.getElementById('success-card').classList.remove('hidden-view');
+
+            setTimeout(() => {
+                document.getElementById('success-card').classList.add('hidden-view');
+                document.getElementById('password-card').classList.remove('hidden-view');
+            }, 1800);
+        };
+
+        window.handlePasswordSubmit = async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('reg-password').value;
+            if (!currentRegSessionData) return;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, currentRegSessionData.email, password);
+                await set(ref(db, `users/${userCredential.user.uid}`), currentRegSessionData);
+                closeActiveModals();
+                document.getElementById('passForm').reset();
+                document.getElementById('regForm').reset();
+                showView('dashboard');
+            } catch (error) {
+                alert("Auth Error Stack: " + error.message);
+            }
+        };
+
+        window.handleLoginSubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                closeActiveModals();
+                document.getElementById('loginForm').reset();
+                showView('dashboard');
+            } catch (error) {
+                alert("Login Match Exception: " + error.message);
+            }
+        };
+
+        window.openRegisterModal = () => {
+            resetModalTree();
+            document.getElementById('modal-overlay').classList.remove('hidden-view');
+            document.getElementById('register-card').classList.remove('hidden-view');
+        };
+
+        window.openLoginModal = () => {
+            resetModalTree();
+            document.getElementById('modal-overlay').classList.remove('hidden-view');
+            document.getElementById('login-card').classList.remove('hidden-view');
+        };
+
+        window.closeActiveModals = () => {
+            document.getElementById('modal-overlay').classList.add('hidden-view');
+            resetModalTree();
+        };
+
+        window.resetRegistrationForm = () => {
+            document.getElementById('regForm').reset();
+            currentRegSessionData = null;
+        };
+
+        window.toggleProfileDropdown = () => {
+            document.getElementById('profile-dropdown').classList.toggle('hidden-view');
+        };
+
+        window.showView = (viewName) => {
+            document.getElementById('view-landing').classList.add('hidden-view');
+            document.getElementById('view-dashboard').classList.add('hidden-view');
+            document.getElementById('view-events').classList.add('hidden-view');
+            document.getElementById('view-placements').classList.add('hidden-view');
+            
+            if (viewName === 'dashboard' && authenticatedUserRecord) {
+                document.getElementById('view-dashboard').classList.remove('hidden-view');
+            } else if (viewName === 'events') {
+                document.getElementById('view-events').classList.remove('hidden-view');
+            } else if (viewName === 'placements') {
+                document.getElementById('view-placements').classList.remove('hidden-view');
+                revertPlacementLevel(1);
+            } else {
+                document.getElementById('view-landing').classList.remove('hidden-view');
+            }
+            document.getElementById('profile-dropdown').classList.add('hidden-view');
+        };
+
+        window.logoutUser = () => {
+            signOut(auth).then(() => {
+                document.getElementById('profile-dropdown').classList.add('hidden-view');
+                showView('landing');
+            });
+        };
+
+        function resetModalTree() {
+            document.getElementById('register-card').classList.add('hidden-view');
+            document.getElementById('event-register-card').classList.add('hidden-view');
+            document.getElementById('success-card').classList.add('hidden-view');
+            document.getElementById('password-card').classList.add('hidden-view');
+            document.getElementById('login-card').classList.add('hidden-view');
+            document.getElementById('placement-result-card').classList.add('hidden-view');
+        }
+
+        function updateUIForAuthenticatedUser(userRecord) {
+            document.getElementById('guest-actions').classList.add('hidden-view');
+            document.getElementById('auth-actions').classList.remove('hidden-view');
+            document.getElementById('nav-dash-link').classList.remove('hidden-view');
+            document.getElementById('profile-initials').innerText = userRecord.name ? userRecord.name.charAt(0).toUpperCase() : 'U';
+            document.getElementById('dropdown-name').innerText = userRecord.name || 'Torii User';
+            document.getElementById('dropdown-email').innerText = userRecord.email || '';
+            renderStatusBadge(userRecord.status);
+        }
+
+        function updateUIForGuest() {
+            document.getElementById('auth-actions').classList.add('hidden-view');
+            document.getElementById('nav-dash-link').classList.add('hidden-view');
+            document.getElementById('guest-actions').classList.remove('hidden-view');
+        }
+
+        function renderStatusBadge(status) {
+            const badge = document.getElementById('status-badge');
+            if (!badge) return;
+            badge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-all ";
+            if (status === 'verified') {
+                badge.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border', 'border-emerald-500/20');
+                badge.innerHTML = `<i class="fa-solid fa-circle-check text-xs"></i> Verified`;
+            } else {
+                badge.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/20');
+                badge.innerHTML = `<i class="fa-solid fa-clock text-xs"></i> Pending Approval`;
+            }
         }
     </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: true });</script>
 </body>
 </html>
+
+
